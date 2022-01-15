@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
-  },
+  }
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -30,7 +30,7 @@ const ThoughtSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true
-  },
+  }
 });
 
 const Thought = mongoose.model('Thought', ThoughtSchema);
@@ -109,7 +109,7 @@ app.post('/signup', async (req, res) => {
         username: newUser.username,
         accessToken: newUser.accessToken
       },
-      success: true,
+      success: true
     });
   } catch (error) {
     if (error.code === 11000) {
@@ -138,7 +138,7 @@ app.post('/signin', async (req, res) => {
           username: user.username,
           accessToken: user.accessToken
         },
-        success: true,
+        success: true
       });
     } else {
       res.status(404).json({
