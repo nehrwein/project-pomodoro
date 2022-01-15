@@ -12,15 +12,15 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   accessToken: {
     type: String,
-    default: () => crypto.randomBytes(128).toString('hex'),
+    default: () => crypto.randomBytes(128).toString('hex')
   },
 });
 
@@ -29,7 +29,7 @@ const User = mongoose.model('User', UserSchema);
 const ThoughtSchema = new mongoose.Schema({
   message: {
     type: String,
-    required: true,
+    required: true
   },
 });
 
@@ -58,7 +58,7 @@ const authenticateUser = async (req, res, next) => {
         response: {
           message: 'Please, log in',
         },
-        success: false,
+        success: false
       });
     }
   } catch (error) {
@@ -100,14 +100,14 @@ app.post('/signup', async (req, res) => {
 
     const newUser = await new User({
       username,
-      password: bcrypt.hashSync(password, salt),
+      password: bcrypt.hashSync(password, salt)
     }).save();
 
     res.status(201).json({
       response: {
         userId: newUser._id,
         username: newUser.username,
-        accessToken: newUser.accessToken,
+        accessToken: newUser.accessToken
       },
       success: true,
     });
@@ -117,7 +117,7 @@ app.post('/signup', async (req, res) => {
         res.status(400).json({
           response: "Username already taken, sorry!",
           success: false,
-          error,
+          error
         });
       } 
     }
@@ -136,14 +136,14 @@ app.post('/signin', async (req, res) => {
         response: {
           userId: user._id,
           username: user.username,
-          accessToken: user.accessToken,
+          accessToken: user.accessToken
         },
         success: true,
       });
     } else {
       res.status(404).json({
         response: "Username or password doesn't match",
-        success: false,
+        success: false
       });
     }
   } catch (error) {
