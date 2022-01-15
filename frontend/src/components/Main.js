@@ -37,7 +37,7 @@ const Main = () => {
           dispatch(thoughts.actions.setError(data.response));
         }
       });
-  }, [accessToken]);
+  }, [accessToken, dispatch]);
 
   return (
     <div>
