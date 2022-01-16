@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch, batch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { API_URL } from '../utils/constants';
 import user from '../reducers/user';
@@ -9,6 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState('signup');
+  console.log(mode)
 
   const accessToken = useSelector((store) => store.user.accessToken);
 
@@ -56,9 +57,6 @@ const Login = () => {
 
   return (
     <>
-      <div>
-        <Link to="/">To '/' !</Link>
-      </div>
       <label htmlFor="signup">Signup</label>
       <input
         id="signup"

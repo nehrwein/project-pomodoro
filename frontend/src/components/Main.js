@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { API_URL } from '../utils/constants';
 import thoughts from '../reducers/thoughts';
+import user from '../reducers/user';
 
 const Main = () => {
   const thoughtsItems = useSelector((store) => store.thoughts.items);
@@ -41,13 +42,11 @@ const Main = () => {
 
   return (
     <div>
-      <div>
-        <Link to="/login">To '/login' !</Link>
-      </div>
       <h1>Protected happy thoughts:</h1>
       {thoughtsItems.map((item) => (
         <div key={item._id}>{item.message}</div>
       ))}
+      <button onClick={() => dispatch(user.actions.setAccessToken(null))}>Log out</button>
     </div>
   );
 };
