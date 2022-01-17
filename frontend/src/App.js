@@ -28,7 +28,7 @@ export const App = () => {
           {/* * new feature in react router for not found */ }
           <Route path="*" element={<NotFound />} /> 
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
     </Provider>
   )
 }
