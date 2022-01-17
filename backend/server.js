@@ -3,6 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
+import listEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/pomodoro"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
@@ -35,14 +36,9 @@ const ThoughtSchema = new mongoose.Schema({
 
 const Thought = mongoose.model('Thought', ThoughtSchema);
 
-// Defines the port the app will run on. Defaults to 8080, but can be 
-// overridden when starting the server. For example:
-//
-//   PORT=9000 npm start
 const port = process.env.PORT || 8080
 const app = express()
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
 
@@ -66,9 +62,21 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Start defining your routes here
+// To do: change Endpoints to deployed domain, add API documentation
 app.get('/', (req, res) => {
-  res.send('Hello world')
+  res.send({ 
+    Welcome: 'Welcome to the Pomodoro-API',
+    Contributers: 'Birgit Nehrwein, Darya Lapata, Rebecca Philipson',
+    Endpoints: 'http://localhost:8080/endpoints',
+    Documentation: 'placeholder'
+  })
+})
+
+app.get('/endpoints', (req, res) => {
+  res.json({
+    response: listEndpoints(app),
+    success: true
+  })  
 })
 
 app.get('/thoughts', authenticateUser);
