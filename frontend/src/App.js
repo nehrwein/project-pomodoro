@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'; 
+import { Provider } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 
 import Main from './components/Main';
@@ -18,15 +18,14 @@ const reducer = combineReducers({
 const store = configureStore({ reducer })
 
 export const App = () => {
-
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} /> 
-          <Route path="/login" element={<Login />} /> 
-          {/* * new feature in react router for not found */ }
-          <Route path="*" element={<NotFound />} /> 
+          <Route path="/login" element={<Login />} />
+          {/* * new feature in react router for not found */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </Provider>
