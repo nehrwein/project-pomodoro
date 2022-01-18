@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import listEndpoints from 'express-list-endpoints'
+import { Resolver } from 'dns'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/pomodoro"
 mongoose.connect(mongoUrl, { 
@@ -53,7 +54,7 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 5,
-    maxlength: 140,
+    maxlength: 100,
     trim: true
   },
   completed: {
@@ -70,6 +71,11 @@ const TaskSchema = new mongoose.Schema({
   },
   completedAt: {
     type: Date
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   }
 })
 
@@ -113,19 +119,23 @@ app.get('/endpoints', (req, res) => {
 })
 
 // endpoint for getting all the tasks of a user
-app.get('/tasks', authenticateUser)
-app.get('/tasks', async (req, res) => {
-  const tasks = await Task.find({})
+app.get('/tasks/:userId', authenticateUser)
+app.get('/tasks/:userId', async (req, res) => {
+  const { userId } = req.params
+
+  const tasks = await Task.find({ user: userId })
   res.status(201).json({ response: tasks, success: true })
 })
 
 // endpoint for posting a new task
 app.post('/tasks', authenticateUser)
 app.post('/tasks', async (req, res) => {
-  const { description } = req.body
+  const { description, user } = req.body
 
   try {
-    const newTask = await new Task ({ description }).save()
+    const queriedUser = await User.findById(user)
+    const newTask = await new Task ({ description, user: queriedUser }).save()
+
     res.status(201).json({ response: newTask, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
@@ -177,8 +187,6 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
     res.status(400).json({ response: error, success: false })
   }
 })
-
-
 
 //endpoint for registring a new user
 app.post('/signup', async (req, res) => {
