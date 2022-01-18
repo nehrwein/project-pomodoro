@@ -6,8 +6,29 @@ import bcrypt from 'bcrypt'
 import listEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/pomodoro"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(mongoUrl, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true, 
+  useCreateIndex: true,
+  useFindAndModify: false 
+})
 mongoose.Promise = Promise
+
+const port = process.env.PORT || 8080
+const app = express()
+
+// Add middlewares to enable cors and json body parsing
+app.use(cors())
+app.use(express.json())
+
+// check via middleware, if we are connected to the database
+app.use((req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    next()
+  } else {
+    res.status(503).json({ error: 'Service unavailable' })
+  }
+})
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -23,44 +44,56 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   }
-});
+})
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema)
 
-const ThoughtSchema = new mongoose.Schema({
-  message: {
+const TaskSchema = new mongoose.Schema({
+  description: {
     type: String,
-    required: true
+    required: true,
+    minlength: 5,
+    maxlength: 140,
+    trim: true
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  },
+  pomodoros: {
+    type: Number,
+    default: 0
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  completedAt: {
+    type: Date
   }
-});
+})
 
-const Thought = mongoose.model('Thought', ThoughtSchema);
-
-const port = process.env.PORT || 8080
-const app = express()
-
-app.use(cors())
-app.use(express.json())
+const Task = mongoose.model('Task', TaskSchema)
 
 const authenticateUser = async (req, res, next) => {
-  const accessToken = req.header('Authorization');
+  const accessToken = req.header('Authorization')
 
   try {
-    const user = await User.findOne({ accessToken });
+    const user = await User.findOne({ accessToken })
     if (user) {
-      next();
+      next()
     } else {
       res.status(401).json({
         response: {
           message: 'Please, log in',
         },
         success: false
-      });
+      })
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({ response: error, success: false })
   }
-};
+}
 
 // To do: change Endpoints to deployed domain, add API documentation
 app.get('/', (req, res) => {
@@ -79,37 +112,89 @@ app.get('/endpoints', (req, res) => {
   })  
 })
 
-app.get('/thoughts', authenticateUser);
-app.get('/thoughts', async (req, res) => {
-  const thoughts = await Thought.find({});
-  res.status(201).json({ response: thoughts, success: true });
-});
+// endpoint for getting all the tasks of a user
+app.get('/tasks', authenticateUser)
+app.get('/tasks', async (req, res) => {
+  const tasks = await Task.find({})
+  res.status(201).json({ response: tasks, success: true })
+})
 
-app.post('/thoughts', async (req, res) => {
-  const { message } = req.body;
+// endpoint for posting a new task
+app.post('/tasks', authenticateUser)
+app.post('/tasks', async (req, res) => {
+  const { description } = req.body
 
   try {
-    const newThought = await new Thought({ message }).save();
-    res.status(201).json({ response: newThought, success: true });
+    const newTask = await new Task ({ description }).save()
+    res.status(201).json({ response: newTask, success: true })
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({ response: error, success: false })
   }
-});
+})
 
-app.post('/signup', async (req, res) => {
-  const { username, password } = req.body;
+// endpoint to complete existing tasks
+// to do: add no of completed pomodoros and time of completion in body
+app.patch('/tasks/:taskId/complete', authenticateUser)
+app.patch('/tasks/:taskId/complete', async (req, res) => {
+  const { taskId } = req.params
 
   try {
-    const salt = bcrypt.genSaltSync();
+    const completedTask = await Task.findByIdAndUpdate(
+      taskId,
+      { completed: true},
+      { new: true }
+    )
+
+    if (!completedTask) {
+      res.status(404).json({ response: 'No task found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: completedTask, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+// endpoint to update the description of an existing task
+app.patch('/tasks/:taskId/update', authenticateUser)
+app.patch('/tasks/:taskId/update', async (req, res) => {
+  const { taskId } = req.params
+  const { description } = req.body
+
+  try {
+    const updatedTask = await Task.findByIdAndUpdate(
+      taskId,
+      { description },
+      { new: true }
+    )
+
+    if (!updatedTask) {
+      res.status(404).json({ response: 'No task found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: updatedTask, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+
+
+//endpoint for registring a new user
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body
+
+  try {
+    const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      throw { message: 'Password must be at least 5 characters long' };
+      throw { message: 'Password must be at least 5 characters long' }
     }
 
     const newUser = await new User({
       username,
       password: bcrypt.hashSync(password, salt)
-    }).save();
+    }).save()
 
     res.status(201).json({
       response: {
@@ -118,7 +203,7 @@ app.post('/signup', async (req, res) => {
         accessToken: newUser.accessToken
       },
       success: true
-    });
+    })
   } catch (error) {
     if (error.code === 11000) {
       if (error.keyValue.username) {
@@ -126,18 +211,19 @@ app.post('/signup', async (req, res) => {
           response: "Username already taken, sorry!",
           success: false,
           error
-        });
+        })
       } 
     }
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({ response: error, success: false })
   }
-});
+})
 
+// endpoint for login of a registered user
 app.post('/signin', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.body
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username })
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({
@@ -147,17 +233,17 @@ app.post('/signin', async (req, res) => {
           accessToken: user.accessToken
         },
         success: true
-      });
+      })
     } else {
       res.status(404).json({
         response: "Username or password doesn't match",
         success: false
-      });
+      })
     }
   } catch (error) {
-    res.status(400).json({ response: error, success: false });
+    res.status(400).json({ response: error, success: false })
   }
-});
+})
 
 // Start the server
 app.listen(port, () => {
