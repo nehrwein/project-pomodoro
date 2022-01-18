@@ -25,4 +25,4 @@ Visit the API: https://final-project-pomodoro-api.herokuapp.com/
 # Tech
 
 # View it live
-
+Visit our Pomodoro-App: https://final-project-pomodoro.netlify.app/
