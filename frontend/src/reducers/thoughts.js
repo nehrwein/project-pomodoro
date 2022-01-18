@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'; 
+import { createSlice } from '@reduxjs/toolkit' 
 
 const thoughts = createSlice({
   name: 'thoughts', 
@@ -8,12 +8,12 @@ const thoughts = createSlice({
   }, 
   reducers: {
     setItems: (store, action) => {
-      store.items = action.payload; 
+      store.items = action.payload 
     },
     setError: (store, action) => {
-      store.error = action.payload; 
+      store.error = action.payload 
     }
   }
 })
 
-export default thoughts;
+export default thoughts

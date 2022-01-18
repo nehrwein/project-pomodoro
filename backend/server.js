@@ -4,7 +4,6 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import listEndpoints from 'express-list-endpoints'
-import { Resolver } from 'dns'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/pomodoro"
 mongoose.connect(mongoUrl, { 
@@ -54,7 +53,7 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 5,
-    maxlength: 100,
+    maxlength: 150,
     trim: true
   },
   completed: {
@@ -143,10 +142,11 @@ app.post('/tasks', async (req, res) => {
 })
 
 // endpoint to complete existing tasks
-// to do: add no of completed pomodoros and time of completion in body
+// to do: add no of completed pomodoros, user and time of completion in body
 app.patch('/tasks/:taskId/complete', authenticateUser)
 app.patch('/tasks/:taskId/complete', async (req, res) => {
   const { taskId } = req.params
+
 
   try {
     const completedTask = await Task.findByIdAndUpdate(
@@ -166,6 +166,7 @@ app.patch('/tasks/:taskId/complete', async (req, res) => {
 })
 
 // endpoint to update the description of an existing task
+// to do: add user in body
 app.patch('/tasks/:taskId/update', authenticateUser)
 app.patch('/tasks/:taskId/update', async (req, res) => {
   const { taskId } = req.params
@@ -188,7 +189,7 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
-//endpoint for registring a new user
+// endpoint for registring a new user
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
 
