@@ -9,9 +9,9 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [mode, setMode] = useState('signup')
-  console.log(mode)
 
   const accessToken = useSelector((store) => store.user.accessToken)
+  const error = useSelector(store => store.user.error)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,7 +36,6 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))
@@ -86,7 +85,12 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button type="submit">{mode === 'signup' ? 'Submit' : 'Log in'}</button>
+        {error && 
+          <div>
+            <p>{error}</p>
+          </div>
+        }
       </form>
     </>
   )
