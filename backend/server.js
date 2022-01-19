@@ -172,21 +172,32 @@ app.patch('/tasks/:taskId/complete', async (req, res) => {
 app.patch('/tasks/:taskId/update', authenticateUser)
 app.patch('/tasks/:taskId/update', async (req, res) => {
   const { taskId } = req.params
-  const { description } = req.body
+  const { description, user } = req.body
 
   try {
-    const updatedTask = await Task.findById(taskId).aggregate([{
-      $project: {
-        name: 1, 
-        description: {
-          $cond: {
-            if: {
-              $eq: ["completed", false], then: description
-            }, else: 'did not work'
-          }
-        }
+    const queriedUser = await User.findById(user)
+    const updatedTask = await Task.findOneAndUpdate(
+      { _id: taskId, user: queriedUser},
+      [
+        {
+          $set: {
+            description: {
+              $switch: {
+                branches: [
+                  {
+                    case: { $eq: ['$completed', false] },
+                    then: description,
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+      {
+        new: true,
       }
-    }])
+    );
 
     if (!updatedTask) {
       res.status(404).json({ response: 'No task found with this Id', success: false})
