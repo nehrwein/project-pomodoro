@@ -209,6 +209,26 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
+// endpoint for deleting tasks
+app.delete('/tasks/:taskId', authenticateUser)
+app.delete('/tasks/:taskId', async (req, res) => {
+  const { taskId } = req.params
+  const { user } = req.body
+
+  try {
+    const queriedUser = await User.findById(user)
+    const deletedTask = await Task.deleteOne({ _id: taskId, user: queriedUser})
+
+    if (!deletedTask) {
+      res.status(404).json({ response: 'No task found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: deletedTask, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
 // endpoint for register a new user
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
