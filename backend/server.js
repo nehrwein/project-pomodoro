@@ -105,7 +105,7 @@ app.get('/', (req, res) => {
   res.send({ 
     Welcome: 'Welcome to the Pomodoro-API',
     Contributers: 'Birgit Nehrwein, Darya Lapata, Rebecca Philipson',
-    Endpoints: 'http://localhost:8080/endpoints',
+    Endpoints: 'https://final-project-pomodoro-api.herokuapp.com/endpoints',
     Documentation: 'placeholder'
   })
 })
@@ -142,15 +142,17 @@ app.post('/tasks', async (req, res) => {
 })
 
 // endpoint to complete existing tasks
-// to do: add no of completed pomodoros, user and time of completion in body
+// to do: add no of completed pomodoros and time of completion in body
 app.patch('/tasks/:taskId/complete', authenticateUser)
 app.patch('/tasks/:taskId/complete', async (req, res) => {
   const { taskId } = req.params
+  const { user } = req.body
 
 
   try {
-    const completedTask = await Task.findByIdAndUpdate(
-      taskId,
+    const queriedUser = await User.findById(user)
+    const completedTask = await Task.findOneAndUpdate(
+      { _id: taskId, user: queriedUser},
       { completed: true},
       { new: true }
     )
@@ -196,7 +198,7 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
-// endpoint for registring a new user
+// endpoint for register a new user
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
 
