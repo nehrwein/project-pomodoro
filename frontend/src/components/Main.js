@@ -31,6 +31,7 @@ const Main = () => {
       },
     }
 
+    // fetching all the tasks of a user from the API  
     fetch(API_URL(`tasks/${userId}`), options)
       .then((res) => res.json())
       .then((data) => {
@@ -42,7 +43,7 @@ const Main = () => {
           dispatch(tasks.actions.setError(data.response))
         }
       })
-  }, [accessToken, dispatch, userId])
+  }, [accessToken, dispatch, userId, allTasks])
 
 	const onAddTodo = () => {
     const options = {
@@ -54,11 +55,11 @@ const Main = () => {
       body: JSON.stringify({ description: task, user: userId })
     }
 
+    // posting a new task
     fetch(API_URL('tasks'), options)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .finally(() => setTask(''))
 	};
   
 
