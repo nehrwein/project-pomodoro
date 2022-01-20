@@ -7,7 +7,7 @@ import tasks from '../reducers/tasks'
 import user from '../reducers/user'
 
 const Main = () => {
- 	// const tasksItems = useSelector((store) => store.tasks.items)
+ 	const allTasks = useSelector((store) => store.tasks.items) 
   const accessToken = useSelector((store) => store.user.accessToken)
 
   const userId = useSelector((store) => store.user.userId)
@@ -31,10 +31,9 @@ const Main = () => {
       },
     }
 
-    fetch(API_URL('tasks'), options)
+    fetch(API_URL(`tasks/${userId}`), options)
       .then((res) => res.json())
       .then((data) => {
-				console.log(data)
         if (data.success) {
           dispatch(tasks.actions.setItems(data.response))
           dispatch(tasks.actions.setError(null))
@@ -43,7 +42,7 @@ const Main = () => {
           dispatch(tasks.actions.setError(data.response))
         }
       })
-  }, [accessToken, dispatch])
+  }, [accessToken, dispatch, userId])
 
 	const onAddTodo = () => {
     const options = {
@@ -73,9 +72,9 @@ const Main = () => {
           onChange={(e) => setTask(e.target.value)}
         />
       <button onClick={onAddTodo}>Add task</button>
-      {/*{tasksItems.map((item) => (
-        <div key={item._id}>{item.message}</div>
-      ))}*/}
+      {allTasks.map((item) => (
+        <div key={item._id}>{item.description}</div>
+      ))}
       <button onClick={() => dispatch(user.actions.setAccessToken(null))}>Log out</button>
     </div>
   )
