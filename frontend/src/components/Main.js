@@ -11,10 +11,9 @@ const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
 
   const userId = useSelector((store) => store.user.userId)
-
+ 
   const [task, setTask] = useState('')
-  console.log(task)
-
+ 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -50,6 +49,7 @@ const Main = () => {
     const options = {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: accessToken
       },
       body: JSON.stringify({ description: task, user: userId })
@@ -65,7 +65,7 @@ const Main = () => {
 
   return (
     <div>
-      <h1>Protected happy thoughts:</h1>
+      <h1>The main pomodoro site:</h1>
       <input
           id="task"
           type="text"
