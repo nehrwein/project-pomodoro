@@ -167,8 +167,8 @@ app.patch('/tasks/:taskId/complete', async (req, res) => {
   }
 })
 
-// endpoint to update the description of an existing task
-// to do: add user in body
+// endpoint to update the description of an existing task. 
+// The setup of the endpoint prevents changing the description of already completed tasks
 app.patch('/tasks/:taskId/update', authenticateUser)
 app.patch('/tasks/:taskId/update', async (req, res) => {
   const { taskId } = req.params

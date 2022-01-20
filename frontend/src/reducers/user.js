@@ -4,7 +4,7 @@ const user = createSlice({
   name: 'user', 
   initialState: {
     userId: null,
-    // here stores already a logged in user 
+    // here stores an already logged-in user 
     username: null,
     accessToken: null, 
     error: null

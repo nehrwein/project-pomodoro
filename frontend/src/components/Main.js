@@ -13,6 +13,7 @@ const Main = () => {
   const userId = useSelector((store) => store.user.userId)
 
   const [task, setTask] = useState('')
+  console.log(task)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -49,7 +50,7 @@ const Main = () => {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        Authorization: accessToken
       },
       body: JSON.stringify({ description: task, user: userId })
     }

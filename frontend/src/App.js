@@ -8,14 +8,27 @@ import Login from './components/Login'
 import NotFound from './components/NotFound'
 
 import user from './reducers/user'
-import thoughts from './reducers/tasks'
+import tasks from './reducers/tasks'
 
 const reducer = combineReducers({
   user: user.reducer,
-  thoughts: thoughts.reducer
+  tasks: tasks.reducer
 })
 
-const store = configureStore({ reducer })
+const preloadedStateJSON = localStorage.getItem('UserTasksReduxState')
+let preloadedState = {}
+
+if (preloadedStateJSON) {
+  preloadedState = JSON.parse(preloadedStateJSON)
+}
+
+//configures the store with the slices and the localstate
+const store = configureStore({ reducer, preloadedState })
+
+//Store the state in localstorage, when Redux state changes
+store.subscribe(() => {
+  localStorage.setItem('UserTasksReduxState', JSON.stringify(store.getState()))
+})
 
 export const App = () => {
   return (

@@ -11,6 +11,7 @@ The API provides the following endpoints:
 - POST '/tasks' -> endpoint for posting a new task. The body needs a task-description of 5-150 characters and the userId.
 - PATCH '/tasks/:taskId/complete' -> endpoint to complete existing tasks
 - PATCH '/tasks/:taskId/update' -> endpoint to update the description of an existing task
+- DELETE '/tasks/:taskId' -> endpoint for deleting a task
 - POST '/signup' -> endpoint for registring a new user
 - POST '/signin' -> endpoint for login of a registered user
 
