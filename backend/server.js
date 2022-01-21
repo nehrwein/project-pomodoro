@@ -122,7 +122,7 @@ app.get('/tasks/:userId', authenticateUser)
 app.get('/tasks/:userId', async (req, res) => {
   const { userId } = req.params
 
-  const tasks = await Task.find({ user: userId })
+  const tasks = await Task.find({ user: userId, completed: false }).sort({ createdAt: 'desc' })
   res.status(201).json({ response: tasks, success: true })
 })
 
@@ -135,7 +135,16 @@ app.post('/tasks', async (req, res) => {
     const queriedUser = await User.findById(user)
     const newTask = await new Task ({ description, user: queriedUser }).save()
 
-    res.status(201).json({ response: newTask, success: true })
+    res.status(201).json({ 
+      response: {
+        _id: newTask._id,
+        description: newTask.description, 
+        completed: newTask.completed,
+        pomodoros: newTask.pomodoros,
+        createdAt: newTask.createdAt
+      }, 
+      success: true 
+    })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
