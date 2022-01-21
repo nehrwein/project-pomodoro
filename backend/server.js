@@ -303,6 +303,25 @@ app.post('/signin', async (req, res) => {
   }
 })
 
+// endpoint for deleting a user
+app.delete('/users/:userId', authenticateUser)
+app.delete('/users/:userId', async (req, res) => {
+  const { user } = req.body
+
+  try {
+    const queriedUser = await User.findById(user)
+    const deletedUser = await User.deleteOne({ user: queriedUser })
+
+    if (!deletedUser) {
+      res.status(404).json({ response: 'No user found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: deletedUser, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
 // Start the server
 app.listen(port, () => {
   // eslint-disable-next-line
