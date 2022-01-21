@@ -31,6 +31,59 @@ const FormWrapper = styled.div`
   }
 `
 
+const UserInfoWrapper = styled.fieldset`
+  border: 3px solid black;
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 3px;
+`
+
+const UserNameInput = styled.input`
+  border: 1px solid transparent;
+  width: 100%;
+  height: 100%;
+  border: none transparent;
+  outline: none;
+  font-size: 20px;
+`
+
+const PasswordInput = styled.input`
+  border: 1px solid transparent;
+  width: 70%;
+  height: 100%;
+  border: none transparent;
+  outline: none;
+  font-size: 20px;
+`
+const LoginButton = styled.button`
+  background-color: black;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 10px;
+  margin: 20px auto;
+  text-transform: uppercase;
+  border-radius: 5px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  outline: none;
+
+  &:hover {
+    background-color: red;
+    box-shadow: 0px 15px 20px;
+    transform: translateY(-7px);
+  }
+`
+
 const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -85,14 +138,14 @@ const Login = () => {
       <MainContainer>
         <FormWrapper>
           <h1>Some Pomodoro title</h1>
-          <label htmlFor="signup">Signup</label>
+          <label htmlFor="signup">Sign up</label>
           <input
             id="signup"
             type="radio"
             checked={mode === "signup"}
             onChange={() => setMode("signup")}
           />
-          <label htmlFor="signin">Signin</label>
+          <label htmlFor="signin">Sign in</label>
           <input
             id="signin"
             type="radio"
@@ -100,23 +153,25 @@ const Login = () => {
             onChange={() => setMode("signin")}
           />
           <form onSubmit={onFormSubmit}>
-            <label htmlFor="username">Username</label>
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit">
+            <UserInfoWrapper>
+              <legend>Username:</legend>
+              <UserNameInput
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </UserInfoWrapper>
+            <UserInfoWrapper>
+              <legend>Password:</legend>
+              <PasswordInput
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </UserInfoWrapper>
+            <LoginButton type="submit">
               {mode === "signup" ? "Submit" : "Log in"}
-            </button>
+            </LoginButton>
             {error && (
               <div>
                 <p>{error}</p>

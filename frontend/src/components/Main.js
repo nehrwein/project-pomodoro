@@ -109,7 +109,7 @@ const Main = () => {
       {allTasks.map((item) => (
         <div key={item._id}>
           {item.description}
-          {/* Edit feature below need to be fixed so that user can edit the items. https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
+          {/* Edit/Update feature below needs to be fixed so that user can edit the items. https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
           <div onDoubleClick={() => onUpdateTodo(item._id)}>Update</div>
           <button onClick={() => onDeleteTodo(item._id)}>Delete</button>
         </div>
