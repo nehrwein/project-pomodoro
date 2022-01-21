@@ -16,10 +16,13 @@ mongoose.Promise = Promise
 
 const port = process.env.PORT || 8080
 const app = express()
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // check via middleware, if we are connected to the database
 app.use((req, res, next) => {
@@ -101,21 +104,21 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // To do: change Endpoints to deployed domain, add API documentation
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
   res.send({ 
     Welcome: 'Welcome to the Pomodoro-API',
     Contributers: 'Birgit Nehrwein, Darya Lapata, Rebecca Philipson',
     Endpoints: 'https://final-project-pomodoro-api.herokuapp.com/endpoints',
     Documentation: 'placeholder'
   })
-})
+}) */
 
-app.get('/endpoints', (req, res) => {
+/* app.get('/endpoints', (req, res) => {
   res.json({
     response: listEndpoints(app),
     success: true
   })  
-})
+}) */
 
 // endpoint for getting all the tasks of a user
 app.get('/tasks/:userId', authenticateUser)
@@ -254,7 +257,7 @@ app.post('/signup', async (req, res) => {
       password: bcrypt.hashSync(password, salt)
     }).save()
 
-    res.status(201).json({
+    res.status(200).json({
       response: {
         userId: newUser._id,
         username: newUser.username,
@@ -304,8 +307,8 @@ app.post('/signin', async (req, res) => {
 })
 
 // endpoint for deleting a user
-app.delete('/users/:userId', authenticateUser)
-app.delete('/users/:userId', async (req, res) => {
+app.delete('/user/:userId', authenticateUser)
+app.delete('/user/:userId', async (req, res) => {
   const { user } = req.body
 
   try {

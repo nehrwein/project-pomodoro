@@ -1,0 +1,221 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Pomodoro API",
+    "description": "This API is part of the final project for the Technigo Bootcamp. Done by Darya Lapata, Birgit Nehrwein and Rebecca Philipson. In our project we are building both a backend and a frontend for a tasklist combined with a pomodoro application. The backend serves for storing information about the user and the tasks. Visit our Pomodoro-App: https://final-project-pomodoro.netlify.app "
+  },
+  "host": "final-project-pomodoro-api.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about the user"
+    },
+    {
+      "name": "tasks",
+      "description": "Working with the tasklist"
+    }
+  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/tasks": {
+      "post": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "body",
+            "description": "Id of the user",
+            "required": true,
+            "format": "objectId"
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Description of the task",
+            "required": true,
+            "format": "string"
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Add a new task",
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          }
+        }
+      }
+    },
+    "/tasks/:userId": {
+      "get": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id of the user",
+            "required": true,
+            "format": "objectId"
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Get all of the user's tasks",
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          }
+        }
+      }
+    },
+    "/tasks/:taskId/complete": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "body",
+            "description": "Id of the user",
+            "required": true,
+            "format": "objectId"
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Id of the task",
+            "required": true,
+            "format": "objectId"
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Complete one of the user's tasks",
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          }
+        }
+      }
+    },  
+    "/tasks/:taskId/update": {
+      "patch": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "body",
+            "description": "Id of the user",
+            "required": true,
+            "format": "objectId"
+          },
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Description of the task",
+            "required": true,
+            "format": "string"
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Id of the task",
+            "required": true,
+            "format": "objectId"
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "Update the description of one of the user's tasks",
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          }
+        }
+      }
+    }, 
+    "/tasks/:taskId": {
+      "delete": {
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "body",
+            "description": "Id of the user",
+            "required": true,
+            "format": "objectId"
+          },
+          {
+            "name": "taskId",
+            "in": "path",
+            "description": "Id of the task",
+            "required": true,
+            "format": "objectId"
+          }
+        ],
+        "tags": ["tasks"],
+        "summary": "delete one of the user's tasks",
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Tasks"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Tasks": {
+      "required": [],
+      "properties": {
+        "_id": {
+          "type": "objectId",
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "completed": {
+          "type": "boolean"
+        },
+        "pomodoros": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "User": {
+      "properties": {
+        "_id": {
+          "type": "objectId",
+          "uniqueItems": true
+        },
+        "username": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
