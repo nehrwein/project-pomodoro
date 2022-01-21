@@ -1,19 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit' 
+import { createSlice } from "@reduxjs/toolkit"
 
 const tasks = createSlice({
-  name: 'tasks', 
+  name: "tasks",
   initialState: {
     items: [],
-    error: null
-  }, 
+    error: null,
+  },
   reducers: {
     setItems: (store, action) => {
-      store.items = action.payload 
+      store.items = action.payload
     },
     setError: (store, action) => {
-      store.error = action.payload 
-    }
-  }
+      store.error = action.payload
+    },
+  },
 })
 
 export default tasks
