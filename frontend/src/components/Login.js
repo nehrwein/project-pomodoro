@@ -1,3 +1,5 @@
+// TODO: Fix error that occurs when creating new user and choosing a password that is less than 5 characters.
+
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch, batch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -15,6 +17,11 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  background-image: url("/assets/tomato-background.jpg");
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+  padding-bottom: 50px;
 `
 
 const FormWrapper = styled.div`
@@ -26,13 +33,15 @@ const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #d75004;
+
   @media (min-width: 992px) {
     width: auto;
   }
 `
 
 const UserInfoWrapper = styled.fieldset`
-  border: 3px solid black;
+  border: 2px solid #d75004;
   border-radius: 7px;
   display: flex;
   justify-content: space-between;
@@ -42,7 +51,7 @@ const UserInfoWrapper = styled.fieldset`
   margin-top: 3px;
 `
 
-const UserNameInput = styled.input`
+const UserInput = styled.input`
   border: 1px solid transparent;
   width: 100%;
   height: 100%;
@@ -50,17 +59,8 @@ const UserNameInput = styled.input`
   outline: none;
   font-size: 20px;
 `
-
-const PasswordInput = styled.input`
-  border: 1px solid transparent;
-  width: 70%;
-  height: 100%;
-  border: none transparent;
-  outline: none;
-  font-size: 20px;
-`
 const LoginButton = styled.button`
-  background-color: black;
+  background-color: #d75004;
   width: 100px;
   display: flex;
   justify-content: center;
@@ -71,23 +71,31 @@ const LoginButton = styled.button`
   font-weight: 500;
   padding: 10px;
   margin: 20px auto;
-  text-transform: uppercase;
-  border-radius: 5px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  outline: none;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
   &:hover {
-    background-color: red;
-    box-shadow: 0px 15px 20px;
-    transform: translateY(-7px);
+    background-color: #592101;
+  }
+`
+
+const LinkText = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  border-top: 1px solid #b4b2b2;
+  padding: 10px;
+  p {
+    margin: 5px;
   }
 `
 
 const Login = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [mode, setMode] = useState("signup")
+  const [mode, setMode] = useState("signin")
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const error = useSelector((store) => store.user.error)
@@ -137,25 +145,15 @@ const Login = () => {
     <>
       <MainContainer>
         <FormWrapper>
-          <h1>Some Pomodoro title</h1>
-          <label htmlFor="signup">Sign up</label>
-          <input
-            id="signup"
-            type="radio"
-            checked={mode === "signup"}
-            onChange={() => setMode("signup")}
-          />
-          <label htmlFor="signin">Sign in</label>
-          <input
-            id="signin"
-            type="radio"
-            checked={mode === "signin"}
-            onChange={() => setMode("signin")}
-          />
+          <h3 style={{ color: "#592101" }}>
+            {mode === "signin"
+              ? "Log in to your account"
+              : "Create new account"}
+          </h3>
           <form onSubmit={onFormSubmit}>
             <UserInfoWrapper>
               <legend>Username:</legend>
-              <UserNameInput
+              <UserInput
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -163,20 +161,62 @@ const Login = () => {
             </UserInfoWrapper>
             <UserInfoWrapper>
               <legend>Password:</legend>
-              <PasswordInput
+              <UserInput
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </UserInfoWrapper>
+            {error && (
+              <div>
+                <p
+                  style={{
+                    color: "red",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {error}
+                </p>
+              </div>
+            )}
             <LoginButton type="submit">
               {mode === "signup" ? "Submit" : "Log in"}
             </LoginButton>
-            {error && (
-              <div>
-                <p>{error}</p>
-              </div>
-            )}
+            <div>
+              {mode === "signin" ? (
+                <LinkText>
+                  <p>New to our app? </p>
+                  <p
+                    onClick={() => setMode("signup")}
+                    style={{
+                      fontWeight: "700",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Create an account
+                  </p>
+                </LinkText>
+              ) : (
+                <LinkText>
+                  <p>Already have an account? </p>
+                  <p
+                    onClick={() => {
+                      setMode("signin")
+                      dispatch(user.actions.setError(null))
+                      setUsername("")
+                      setPassword("")
+                    }}
+                    style={{
+                      fontWeight: "700",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Log in
+                  </p>
+                </LinkText>
+              )}
+            </div>
           </form>
         </FormWrapper>
       </MainContainer>
