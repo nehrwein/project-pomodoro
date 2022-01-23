@@ -66,7 +66,7 @@ const LoginButton = styled.button`
   justify-content: center;
   border: none;
   cursor: pointer;
-  color: white;
+  color: #fff9f5;
   font-size: 20px;
   font-weight: 500;
   padding: 10px;
@@ -192,6 +192,7 @@ const Login = () => {
                     style={{
                       fontWeight: "700",
                       cursor: "pointer",
+                      textDecoration: "underline",
                     }}
                   >
                     Create an account
@@ -210,6 +211,7 @@ const Login = () => {
                     style={{
                       fontWeight: "700",
                       cursor: "pointer",
+                      textDecoration: "underline",
                     }}
                   >
                     Log in
