@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import '@fortawesome/fontawesome-free/js/all.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { API_URL } from "../utils/constants";
 import tasks from "../reducers/tasks";
@@ -116,6 +117,10 @@ const Main = () => {
 			});
 	};
 
+  const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
+  const penIcon = <FontAwesomeIcon icon={faPen} />
+  const plusIcon = <FontAwesomeIcon icon={faPlus} />
+
 	return (
 		<MainContainer>
 			<TimerContainer>
@@ -136,13 +141,13 @@ const Main = () => {
 						</TextContainer>
 						<ButtonsContainer>
 							{/* Edit/Update feature below needs to be fixed so that user can edit the items. https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
-							<div onDoubleClick={() => onUpdateTodo(item._id)}><Icon className="fas fa-pen"></Icon></div>
-							<Button onClick={() => onDeleteTodo(item._id)}><Icon className="fa fa-trash" aria-hidden="true"></Icon></Button>
+							<div onDoubleClick={() => onUpdateTodo(item._id)}><Icon>{penIcon}</Icon></div>
+							<Button onClick={() => onDeleteTodo(item._id)}><Icon>{trashCanIcon}</Icon></Button>
 						</ButtonsContainer>
 					</Task>
 				))}
 				<AddTaskContainer>
-					<Button onClick={onAddTodo}><Icon props="plus" className="fas fa-plus"></Icon></Button>
+					<Button onClick={onAddTodo}><Icon props="plus">{plusIcon}</Icon></Button>
 					<input
 						id="task"
 						type="text"

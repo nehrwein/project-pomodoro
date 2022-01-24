@@ -263,7 +263,7 @@ app.post('/signup', async (req, res) => {
       success: true
     })
   } catch (error) {
-// we shouldn't give away, what's the cause of the rejection, because it makes life easier for hackers    
+// we shouldn't give away what's the cause of the rejection, because it makes life easier for hackers    
 /*     if (error.code === 11000) {
       if (error.keyValue.username) {
         res.status(400).json({
