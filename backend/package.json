@@ -19,6 +19,7 @@
     "express": "^4.17.2",
     "express-list-endpoints": "^6.0.0",
     "mongoose": "^5.13.14",
+    "mongoose-to-swagger": "^1.4.0",
     "nodemon": "^2.0.15",
     "swagger-ui-express": "^4.3.0"
   },

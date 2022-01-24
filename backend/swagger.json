@@ -5,7 +5,7 @@
     "title": "Pomodoro API",
     "description": "This API is part of the final project for the Technigo Bootcamp. Done by Darya Lapata, Birgit Nehrwein and Rebecca Philipson. In our project we are building both a backend and a frontend for a tasklist combined with a pomodoro application. The backend serves for storing information about the user and the tasks. Visit our Pomodoro-App: https://final-project-pomodoro.netlify.app "
   },
-  "host": "final-project-pomodoro-api.herokuapp.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "tags": [
     {
@@ -17,19 +17,32 @@
       "description": "Working with the tasklist"
     }
   ],
-  "schemes": ["https"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/tasks": {
       "post": {
         "parameters": [
           {
-            "name": "userId",
+            "name": "Authorization",
+            "in": "header",
+            "description": "The user's access-token",
+            "required": true,
+            "format": "string"
+          },
+          {
+            "name": "user",
             "in": "body",
             "description": "Id of the user",
             "required": true,
-            "format": "objectId"
+            "format": "string"
           },
           {
             "name": "description",
@@ -39,7 +52,9 @@
             "format": "string"
           }
         ],
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "summary": "Add a new task",
         "responses": {
           "201": {
@@ -62,7 +77,9 @@
             "format": "objectId"
           }
         ],
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "summary": "Get all of the user's tasks",
         "responses": {
           "201": {
@@ -92,7 +109,9 @@
             "format": "objectId"
           }
         ],
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "summary": "Complete one of the user's tasks",
         "responses": {
           "201": {
@@ -103,7 +122,7 @@
           }
         }
       }
-    },  
+    },
     "/tasks/:taskId/update": {
       "patch": {
         "parameters": [
@@ -129,7 +148,9 @@
             "format": "objectId"
           }
         ],
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "summary": "Update the description of one of the user's tasks",
         "responses": {
           "201": {
@@ -140,7 +161,7 @@
           }
         }
       }
-    }, 
+    },
     "/tasks/:taskId": {
       "delete": {
         "parameters": [
@@ -159,7 +180,9 @@
             "format": "objectId"
           }
         ],
-        "tags": ["tasks"],
+        "tags": [
+          "tasks"
+        ],
         "summary": "delete one of the user's tasks",
         "responses": {
           "201": {
@@ -172,22 +195,25 @@
       }
     }
   },
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },  
   "definitions": {
     "Tasks": {
-      "required": [],
+      "required": [
+        "description",
+        "user"
+      ],
       "properties": {
-        "_id": {
-          "type": "objectId",
-          "uniqueItems": true
-        },
         "description": {
           "type": "string"
         },
         "completed": {
           "type": "boolean"
-        },
-        "pomodoros": {
-          "type": "integer"
         },
         "createdAt": {
           "type": "string",
@@ -196,23 +222,27 @@
         "completedAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "user": {
+          "type": "string"
+        },
+        "_id": {
+          "type": "string"
         }
       }
     },
     "User": {
       "properties": {
-        "_id": {
-          "type": "objectId",
-          "uniqueItems": true
-        },
         "username": {
-          "type": "string",
-          "uniqueItems": true
+          "type": "string"
         },
         "password": {
           "type": "string"
         },
         "accessToken": {
+          "type": "string"
+        },
+        "_id": {
           "type": "string"
         }
       }

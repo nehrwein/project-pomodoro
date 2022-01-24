@@ -18,11 +18,12 @@ const port = process.env.PORT || 8080
 const app = express()
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
+const m2s = require('mongoose-to-swagger');
 
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // check via middleware, if we are connected to the database
 app.use((req, res, next) => {
@@ -50,6 +51,8 @@ const UserSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model('User', UserSchema)
+const swaggerSchema = m2s(User)
+console.log(swaggerSchema)
 
 const TaskSchema = new mongoose.Schema({
   description: {
@@ -104,14 +107,14 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // To do: change Endpoints to deployed domain, add API documentation
-/* app.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.send({ 
     Welcome: 'Welcome to the Pomodoro-API',
     Contributers: 'Birgit Nehrwein, Darya Lapata, Rebecca Philipson',
     Endpoints: 'https://final-project-pomodoro-api.herokuapp.com/endpoints',
     Documentation: 'placeholder'
   })
-}) */
+})
 
 /* app.get('/endpoints', (req, res) => {
   res.json({
