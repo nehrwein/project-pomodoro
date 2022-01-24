@@ -246,7 +246,7 @@ app.post('/signup', async (req, res) => {
     const salt = bcrypt.genSaltSync()
 
     if (password.length < 5) {
-      throw { message: 'Password must be at least 5 characters long' }
+      throw "Password must be at least 5 characters long"
     }
 
     const newUser = await new User({
@@ -263,7 +263,8 @@ app.post('/signup', async (req, res) => {
       success: true
     })
   } catch (error) {
-    if (error.code === 11000) {
+// we shouldn't give away, what's the cause of the rejection, because it makes life easier for hackers    
+/*     if (error.code === 11000) {
       if (error.keyValue.username) {
         res.status(400).json({
           response: "Username already taken, sorry!",
@@ -271,7 +272,7 @@ app.post('/signup', async (req, res) => {
           error
         })
       } 
-    }
+    } */
     res.status(400).json({ response: error, success: false })
   }
 })
