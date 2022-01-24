@@ -12,11 +12,9 @@ import styled from "styled-components";
 
 const Main = () => {
   const allTasks = useSelector((store) => store.tasks.items);
-
+  console.log(allTasks)
   const accessToken = useSelector((store) => store.user.accessToken);
-
   const userId = useSelector((store) => store.user.userId);
-
   const [task, setTask] = useState("");
 
   const dispatch = useDispatch();
@@ -48,7 +46,7 @@ const Main = () => {
           dispatch(tasks.actions.setError(data.response));
         }
       });
-  }, [accessToken, dispatch, userId, allTasks]);
+  }, [accessToken, dispatch, userId]);
 
   // posting a new task
   const onAddTodo = () => {
@@ -223,6 +221,7 @@ const Icon = styled.i`
 const Button = styled.button`
   border: none; 
   background-color: #FFF9F5;
+  cursor: pointer;
 `;
 
 const AddTaskContainer = styled.div`

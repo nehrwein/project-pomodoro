@@ -122,7 +122,7 @@ app.get('/tasks/:userId', authenticateUser)
 app.get('/tasks/:userId', async (req, res) => {
   const { userId } = req.params
 
-  const tasks = await Task.find({ user: userId, completed: false }).sort({ createdAt: 'desc' })
+  const tasks = await Task.find({ user: userId }).sort({ createdAt: 'desc' })
   res.status(201).json({ response: tasks, success: true })
 })
 

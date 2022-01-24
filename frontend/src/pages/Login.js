@@ -1,5 +1,3 @@
-// TODO: Fix error that occurs when creating new user and choosing a password that is less than 5 characters.
-
 import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch, batch } from "react-redux"
 import { useNavigate } from "react-router-dom"
