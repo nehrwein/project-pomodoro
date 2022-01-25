@@ -5,6 +5,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { addTodo } from "../reducers/tasks";
 import styled from "styled-components";
 
+import { UserInput, LoginButton } from "styled-components/Styling"
+
 const AddTask = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const userId = useSelector((store) => store.user.userId);
@@ -19,14 +21,14 @@ const AddTask = () => {
   
   return (
     <AddTaskContainer>
-      <Button type="submit" onClick={() => onAddTodo(accessToken, userId, task)}><Icon>{plusIcon}</Icon></Button>
-      <input
-        id="task"
-        type="text"
-        value={task}
-        placeholder="Add task here..."
-        onChange={(e) => setTask(e.target.value)}
-      />
+        <AddButton type="submit" onClick={() => onAddTodo(accessToken, userId, task)}><Icon>{plusIcon}</Icon></AddButton>
+        <UserInput
+          id="task"
+          type="text"
+          value={task}
+          placeholder="Add task here..."
+          onChange={(e) => setTask(e.target.value)}
+        />
     </AddTaskContainer>
   );
 };
@@ -34,18 +36,21 @@ const AddTask = () => {
 export default AddTask;
 
 const Icon = styled.i`
-  color: #999696;
+  color: #D75004;;
   font-size: 20px;
 `;
 
-const Button = styled.button`
-  border: none; 
-  background-color: #FFF9F5;
-  cursor: pointer;
-`;
-
 const AddTaskContainer = styled.div`
-  display: flex; 
-  justify-content: center;
-  margin: 20px 0; 
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  border: 1px solid #D75004;
+  box-sizing: border-box;
+  border-radius: 20px;
 `; 
+
+const AddButton = styled.button`
+  padding: 10px 20px;
+  color: white;
+`

@@ -6,6 +6,8 @@ import { showTasklist, ToggleIsComplete } from "../reducers/tasks";
 import styled from "styled-components";
 import AddTask from './AddTask';
 
+// import { FormWrapper } from "styled-components/Styling"
+
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items);
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -23,10 +25,10 @@ const TaskList = () => {
   const penIcon = <FontAwesomeIcon icon={faPen} />
   
   return (
-    <TaskContainer>
+    <div>
       {allTasks.map((item) => (
-        <Task key={item._id}>
-          <TextContainer>
+        <div key={item._id}>
+ 
             <input 
               id='completed'
               type='checkbox' 
@@ -35,34 +37,21 @@ const TaskList = () => {
             <label
               htmlFor='completed'>{item.description}
             </label>
-          </TextContainer>
+
           <ButtonsContainer>
             {/* Edit/Update feature below needs to be fixed so that user can edit the items. https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
     {/*         <div onDoubleClick={() => onUpdateTodo(item._id)}><Icon>{penIcon}</Icon></div>
             <Button onClick={() => onDeleteTodo(item._id)}><Icon>{trashCanIcon}</Icon></Button> */}
           </ButtonsContainer>
-        </Task>
+        </div>
       ))}
        <AddTask />
-    </TaskContainer>
+    </div>
    )
 };
 
 export default TaskList;
 
-const TaskContainer = styled.div`
-  display:flex;
-  flex-direction: column;
-  width:100%;
-  background-color: #FFF9F5;
-`;
-
-const Task = styled.div`
-  display: flex; 
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
 
 const ButtonsContainer = styled.div`
   display: flex;
@@ -72,10 +61,6 @@ const ButtonsContainer = styled.div`
   margin-right: 10px;
 `;
 
-const TextContainer = styled.div`
-  width:80%;
-  margin-left: 20px;
-`;
 
 //const ToDoLabel = styled.label`
 //  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
