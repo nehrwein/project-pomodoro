@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const tasks = createSlice({
+export const tasks = createSlice({
   name: "tasks",
   initialState: {
     items: [],
@@ -16,4 +16,4 @@ const tasks = createSlice({
   },
 })
 
-export default tasks
+

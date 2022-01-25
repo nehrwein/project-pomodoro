@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import { API_URL } from "../utils/constants";
-import tasks from "../reducers/tasks";
-import user from "../reducers/user";
+import { tasks } from "../reducers/tasks";
+import { user } from "../reducers/user";
 import styled from "styled-components";
 
 const Main = () => {

@@ -7,12 +7,14 @@ import Main from './pages/Main'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 
-import user from './reducers/user'
-import tasks from './reducers/tasks'
+import { user } from './reducers/user'
+import { tasks } from './reducers/tasks'
+import { ui } from './reducers/ui'
 
 const reducer = combineReducers({
   user: user.reducer,
-  tasks: tasks.reducer
+  tasks: tasks.reducer,
+  ui: ui.reducer
 })
 
 const preloadedStateJSON = localStorage.getItem('UserTasksReduxState')

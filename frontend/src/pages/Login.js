@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 import { API_URL } from "../utils/constants"
-import user from "../reducers/user"
+import { user } from "../reducers/user"
 
 const MainContainer = styled.main`
   height: 100%;
