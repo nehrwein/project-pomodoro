@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const MainContainer = styled.main`
   height: 100%;
@@ -99,3 +99,7 @@ export const TimerContainer = styled.div`
   }
 ;
 `
+export const Icon = styled.i`
+  color: #D75004;;
+  font-size: 20px;
+`;

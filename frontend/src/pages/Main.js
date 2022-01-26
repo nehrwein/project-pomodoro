@@ -25,9 +25,9 @@ const Main = () => {
         <TaskList />
       </FormWrapper>
       {/* add hamburger menu and put log out button there? */ }
-      <button onClick={() => dispatch(user.actions.setAccessToken(null))}>
-          Log out
-        </button>
+      <button type='submit' onClick={() => dispatch(user.actions.setAccessToken(null))}
+      >Log out
+      </button>
     </MainContainer>   
   );
 };

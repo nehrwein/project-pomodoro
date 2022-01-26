@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { addTodo } from "../reducers/tasks";
 import styled from "styled-components";
+import { Icon } from "styled-components/Styling";
 
 import { UserInput } from "styled-components/Styling"
 
@@ -35,10 +36,7 @@ const AddTask = () => {
 
 export default AddTask;
 
-const Icon = styled.i`
-  color: #D75004;;
-  font-size: 20px;
-`;
+
 
 const AddTaskContainer = styled.div`
   display: flex;

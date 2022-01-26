@@ -1,21 +1,30 @@
-import React, { useEffect }from 'react';
+import React, { useEffect, useState }from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
-import { showTasklist, ToggleIsComplete } from "../reducers/tasks";
-import styled from "styled-components";
+import { showTasklist, updateTodo, deleteTodo, toggleIsComplete } from "../reducers/tasks";
 import AddTask from './AddTask';
 import LoadingIndicator from './LoadingIndicator';
 
 // import { FormWrapper } from "styled-components/Styling"
+import styled from "styled-components";
+import { Icon } from "styled-components/Styling";
 
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items);
   const accessToken = useSelector((store) => store.user.accessToken);
   const userId = useSelector((store) => store.user.userId);
-  const error = useSelector((store) => store.tasks.error)
   const loading = useSelector((store) => store.ui.loading)
+  const error = useSelector((store) => store.tasks.error)
   console.log('Error: ', error)
+
+  const [editing, setEditing] = useState(false)
+  const [pickedId, setPickedId] = useState('')
+  const [updatedDescription, setUpdatedDescription] = useState('')
+
+  const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
+  const penIcon = <FontAwesomeIcon icon={faPen} />
+  
   
   const dispatch = useDispatch();
   
@@ -23,43 +32,66 @@ const TaskList = () => {
     dispatch(showTasklist(accessToken, userId))
   }, [dispatch, accessToken, userId])
 
-  const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
-  const penIcon = <FontAwesomeIcon icon={faPen} />
+  const onEditTodo = (taskId) => {
+    setEditing(true)
+    setPickedId(taskId)
+  }
+
+  const onUpdateTodo = (taskId, accessToken, updatedDescription, userId) => {
+    dispatch(updateTodo(taskId, accessToken, updatedDescription, userId))
+    setEditing(false)
+    setPickedId('')
+    setUpdatedDescription('')
+  }
   
   return (
     <div>
       {loading && <LoadingIndicator />}
       {!loading && (
         <>
-        {allTasks.map((item) => (
-        <div key={item._id}>
-            <input 
-              id='completed'
-              type='checkbox' 
-              onChange={() => dispatch(ToggleIsComplete(item._id, accessToken, userId))}
-            />
-            <label
-              htmlFor='completed'>{item.description}
-            </label>
-          <ButtonsContainer>
-            {/* Edit/Update feature below needs to be fixed so that user can edit the items. https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
-    {/*         <div onDoubleClick={() => onUpdateTodo(item._id)}><Icon>{penIcon}</Icon></div>
-            <Button onClick={() => onDeleteTodo(item._id)}><Icon>{trashCanIcon}</Icon></Button> */}
-          </ButtonsContainer>
-        </div>
-      ))}
-      <AddTask />
+          {allTasks.map((item) => (
+            <div key={item._id}>
+              <input 
+                id='completed'
+                type='checkbox' 
+                onChange={() => dispatch(toggleIsComplete(item._id, item.completed, accessToken, userId))}
+              />
+              {(editing && item._id === pickedId) ? 
+                (<>
+                  <input 
+                    type='text'
+                    value={updatedDescription}
+                    onChange={event => {setUpdatedDescription(event.target.value)}} 
+                  />
+                  <button 
+                    type='submit'
+                    onClick={() => onUpdateTodo(item._id, accessToken, updatedDescription, userId)}>Submit
+                  </button>
+                </>
+                ) 
+                : 
+                <TaskDescription
+                  htmlFor='completed'
+                  completed={item.completed}>{item.description}
+                </TaskDescription>
+              }
+              <TaskSettings>
+                {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
+                <div onClick={() => onEditTodo(item._id)}><Icon>{penIcon}</Icon></div>
+                <div onClick={() => dispatch(deleteTodo(accessToken, userId, item._id))}><Icon>{trashCanIcon}</Icon></div>
+              </TaskSettings>
+            </div>
+          ))}
+          <AddTask />
         </>
       )}
-      
     </div>
-   )
+  )
 };
 
 export default TaskList;
 
-
-const ButtonsContainer = styled.div`
+const TaskSettings = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -67,7 +99,6 @@ const ButtonsContainer = styled.div`
   margin-right: 10px;
 `;
 
-
-//const ToDoLabel = styled.label`
-//  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
-//`
+const TaskDescription = styled.label`
+  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
+`

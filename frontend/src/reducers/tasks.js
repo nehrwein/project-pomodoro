@@ -18,6 +18,7 @@ export const tasks = createSlice({
   },
 })
 
+// getting all the users tasks
 export const showTasklist = (accessToken, userId) => {
   return (dispatch) => {
     const options = {
@@ -43,8 +44,8 @@ export const showTasklist = (accessToken, userId) => {
   }
 }
 
- // posting a new task
- export const addTodo = (accessToken, userId, task) => {
+// posting a new task
+export const addTodo = (accessToken, userId, task) => {
   return (dispatch) => {
     const options = {
       method: "POST",
@@ -70,7 +71,6 @@ export const showTasklist = (accessToken, userId) => {
   }
 }
 
-// ToDo: need to check this dispatch
 // deleting a task
 export const deleteTodo = (accessToken, userId, taskId) => {
   return (dispatch) => {
@@ -86,12 +86,18 @@ export const deleteTodo = (accessToken, userId, taskId) => {
     dispatch(ui.actions.setLoading(true))
     fetch(API_URL(`tasks/${taskId}`), options)
       .then((res) => res.json())
-      .then((data) => console.log("DELETE", data))
+      .then((data) => {
+        if (data.success) {
+          dispatch(showTasklist(accessToken, userId));
+          dispatch(tasks.actions.setError(null));
+        } else {
+          dispatch(tasks.actions.setError(data.response));
+        }
+      })
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
-};
+}
 
-// ToDo: need to check this dispatch
 // updating/editing an existing task
 export const updateTodo = (taskId, accessToken, task, userId) => {
   return (dispatch) => {
@@ -107,14 +113,20 @@ export const updateTodo = (taskId, accessToken, task, userId) => {
     dispatch(ui.actions.setLoading(true))
     fetch(API_URL(`tasks/${taskId}/update`), options)
       .then((res) => res.json())
-      .then((data) => console.log("UPDATE", data))
+      .then((data) => {
+        if (data.success) {
+          dispatch(showTasklist(accessToken, userId));
+          dispatch(tasks.actions.setError(null));
+        } else {
+          dispatch(tasks.actions.setError(data.response));
+        }
+      })
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
-};
+}
 
-// ToDo: need to check this dispatch
-// complete an existing task
-export const ToggleIsComplete = (_id, accessToken, userId) => {
+// complete or uncomplete an existing task
+export const toggleIsComplete = (_id, completed, accessToken, userId) => {
   return (dispatch) => {
     const options = {
       method: "PATCH",
@@ -122,14 +134,21 @@ export const ToggleIsComplete = (_id, accessToken, userId) => {
         "Content-Type": "application/json",
         Authorization: accessToken,
       },
-      body: JSON.stringify({ user: userId }),
+      body: JSON.stringify({ user: userId, completed: !completed ? true : false }),
     };
     
     dispatch(ui.actions.setLoading(true))
     fetch(API_URL(`tasks/${_id}/complete`), options)
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        if (data.success) {
+          dispatch(showTasklist(accessToken, userId));
+          dispatch(tasks.actions.setError(null));
+        } else {
+          dispatch(tasks.actions.setError(data.response));
+        }
+      })
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
-};
+}
 
