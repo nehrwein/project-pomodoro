@@ -22,22 +22,16 @@ const Main = () => {
   }, [accessToken, navigate]);
 
   return (
-    <>
-      <LoadingIndicator />
-{/*       {!loading && (
-        
-      )} */}
-      <MainContainer>
-        <PomodoroTimer />
-        <FormWrapper>
-          <TaskList />
-        </FormWrapper>
-        {/* add hamburger menu and put log out button there? */ }
-        <button onClick={() => dispatch(user.actions.setAccessToken(null))}>
-            Log out
-          </button>
-       </MainContainer>   
-    </>
+    <MainContainer>
+      <PomodoroTimer />
+      <FormWrapper>
+        <TaskList />
+      </FormWrapper>
+      {/* add hamburger menu and put log out button there? */ }
+      <button onClick={() => dispatch(user.actions.setAccessToken(null))}>
+          Log out
+        </button>
+    </MainContainer>   
   );
 };
 

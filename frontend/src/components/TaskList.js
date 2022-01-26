@@ -5,6 +5,7 @@ import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
 import { showTasklist, ToggleIsComplete } from "../reducers/tasks";
 import styled from "styled-components";
 import AddTask from './AddTask';
+import LoadingIndicator from './LoadingIndicator';
 
 // import { FormWrapper } from "styled-components/Styling"
 
@@ -13,6 +14,7 @@ const TaskList = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const userId = useSelector((store) => store.user.userId);
   const error = useSelector((store) => store.tasks.error)
+  const loading = useSelector((store) => store.ui.loading)
   console.log('Error: ', error)
   
   const dispatch = useDispatch();
@@ -26,9 +28,11 @@ const TaskList = () => {
   
   return (
     <div>
-      {allTasks.map((item) => (
+      {loading && <LoadingIndicator />}
+      {!loading && (
+        <>
+        {allTasks.map((item) => (
         <div key={item._id}>
- 
             <input 
               id='completed'
               type='checkbox' 
@@ -37,7 +41,6 @@ const TaskList = () => {
             <label
               htmlFor='completed'>{item.description}
             </label>
-
           <ButtonsContainer>
             {/* Edit/Update feature below needs to be fixed so that user can edit the items. https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
     {/*         <div onDoubleClick={() => onUpdateTodo(item._id)}><Icon>{penIcon}</Icon></div>
@@ -45,7 +48,10 @@ const TaskList = () => {
           </ButtonsContainer>
         </div>
       ))}
-       <AddTask />
+      <AddTask />
+        </>
+      )}
+      
     </div>
    )
 };

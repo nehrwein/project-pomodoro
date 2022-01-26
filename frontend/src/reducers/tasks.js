@@ -59,7 +59,6 @@ export const showTasklist = (accessToken, userId) => {
     fetch(API_URL("tasks"), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         if (data.success) {
           dispatch(showTasklist(accessToken, userId));
           dispatch(tasks.actions.setError(null));
