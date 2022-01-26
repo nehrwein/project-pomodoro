@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const MainContainer = styled.main`
   height: 100%;
@@ -86,7 +86,8 @@ export const LinkText = styled.div`
 `
 
 export const TimerContainer = styled.div`
-  height: 100px;
+  height: 150px;
+  width: 25%;
   background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
   margin 0;
 
