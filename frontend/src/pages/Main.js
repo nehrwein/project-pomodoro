@@ -24,18 +24,18 @@ const Main = () => {
   return (
     <>
       <LoadingIndicator />
+{/*       {!loading && (
+        
+      )} */}
       <MainContainer>
-			<PomodoroTimer />
-				<FormWrapper>
-
-					<TaskList />
-
-
-				</FormWrapper>
-				{/* add hamburger menu and put log out button there? */ }
-				<button onClick={() => dispatch(user.actions.setAccessToken(null))}>
-						Log out
-					</button>
+        <PomodoroTimer />
+        <FormWrapper>
+          <TaskList />
+        </FormWrapper>
+        {/* add hamburger menu and put log out button there? */ }
+        <button onClick={() => dispatch(user.actions.setAccessToken(null))}>
+            Log out
+          </button>
        </MainContainer>   
     </>
   );

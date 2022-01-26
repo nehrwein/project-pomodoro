@@ -12,9 +12,6 @@ export const tasks = createSlice({
     setItems: (store, action) => {
       store.items = action.payload
     },
-    addItem: (store, action) => {
-      store.items.shift(action.payload)
-    },
     setError: (store, action) => {
       store.error = action.payload
     },
@@ -62,8 +59,9 @@ export const showTasklist = (accessToken, userId) => {
     fetch(API_URL("tasks"), options)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         if (data.success) {
-          dispatch(tasks.actions.addItem(data.response));
+          dispatch(showTasklist(accessToken, userId));
           dispatch(tasks.actions.setError(null));
         } else {
           dispatch(tasks.actions.setError(data.response));
