@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { addTodo } from "../reducers/tasks";
 import styled from "styled-components";
 
-import { UserInput, LoginButton } from "styled-components/Styling"
+import { UserInput } from "styled-components/Styling"
 
 const AddTask = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
