@@ -126,7 +126,7 @@ export const updateTodo = (taskId, accessToken, task, userId) => {
 }
 
 // complete or uncomplete an existing task
-export const toggleIsComplete = (_id, completed, accessToken, userId) => {
+export const toggleIsComplete = (_id, completed, completedAt, accessToken, userId) => {
   return (dispatch) => {
     const options = {
       method: "PATCH",
@@ -134,7 +134,7 @@ export const toggleIsComplete = (_id, completed, accessToken, userId) => {
         "Content-Type": "application/json",
         Authorization: accessToken,
       },
-      body: JSON.stringify({ user: userId, completed: !completed ? true : false }),
+      body: JSON.stringify({ user: userId, completed: !completed ? true : false, completedAt: completedAt === null ? new Date() : null }),
     };
     
     dispatch(ui.actions.setLoading(true))

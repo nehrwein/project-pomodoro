@@ -47,7 +47,10 @@ const TaskList = () => {
               <input 
                 id='completed'
                 type='checkbox' 
-                onChange={() => dispatch(toggleIsComplete(item._id, item.completed, accessToken, userId))}
+                onChange={() => {
+                  dispatch(toggleIsComplete(item._id, item.completed, item.completedAt, accessToken, userId))
+                  console.log(item)
+                }}
               />
               {item._id === pickedId ? 
                 <>

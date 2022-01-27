@@ -69,7 +69,8 @@ const TaskSchema = new mongoose.Schema({
     default: Date.now
   },
   completedAt: {
-    type: Date
+    type: Date,
+    default: null
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -155,13 +156,13 @@ app.post('/tasks', async (req, res) => {
 app.patch('/tasks/:taskId/complete', authenticateUser)
 app.patch('/tasks/:taskId/complete', async (req, res) => {
   const { taskId } = req.params
-  const { user, completed } = req.body
+  const { user, completed, completedAt } = req.body
 
   try {
     const queriedUser = await User.findById(user)
     const completedTask = await Task.findOneAndUpdate(
       { _id: taskId, user: queriedUser},
-      { completed },
+      { completed, completedAt },
       { new: true }
     )
 
