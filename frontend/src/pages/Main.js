@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { user } from "../reducers/user";
+// import { user } from "../reducers/user";
 import TaskList from "../components/TaskList";
 import PomodoroTimer from "../components/PomodoroTimer";
-
-import { MainContainer, FormWrapper } from "styled-components/Styling";
+import styled from "styled-components";
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -21,18 +20,22 @@ const Main = () => {
   return (
     <MainContainer>
       <PomodoroTimer />
-      <FormWrapper>
-        <TaskList />
-      </FormWrapper>
+      <TaskList />
       {/* add hamburger menu and put log out button there? */ }
-      <button type='submit' onClick={() => dispatch(user.actions.setAccessToken(null))}
+      {/* <button type='submit' onClick={() => dispatch(user.actions.setAccessToken(null))}
       >Log out
-      </button>
-    </MainContainer>   
+      </button> */}
+    </ MainContainer>   
   );
 };
 
 export default Main;
+
+const MainContainer = styled.div `
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
 
 
 

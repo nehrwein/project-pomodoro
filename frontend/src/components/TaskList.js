@@ -38,19 +38,16 @@ const TaskList = () => {
   }
   
   return (
-    <div>
+    <TaskWrapper>
       {loading && <LoadingIndicator />}
       {!loading && (
         <>
           {allTasks.map((item) => (
-            <div key={item._id}>
+            <Task key={item._id}>
               <input 
                 id='completed'
                 type='checkbox' 
-                onChange={() => {
-                  dispatch(toggleIsComplete(item._id, item.completed, item.completedAt, accessToken, userId))
-                  console.log(item)
-                }}
+                onChange={() => dispatch(toggleIsComplete(item._id, item.completed, item.completedAt, accessToken, userId))}
               />
               {item._id === pickedId && item.completed === false ? 
                 <>
@@ -75,16 +72,29 @@ const TaskList = () => {
                 <div onClick={() => setPickedId(item._id)}><Icon>{penIcon}</Icon></div>
                 <div onClick={() => dispatch(deleteTodo(accessToken, userId, item._id))}><Icon>{trashCanIcon}</Icon></div>
               </TaskSettings>
-            </div>
+            </Task>
           ))}
           <AddTask />
         </>
       )}
-    </div>
+    </TaskWrapper>
   )
 };
 
 export default TaskList;
+
+const TaskWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+`;
+
+const Task = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+`
 
 const TaskSettings = styled.div`
   display: flex;

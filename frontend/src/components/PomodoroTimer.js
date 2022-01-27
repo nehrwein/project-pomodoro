@@ -4,6 +4,8 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { TimerContainer } from "styled-components/Styling"
 
 const PomodoroTimer = () => {
@@ -12,6 +14,7 @@ const PomodoroTimer = () => {
   const [displayMessage, setDisplayMessage] = useState(false)
   // const [isPaused, setIsPaused] = useState(true)
   // const [secondsLeft, setSecondsLeft] = useState(0)
+  const hamburgerIcon = <FontAwesomeIcon icon={faBars} />
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -44,9 +47,10 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer>
-      <div>
+      <nav>{hamburgerIcon}</nav>
+      <h1>
         {timerMinutes}:{timerSeconds}
-      </div>
+      </h1>
       <p>Tap on a task to start</p>
       <div>
         <button>Refresh</button>
