@@ -39,8 +39,7 @@ export default AddTask;
 
 
 const AddTaskContainer = styled.div`
-  display: flex;
-  flex-flow: row wrap;
+  display: inline-flex;
   align-items: center;
 
   border: 1px solid #D75004;
@@ -49,6 +48,5 @@ const AddTaskContainer = styled.div`
 `; 
 
 const AddButton = styled.button`
-  padding: 10px 20px;
   color: white;
 `

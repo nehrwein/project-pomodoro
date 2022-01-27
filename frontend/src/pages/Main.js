@@ -5,7 +5,7 @@ import { user } from "../reducers/user";
 import TaskList from "../components/TaskList";
 import PomodoroTimer from "../components/PomodoroTimer";
 
-import { MainContainer, FormWrapper } from "styled-components/Styling";
+import { MainContainer, PomodoroTimerWrapper, TaskWrapper } from "styled-components/Styling";
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
@@ -20,10 +20,12 @@ const Main = () => {
 
   return (
     <MainContainer>
-      <PomodoroTimer />
-      <FormWrapper>
+      <PomodoroTimerWrapper>
+        <PomodoroTimer />
+      </PomodoroTimerWrapper>
+      <TaskWrapper>
         <TaskList />
-      </FormWrapper>
+      </TaskWrapper>
       {/* add hamburger menu and put log out button there? */ }
       <button type='submit' onClick={() => dispatch(user.actions.setAccessToken(null))}
       >Log out

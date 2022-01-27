@@ -32,6 +32,28 @@ export const FormWrapper = styled.div`
   }
 `
 
+export const TaskWrapper = styled(FormWrapper)`
+  border-radius: 0 0 10px 10px;
+
+  @media (min-width: 992px) {
+    width: 297px;
+  }
+`
+
+export const PomodoroTimerWrapper = styled(FormWrapper)`
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
+
+  @media (min-width: 992px) {
+    width: 297px;
+  }
+`
+
+export const TimeContainer = styled.div`
+  font-size: 60px;
+  color: white;
+`
+
 export const UserInfoWrapper = styled.fieldset`
   border: 2px solid #d75004;
   border-radius: 7px;
@@ -85,21 +107,6 @@ export const LinkText = styled.div`
   }
 `
 
-export const TimerContainer = styled.div`
-  height: 150px;
-  width: 25%;
-  background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
-  margin 0;
-
-  h1 {
-    color: white;
-  }
-
-  p {
-    color: white;
-  }
-;
-`
 export const Icon = styled.i`
   color: #D75004;;
   font-size: 20px;

@@ -4,7 +4,7 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
-import { TimerContainer } from "styled-components/Styling"
+import { TimeContainer } from "styled-components/Styling"
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
@@ -43,10 +43,10 @@ const PomodoroTimer = () => {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds
 
   return (
-    <TimerContainer>
-      <div>
+    <>
+      <TimeContainer>
         {timerMinutes}:{timerSeconds}
-      </div>
+      </TimeContainer>
       <p>Tap on a task to start</p>
       <div>
         <button>Refresh</button>
@@ -54,7 +54,7 @@ const PomodoroTimer = () => {
         <button>Pause</button>
         <button>Stop</button>
       </div>
-    </TimerContainer>
+    </>
   )
 }
 
