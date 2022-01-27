@@ -4,10 +4,10 @@ export const MainContainer = styled.main`
   height: 100%;
   width: 100%;
   display: flex;
-  position: absolute;
+ /*  position: absolute; */
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   margin: 0 auto;
   background-image: url("/assets/tomato-background.jpg");
   background-repeat: no-repeat;
@@ -86,19 +86,20 @@ export const LinkText = styled.div`
 `
 
 export const TimerContainer = styled.div`
-  height: 150px;
-  width: 25%;
+  height: 30vh;
+  width: 100%;
   background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
-  margin 0;
-
+  text-align: center;
+  margin: 0;
+  color: white;
+  nav {
+    text-align: right;
+    padding-right: 5px;
+    font-size: 20px;
+  }
   h1 {
-    color: white;
+    font-size: 48px;
   }
-
-  p {
-    color: white;
-  }
-;
 `
 export const Icon = styled.i`
   color: #D75004;;

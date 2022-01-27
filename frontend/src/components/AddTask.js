@@ -39,16 +39,17 @@ export default AddTask;
 
 
 const AddTaskContainer = styled.div`
+  width: 100%;
   display: flex;
-  flex-flow: row wrap;
   align-items: center;
 
-  border: 1px solid #D75004;
+  border-top: 2px solid #D75004;
   box-sizing: border-box;
-  border-radius: 20px;
 `; 
 
 const AddButton = styled.button`
-  padding: 10px 20px;
-  color: white;
+  background-color: transparent;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
 `

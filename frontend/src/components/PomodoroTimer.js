@@ -4,13 +4,22 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { TimerContainer } from "styled-components/Styling"
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
+<<<<<<< HEAD
   const [work, setWork] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
+=======
+  const [displayMessage, setDisplayMessage] = useState(false)
+  // const [isPaused, setIsPaused] = useState(true)
+  // const [secondsLeft, setSecondsLeft] = useState(0)
+  const hamburgerIcon = <FontAwesomeIcon icon={faBars} />
+>>>>>>> 71a420482bf4035e19542930d1c3c7efaa644f17
 
   useEffect(() => {
     // If the timer is running we want to run this code
@@ -48,9 +57,10 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer>
-      <div>
+      <nav>{hamburgerIcon}</nav>
+      <h1>
         {timerMinutes}:{timerSeconds}
-      </div>
+      </h1>
       <p>Tap on a task to start</p>
       <div>
         <button
