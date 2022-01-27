@@ -5,7 +5,7 @@ import { user } from "../reducers/user";
 import TaskList from "../components/TaskList";
 import PomodoroTimer from "../components/PomodoroTimer";
 
-import { MainContainer, FormWrapper, PomodoroTimerWrapper, TaskWrapper } from "styled-components/Styling";
+import { MainContainer, PomodoroTimerWrapper, TaskWrapper } from "styled-components/Styling";
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);

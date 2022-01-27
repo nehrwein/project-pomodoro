@@ -4,9 +4,8 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
-import { TimeContainer } from "styled-components/Styling"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBars } from "@fortawesome/free-solid-svg-icons"
 import { TimerContainer } from "styled-components/Styling"
 
 const PomodoroTimer = () => {
@@ -17,6 +16,7 @@ const PomodoroTimer = () => {
   const [displayMessage, setDisplayMessage] = useState(false)
   // const [isPaused, setIsPaused] = useState(true)
   // const [secondsLeft, setSecondsLeft] = useState(0)
+
   const hamburgerIcon = <FontAwesomeIcon icon={faBars} />
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const PomodoroTimer = () => {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds
 
   return (
-    <TimerContainer>
+    <div>
       <nav>{hamburgerIcon}</nav>
       <h1>
         {timerMinutes}:{timerSeconds}
@@ -78,7 +78,7 @@ const PomodoroTimer = () => {
         {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
         <button>Stop</button>
       </div>
-    </TimerContainer>
+    </div>
   )
 }
 
