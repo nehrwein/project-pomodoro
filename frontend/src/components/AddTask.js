@@ -42,9 +42,8 @@ const AddTaskContainer = styled.div`
   display: inline-flex;
   align-items: center;
 
-  border: 1px solid #D75004;
+  border-top: 2px solid #D75004;
   box-sizing: border-box;
-  border-radius: 20px;
 `; 
 
 const AddButton = styled.button`

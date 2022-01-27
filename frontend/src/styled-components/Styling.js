@@ -33,25 +33,23 @@ export const FormWrapper = styled.div`
 `
 
 export const TaskWrapper = styled(FormWrapper)`
-  border-radius: 0 0 10px 10px;
+	border-radius: 0 0 10px 10px;
 
-  @media (min-width: 992px) {
-    width: 297px;
-  }
+	
 `
 
 export const PomodoroTimerWrapper = styled(FormWrapper)`
-  border-radius: 10px 10px 0 0;
-  background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
+	border-radius: 10px 10px 0 0;
+	background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
 
-  @media (min-width: 992px) {
+	@media (min-width: 992px) {
     width: 297px;
   }
 `
 
 export const TimeContainer = styled.div`
-  font-size: 60px;
-  color: white;
+	font-size: 60px;
+	color: white;
 `
 
 export const UserInfoWrapper = styled.fieldset`

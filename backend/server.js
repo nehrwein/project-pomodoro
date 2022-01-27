@@ -230,13 +230,13 @@ app.patch('/tasks/:taskId/pomodoro', async (req, res) => {
       { _id: taskId, user: queriedUser._id},
       [
         {
-          $set: {
+          $inc: {
             pomodoros: {
               $switch: {
                 branches: [
                   {
                     case: { $eq: ['$completed', false] },
-                    then: { $inc: { pomodoros: 1 } },
+                    then: 1,
                   },
                 ],
               },
