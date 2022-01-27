@@ -152,7 +152,6 @@ app.post('/tasks', async (req, res) => {
 })
 
 // endpoint to complete existing tasks
-// to do: add no of completed pomodoros and time of completion in body
 app.patch('/tasks/:taskId/complete', authenticateUser)
 app.patch('/tasks/:taskId/complete', async (req, res) => {
   const { taskId } = req.params
@@ -218,6 +217,78 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
+// endpoint to higher the pomodoro score of a task
+// The setup of the endpoint prevents changing the description of already completed tasks
+app.patch('/tasks/:taskId/pomodoro', authenticateUser)
+app.patch('/tasks/:taskId/pomodoro', async (req, res) => {
+  const { taskId } = req.params
+  const { user } = req.body
+
+  try {
+    const queriedUser = await User.findById(user)
+    const updatedTask = await Task.findOneAndUpdate(
+      { _id: taskId, user: queriedUser},
+      [
+        {
+          $set: {
+            pomodoros: {
+              $switch: {
+                branches: [
+                  {
+                    case: { $eq: ['$completed', false] },
+                    then: { $inc: { pomodoros: 1 } },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+      {
+        new: true,
+      }
+    );  
+
+    if (!updatedTask) {
+      res.status(404).json({ response: 'No task found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: updatedTask, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+// !!!!!!!!!!!! Test
+app.patch('/tasks/:taskId/testpomodoro', authenticateUser)
+app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
+  const { taskId } = req.params
+  const { user } = req.body
+
+  try {
+    const queriedUser = await User.findById(user)
+    const updatedTask = await Task.findOneAndUpdate(
+      { _id: taskId, user: queriedUser},
+      {
+        $inc: {
+          pomodoros: 1
+        }
+      },
+      {
+        new: true,
+      }
+    );  
+
+    if (!updatedTask) {
+      res.status(404).json({ response: 'No task found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: updatedTask, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
 // endpoint for deleting tasks
 app.delete('/tasks/:taskId', authenticateUser)
 app.delete('/tasks/:taskId', async (req, res) => {
@@ -263,16 +334,6 @@ app.post('/signup', async (req, res) => {
       success: true
     })
   } catch (error) {
-// we shouldn't give away what's the cause of the rejection, because it makes life easier for hackers    
-/*     if (error.code === 11000) {
-      if (error.keyValue.username) {
-        res.status(400).json({
-          response: "Username already taken, sorry!",
-          success: false,
-          error
-        })
-      } 
-    } */
     res.status(400).json({ response: error, success: false })
   }
 })
