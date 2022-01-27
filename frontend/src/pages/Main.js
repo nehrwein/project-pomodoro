@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 const Main = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
