@@ -52,7 +52,7 @@ const TaskList = () => {
                   console.log(item)
                 }}
               />
-              {item._id === pickedId ? 
+              {item._id === pickedId && item.completed === false ? 
                 <>
                   <input 
                     type='text'

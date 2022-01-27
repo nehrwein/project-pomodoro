@@ -6,6 +6,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import Main from './pages/Main'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
+import Settings from './pages/Settings'
 
 import { user } from './reducers/user'
 import { tasks } from './reducers/tasks'
@@ -39,6 +40,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<Main />} /> 
           <Route path="/login" element={<Login />} />
+          <Route path="/settings" element={<Settings />} /> 
           {/* * new feature in react router for not found */}
           <Route path="*" element={<NotFound />} />
         </Routes>

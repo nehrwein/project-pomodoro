@@ -134,7 +134,7 @@ app.post('/tasks', async (req, res) => {
 
   try {
     const queriedUser = await User.findById(user)
-    const newTask = await new Task ({ description, user: queriedUser }).save()
+    const newTask = await new Task ({ description, user: queriedUser._id}).save()
 
     res.status(201).json({ 
       response: {
@@ -160,7 +160,7 @@ app.patch('/tasks/:taskId/complete', async (req, res) => {
   try {
     const queriedUser = await User.findById(user)
     const completedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser},
+      { _id: taskId, user: queriedUser._id},
       { completed, completedAt },
       { new: true }
     )
@@ -185,7 +185,7 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   try {
     const queriedUser = await User.findById(user)
     const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser},
+      { _id: taskId, user: queriedUser._id},
       [
         {
           $set: {
@@ -227,7 +227,7 @@ app.patch('/tasks/:taskId/pomodoro', async (req, res) => {
   try {
     const queriedUser = await User.findById(user)
     const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser},
+      { _id: taskId, user: queriedUser._id},
       [
         {
           $set: {
@@ -268,7 +268,7 @@ app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
   try {
     const queriedUser = await User.findById(user)
     const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser},
+      { _id: taskId, user: queriedUser._id},
       {
         $inc: {
           pomodoros: 1
@@ -297,7 +297,7 @@ app.delete('/tasks/:taskId', async (req, res) => {
 
   try {
     const queriedUser = await User.findById(user)
-    const deletedTask = await Task.deleteOne({ _id: taskId, user: queriedUser})
+    const deletedTask = await Task.deleteOne({ _id: taskId, user: queriedUser._id})
 
     if (!deletedTask) {
       res.status(404).json({ response: 'No task found with this Id', success: false})
@@ -372,7 +372,7 @@ app.delete('/users/:userId', async (req, res) => {
 
   try {
     const queriedUser = await User.findById(user)
-    const deletedUser = await User.deleteOne({ user: queriedUser })
+    const deletedUser = await User.deleteOne({ user: queriedUser._id })
 
     if (!deletedUser) {
       res.status(404).json({ response: 'No user found with this Id', success: false})
