@@ -18,7 +18,6 @@ const TaskList = () => {
   const error = useSelector((store) => store.tasks.error)
   console.log('Error: ', error)
 
-  const [editing, setEditing] = useState(false)
   const [pickedId, setPickedId] = useState('')
   const [updatedDescription, setUpdatedDescription] = useState('')
 
@@ -32,14 +31,8 @@ const TaskList = () => {
     dispatch(showTasklist(accessToken, userId))
   }, [dispatch, accessToken, userId])
 
-  const onEditTodo = (taskId) => {
-    setEditing(true)
-    setPickedId(taskId)
-  }
-
   const onUpdateTodo = (taskId, accessToken, updatedDescription, userId) => {
     dispatch(updateTodo(taskId, accessToken, updatedDescription, userId))
-    setEditing(false)
     setPickedId('')
     setUpdatedDescription('')
   }
@@ -56,8 +49,8 @@ const TaskList = () => {
                 type='checkbox' 
                 onChange={() => dispatch(toggleIsComplete(item._id, item.completed, accessToken, userId))}
               />
-              {(editing && item._id === pickedId) ? 
-                (<>
+              {item._id === pickedId ? 
+                <>
                   <input 
                     type='text'
                     value={updatedDescription}
@@ -65,10 +58,9 @@ const TaskList = () => {
                   />
                   <button 
                     type='submit'
-                    onClick={() => onUpdateTodo(item._id, accessToken, updatedDescription, userId)}>Submit
+                    onClick={() => onUpdateTodo(item._id, accessToken, updatedDescription, userId)}>Save
                   </button>
                 </>
-                ) 
                 : 
                 <TaskDescription
                   htmlFor='completed'
@@ -77,7 +69,7 @@ const TaskList = () => {
               }
               <TaskSettings>
                 {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
-                <div onClick={() => onEditTodo(item._id)}><Icon>{penIcon}</Icon></div>
+                <div onClick={() => setPickedId(item._id)}><Icon>{penIcon}</Icon></div>
                 <div onClick={() => dispatch(deleteTodo(accessToken, userId, item._id))}><Icon>{trashCanIcon}</Icon></div>
               </TaskSettings>
             </div>
