@@ -1,13 +1,11 @@
 // TODO:
 // -Mode for timer? useRef hook: useRef is like a “box” that can hold a mutable value in its .current property.
-// -Implement an animated progressbar (maybe this one: https://www.npmjs.com/package/react-native-progress-bar-modest)
 
 import React from "react"
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
 import styled from "styled-components"
-
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
