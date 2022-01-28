@@ -6,14 +6,12 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
-import { TimerContainer } from "styled-components/Styling"
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
-  const [displayMessage, setDisplayMessage] = useState(false)
   // const [isPaused, setIsPaused] = useState(true)
   // const [secondsLeft, setSecondsLeft] = useState(0)
 
