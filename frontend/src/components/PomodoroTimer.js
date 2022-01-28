@@ -6,6 +6,8 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
+import styled from "styled-components"
+
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
@@ -52,7 +54,7 @@ const PomodoroTimer = () => {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds
 
   return (
-    <div>
+    <TimerContainer>
       <nav>{hamburgerIcon}</nav>
       <h1>
         {timerMinutes}:{timerSeconds}
@@ -76,8 +78,24 @@ const PomodoroTimer = () => {
         {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
         <button>Stop</button>
       </div>
-    </div>
+    </TimerContainer>
   )
 }
 
 export default PomodoroTimer
+
+const TimerContainer = styled.div`
+	height: 30vh;
+  width: 100%;
+  background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
+  text-align: center;
+  margin: 0;
+  color: white;
+  nav {
+    text-align: right;
+    padding-right: 5px;
+    font-size: 20px;
+  }
+  h1 {
+    font-size: 48px;
+`

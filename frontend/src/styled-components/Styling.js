@@ -47,11 +47,6 @@ export const PomodoroTimerWrapper = styled(FormWrapper)`
   }
 `
 
-export const TimeContainer = styled.div`
-	font-size: 60px;
-	color: white;
-`
-
 export const UserInfoWrapper = styled.fieldset`
   border: 2px solid #d75004;
   border-radius: 7px;
