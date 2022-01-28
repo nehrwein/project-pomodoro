@@ -3,8 +3,6 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars } from "@fortawesome/free-solid-svg-icons"
 import styled from "styled-components"
 
 const PomodoroTimer = () => {
@@ -12,8 +10,6 @@ const PomodoroTimer = () => {
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
-
-  const hamburgerIcon = <FontAwesomeIcon icon={faBars} />
 
   useEffect(() => {
     // If the timer is running we want to run this code
@@ -53,7 +49,6 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer>
-      <nav>{hamburgerIcon}</nav>
       <h1>
         {timerMinutes}:{timerSeconds}
       </h1>
@@ -89,11 +84,7 @@ const TimerContainer = styled.div`
   text-align: center;
   margin: 0;
   color: white;
-  nav {
-    text-align: right;
-    padding-right: 5px;
-    font-size: 20px;
-  }
+
   h1 {
     font-size: 48px;
 `
