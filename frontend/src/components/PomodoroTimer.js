@@ -20,6 +20,7 @@ const PomodoroTimer = () => {
   useEffect(() => {
     // If the timer is running we want to run this code
     if (isRunning) {
+      // The setInterval() method calls a function at specified intervals (in milliseconds).
       let interval = setInterval(() => {
         // clearInterval(interval)
 
