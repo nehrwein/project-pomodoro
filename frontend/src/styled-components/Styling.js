@@ -34,8 +34,6 @@ export const FormWrapper = styled.div`
 
 export const TaskWrapper = styled(FormWrapper)`
 	border-radius: 0 0 10px 10px;
-
-	
 `
 
 export const PomodoroTimerWrapper = styled(FormWrapper)`
