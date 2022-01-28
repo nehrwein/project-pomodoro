@@ -12,8 +12,6 @@ const PomodoroTimer = () => {
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
-  // const [isPaused, setIsPaused] = useState(true)
-  // const [secondsLeft, setSecondsLeft] = useState(0)
 
   const hamburgerIcon = <FontAwesomeIcon icon={faBars} />
 
@@ -44,6 +42,7 @@ const PomodoroTimer = () => {
           setSeconds(seconds - 1)
         }
       }, 1000)
+      // clearInterval clears the timer set (stops setInterval)
       return () => clearInterval(interval)
     }
   }, [isRunning, work, minutes, seconds])
