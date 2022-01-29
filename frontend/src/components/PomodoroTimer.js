@@ -5,11 +5,19 @@ import React from "react"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRedo, faPlayCircle, faTimes, faPause } from '@fortawesome/free-solid-svg-icons'
+
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
+
+  const ReplayIcon = <FontAwesomeIcon icon={faRedo} />
+  const PlayIcon = <FontAwesomeIcon icon={faPlayCircle} />
+  const StopIcon = <FontAwesomeIcon icon={faTimes} />
+  const PauseIcon = <FontAwesomeIcon icon={faPause} />
 
   useEffect(() => {
     // If the timer is running we want to run this code
@@ -49,28 +57,30 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer>
-      <h1>
-        {timerMinutes}:{timerSeconds}
-      </h1>
-      <p>Tap on a task to start</p>
-      <div>
-        <button
+      <TimeAndTaskContainer>
+        <h1>
+          {timerMinutes}:{timerSeconds}
+        </h1>
+        <p>Tap on a task to start</p>
+      </TimeAndTaskContainer>
+      <ButtonsContainer>
+        <Button
           onClick={() => {
             setIsRunning(false)
             setSeconds(0)
             setMinutes(25)
           }}
         >
-          Reset
-        </button>
+          <Icon>{ReplayIcon}</Icon>
+        </Button>
         {isRunning ? (
-          <button onClick={() => setIsRunning(false)}> Pause</button>
+          <Button onClick={() => setIsRunning(false)}><BigIcon>{PauseIcon}</BigIcon></Button>
         ) : (
-          <button onClick={() => setIsRunning(true)}>Play</button>
+          <Button onClick={() => setIsRunning(true)}><BigIcon>{PlayIcon}</BigIcon></Button>
         )}
         {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
-        <button>Stop</button>
-      </div>
+        <Button><Icon>{StopIcon}</Icon></Button>
+      </ButtonsContainer>
     </TimerContainer>
   )
 }
@@ -78,7 +88,7 @@ const PomodoroTimer = () => {
 export default PomodoroTimer
 
 const TimerContainer = styled.div`
-	height: 30vh;
+  /*height: 30vh;*/
   width: 100%;
   background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
   text-align: center;
@@ -87,4 +97,38 @@ const TimerContainer = styled.div`
 
   h1 {
     font-size: 48px;
+    margin: 0;
 `
+
+const TimeAndTaskContainer = styled.div`
+  padding: 20px 0;
+
+  p {
+    color: #FFFFFF99;
+  }
+`
+
+const ButtonsContainer = styled.div`
+  background: #4E1E04;
+  padding: 20px 0;
+
+  display: flex; 
+  justify-content: space-evenly;
+`
+
+const Icon = styled.i`
+  color: #D75004;;
+  font-size: 20px;
+`
+
+const BigIcon = styled(Icon)`
+  font-size: 40px;
+`
+
+const Button = styled.button`
+  border: none;
+  background-color: transparent;
+`
+
+
+

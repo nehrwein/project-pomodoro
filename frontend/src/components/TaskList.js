@@ -6,7 +6,6 @@ import { showTasklist, updateTodo, deleteTodo, toggleIsComplete } from "../reduc
 import AddTask from './AddTask';
 import LoadingIndicator from './LoadingIndicator';
 
-// import { FormWrapper } from "styled-components/Styling"
 import styled from "styled-components";
 import { Icon } from "styled-components/Styling";
 
