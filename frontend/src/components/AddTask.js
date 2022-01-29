@@ -38,12 +38,13 @@ const AddTaskContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-	justify-content: center;
-	border: 2px solid #D75004;
-	border-radius: 8px;
-  /*border-top: 2px solid #D75004;*/
-  box-sizing: border-box;
-	margin: 10px auto;
+  justify-content: center;
+  border-top: 2px solid #D75004;
+  padding: 20px 0;
+  gap:10px;
+  /*box-sizing: border-box;*/
+  /*margin: 10px auto;*/
+
 `; 
 
 const AddButton = styled.button`
@@ -51,11 +52,16 @@ const AddButton = styled.button`
   border: none;
   font-size: 15px;
   cursor: pointer;
-	padding: 10px;
 `
 
 const Input = styled.input`
-  border: none transparent;
+  border: none;
   outline: none;
   font-size: 20px;
+  color: #D75004;
+  width:30%;
+
+  ::placeholder {
+    color: #D75004;
+  }
 `

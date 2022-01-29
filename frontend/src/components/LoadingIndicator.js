@@ -13,7 +13,7 @@ export default LoadingIndicator;
 
 const LoadingOverlay = styled.div`
   position: absolute;
-  /*top: 0;*/
+  top: 0;
   right: 0;
   bottom: 60%;
   left: 0;

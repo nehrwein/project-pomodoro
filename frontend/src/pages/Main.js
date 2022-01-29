@@ -36,7 +36,20 @@ export default Main;
 
 
 const MainContainer = styled.div `
+  width: 100%;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  /*background-image: url("/assets/tomato-background.jpg");*/
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+  padding-bottom: 50px;
+
+  @media (min-width: 992px) {
+    width: 400px;
+    align-items: center;
+  }
 `

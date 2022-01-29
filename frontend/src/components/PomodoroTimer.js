@@ -6,7 +6,7 @@ import { useState, useEffect } from "react"
 import styled from "styled-components"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRedo, faPlayCircle, faTimes, faPause } from '@fortawesome/free-solid-svg-icons'
+import { faRedo, faPlayCircle, faTimes, faPauseCircle } from '@fortawesome/free-solid-svg-icons'
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
@@ -17,7 +17,7 @@ const PomodoroTimer = () => {
   const ReplayIcon = <FontAwesomeIcon icon={faRedo} />
   const PlayIcon = <FontAwesomeIcon icon={faPlayCircle} />
   const StopIcon = <FontAwesomeIcon icon={faTimes} />
-  const PauseIcon = <FontAwesomeIcon icon={faPause} />
+  const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
 
   useEffect(() => {
     // If the timer is running we want to run this code
@@ -71,7 +71,7 @@ const PomodoroTimer = () => {
             setMinutes(25)
           }}
         >
-          <Icon>{ReplayIcon}</Icon>
+          <Icon active>{ReplayIcon}</Icon>
         </Button>
         {isRunning ? (
           <Button onClick={() => setIsRunning(false)}><BigIcon>{PauseIcon}</BigIcon></Button>
@@ -117,12 +117,12 @@ const ButtonsContainer = styled.div`
 `
 
 const Icon = styled.i`
-  color: #D75004;;
-  font-size: 20px;
+  color: #D75004;
+  font-size: 28px;
 `
 
 const BigIcon = styled(Icon)`
-  font-size: 40px;
+  font-size: 50px;
 `
 
 const Button = styled.button`
