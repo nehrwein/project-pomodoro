@@ -6,8 +6,6 @@ import { addTodo } from "../reducers/tasks";
 import styled from "styled-components";
 import { Icon } from "styled-components/Styling";
 
-import { UserInput } from "styled-components/Styling"
-
 const AddTask = () => {
   const accessToken = useSelector((store) => store.user.accessToken);
   const userId = useSelector((store) => store.user.userId);
@@ -23,7 +21,7 @@ const AddTask = () => {
   return (
     <AddTaskContainer>
         <AddButton type="submit" onClick={() => onAddTodo(accessToken, userId, task)}><Icon>{plusIcon}</Icon></AddButton>
-        <UserInput
+        <Input
           id="task"
           type="text"
           value={task}
@@ -36,14 +34,16 @@ const AddTask = () => {
 
 export default AddTask;
 
-
-
 const AddTaskContainer = styled.div`
   width: 100%;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  border-top: 2px solid #D75004;
+	justify-content: center;
+	border: 2px solid #D75004;
+	border-radius: 8px;
+  /*border-top: 2px solid #D75004;*/
   box-sizing: border-box;
+	margin: 10px auto;
 `; 
 
 const AddButton = styled.button`
@@ -51,4 +51,11 @@ const AddButton = styled.button`
   border: none;
   font-size: 15px;
   cursor: pointer;
+	padding: 10px;
+`
+
+const Input = styled.input`
+  border: none transparent;
+  outline: none;
+  font-size: 20px;
 `
