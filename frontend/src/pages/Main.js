@@ -25,9 +25,9 @@ const Main = () => {
       <PomodoroTimer />
       <TaskList />
       {/* add hamburger menu and put log out button there? */ }
-      {/*<button type='submit' onClick={() => dispatch(user.actions.setAccessToken(null))}
+      <button type='submit' onClick={() => dispatch(user.actions.setAccessToken(null))}
       >Log out
-      </button>*/}
+      </button>
     </MainContainer>   
   );
 };
