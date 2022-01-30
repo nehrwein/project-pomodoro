@@ -114,6 +114,7 @@ const TimerContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  /* Add some shadow */
   text-align: center;
   margin: 0;
   color: white;
