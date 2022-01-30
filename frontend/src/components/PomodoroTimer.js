@@ -119,6 +119,11 @@ const ButtonsContainer = styled.div`
 const Icon = styled.i`
   color: #D75004;
   font-size: 28px;
+
+  :hover {
+    color: white;
+    transition: ease 0.5s;
+  }
 `
 
 const BigIcon = styled(Icon)`

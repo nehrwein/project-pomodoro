@@ -7,7 +7,6 @@ import AddTask from './AddTask';
 import LoadingIndicator from './LoadingIndicator';
 
 import styled from "styled-components/macro";
-//import { Icon } from "styled-components/Styling";
 
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items);
@@ -16,6 +15,7 @@ const TaskList = () => {
   const loading = useSelector((store) => store.ui.loading)
   const error = useSelector((store) => store.tasks.error)
   console.log('Error: ', error)
+  console.log(allTasks)
 
   const [pickedId, setPickedId] = useState('')
   const [updatedDescription, setUpdatedDescription] = useState('')
@@ -45,12 +45,13 @@ const TaskList = () => {
           {allTasks.map((item) => (
             <Task key={item._id} completed={item.completed}>
               <div>
-                <Checkbox 
+                <CheckboxInput
                   id='completed'
                   checked={item.completed}
                   type='checkbox' 
                   onChange={() => dispatch(toggleIsComplete(item._id, item.completed, item.completedAt, accessToken, userId))}
                 />
+
                 {item._id === pickedId && item.completed === false ? 
                   <>
                     <input 
@@ -64,9 +65,12 @@ const TaskList = () => {
                     </button>
                   </>
                   : 
-                  <TaskDescription
-                    htmlFor='completed'
-                    completed={item.completed}>{item.description}
+                  //<TaskDescription
+                  //  htmlFor='completed'
+                  //  completed={item.completed}>{item.description}
+                  //</TaskDescription>
+                  <TaskDescription completed={item.completed}>
+                    {item.description}
                   </TaskDescription>
                 }
               </div>
@@ -115,16 +119,17 @@ const TaskSettings = styled.div`
   gap: 20px;
 `
 
-const TaskDescription = styled.label`
-  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
-`
 const Icon = styled.i`
   color: #B4B2B2;
   font-size: 16px;
 `
 
-const Checkbox = styled.input`
-  :checked {
-    border: 2px solid #D75004;
-  }
+const CheckboxInput = styled.input.attrs({ type: 'checkbox' })`
+
 `
+
+const TaskDescription = styled.label`
+  text-decoration: ${props => props.completed ? 'line-through' : 'none'};
+  margin-left:8px;
+`
+
