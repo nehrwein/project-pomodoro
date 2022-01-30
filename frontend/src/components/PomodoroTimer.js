@@ -12,16 +12,22 @@ const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(false)
+  const totalSeconds = !work ? 24 * 60 : 4 * 60
   const [isRunning, setIsRunning] = useState(false)
+  const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
 
   const ReplayIcon = <FontAwesomeIcon icon={faRedo} />
   const PlayIcon = <FontAwesomeIcon icon={faPlayCircle} />
   const StopIcon = <FontAwesomeIcon icon={faTimes} />
   const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
 
+  const percentage = Math.round(secondsLeft / totalSeconds * 100) 
+
   useEffect(() => {
     // If the timer is running we want to run this code
     if (isRunning) {
+      console.log(percentage)
+      console.log(secondsLeft)
       // The setInterval() method calls a function at specified intervals (in milliseconds).
       let interval = setInterval(() => {
         // clearInterval(interval)
@@ -33,6 +39,7 @@ const PomodoroTimer = () => {
           if (minutes !== 0) {
             setSeconds(59)
             setMinutes(minutes - 1)
+            setSecondsLeft(secondsLeft - 1)
           } else {
             let minutes = work ? 24 : 4
             let seconds = 59
@@ -40,16 +47,23 @@ const PomodoroTimer = () => {
             setSeconds(seconds)
             setMinutes(minutes)
             setWork(!work)
+            setSecondsLeft(totalSeconds)
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
           setSeconds(seconds - 1)
+          setSecondsLeft(secondsLeft - 1)
         }
       }, 1000)
       // clearInterval clears the timer set (stops setInterval)
       return () => clearInterval(interval)
     }
-  }, [isRunning, work, minutes, seconds])
+  }, [isRunning, work, minutes, seconds, secondsLeft, percentage, totalSeconds])
+
+  
+
+  
+
 
   // In order to always show two digits for minutes and seconds
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes
@@ -57,7 +71,7 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer>
-      <TimeAndTaskContainer>
+      <TimeAndTaskContainer percentage={percentage}>
         <h1>
           {timerMinutes}:{timerSeconds}
         </h1>
@@ -102,6 +116,8 @@ const TimerContainer = styled.div`
 
 const TimeAndTaskContainer = styled.div`
   padding: 20px 0;
+  width: ${props => props.percentage}%;
+  background-color: grey;
 
   p {
     color: #FFFFFF99;
