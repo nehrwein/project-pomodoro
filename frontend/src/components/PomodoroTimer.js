@@ -5,8 +5,13 @@ import React from "react"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRedo, faPlayCircle, faTimes, faPauseCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faRedo,
+  faPlayCircle,
+  faTimes,
+  faPauseCircle,
+} from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
@@ -21,7 +26,7 @@ const PomodoroTimer = () => {
   const StopIcon = <FontAwesomeIcon icon={faTimes} />
   const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
 
-  const percentage = Math.round(secondsLeft / totalSeconds * 100) 
+  const percentage = Math.round((secondsLeft / totalSeconds) * 100)
 
   useEffect(() => {
     // If the timer is running we want to run this code
@@ -60,11 +65,6 @@ const PomodoroTimer = () => {
     }
   }, [isRunning, work, minutes, seconds, secondsLeft, percentage, totalSeconds])
 
-  
-
-  
-
-
   // In order to always show two digits for minutes and seconds
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds
@@ -88,12 +88,18 @@ const PomodoroTimer = () => {
           <Icon active>{ReplayIcon}</Icon>
         </Button>
         {isRunning ? (
-          <Button onClick={() => setIsRunning(false)}><BigIcon>{PauseIcon}</BigIcon></Button>
+          <Button onClick={() => setIsRunning(false)}>
+            <BigIcon>{PauseIcon}</BigIcon>
+          </Button>
         ) : (
-          <Button onClick={() => setIsRunning(true)}><BigIcon>{PlayIcon}</BigIcon></Button>
+          <Button onClick={() => setIsRunning(true)}>
+            <BigIcon>{PlayIcon}</BigIcon>
+          </Button>
         )}
         {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
-        <Button><Icon>{StopIcon}</Icon></Button>
+        <Button>
+          <Icon>{StopIcon}</Icon>
+        </Button>
       </ButtonsContainer>
     </TimerContainer>
   )
@@ -104,7 +110,10 @@ export default PomodoroTimer
 const TimerContainer = styled.div`
   /*height: 30vh;*/
   width: 100%;
-  background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
+  background-image: url("/assets/tomato-background-timer.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   text-align: center;
   margin: 0;
   color: white;
@@ -116,24 +125,25 @@ const TimerContainer = styled.div`
 
 const TimeAndTaskContainer = styled.div`
   padding: 20px 0;
-  width: ${props => props.percentage}%;
-  background-color: grey;
+  width: ${(props) => props.percentage}%;
+  background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
+  /* Add some transition here to make it more smooth */
 
   p {
-    color: #FFFFFF99;
+    color: #ffffff99;
   }
 `
 
 const ButtonsContainer = styled.div`
-  background: #4E1E04;
+  background: #4e1e04;
   padding: 20px 0;
 
-  display: flex; 
+  display: flex;
   justify-content: space-evenly;
 `
 
 const Icon = styled.i`
-  color: #D75004;
+  color: #d75004;
   font-size: 28px;
 
   :hover {
@@ -150,6 +160,3 @@ const Button = styled.button`
   border: none;
   background-color: transparent;
 `
-
-
-
