@@ -83,6 +83,7 @@ const PomodoroTimer = () => {
             setIsRunning(false)
             setSeconds(0)
             setMinutes(25)
+            setSecondsLeft(totalSeconds)
           }}
         >
           <Icon active>{ReplayIcon}</Icon>

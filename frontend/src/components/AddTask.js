@@ -25,7 +25,7 @@ const AddTask = () => {
           id="task"
           type="text"
           value={task}
-          placeholder="Add task here..."
+          placeholder="Add new task"
           onChange={(e) => setTask(e.target.value)}
         />
     </AddTaskContainer>
@@ -35,7 +35,7 @@ const AddTask = () => {
 export default AddTask;
 
 const AddTaskContainer = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,8 +43,7 @@ const AddTaskContainer = styled.div`
   padding: 20px 0;
   gap:10px;
   /*box-sizing: border-box;*/
-  /*margin: 10px auto;*/
-
+  /* margin: 10px auto; */
 `; 
 
 const AddButton = styled.button`
@@ -59,7 +58,7 @@ const Input = styled.input`
   outline: none;
   font-size: 20px;
   color: #D75004;
-  width:30%;
+  width: 40%;
 
   ::placeholder {
     color: #D75004;
