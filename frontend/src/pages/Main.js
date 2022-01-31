@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //import { user } from "../reducers/user";
-//import Header from "../components/Header"
 import TaskList from "../components/TaskList";
 import PomodoroTimer from "../components/PomodoroTimer";
 
@@ -21,7 +20,6 @@ const Main = () => {
 
   return (
     <MainContainer>
-      {/*<Header />*/}
       <PomodoroTimer />
       <TaskList />
       {/* add hamburger menu and put log out button there? */ }
