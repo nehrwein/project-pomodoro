@@ -32,7 +32,7 @@ const PomodoroTimer = () => {
     // If the timer is running we want to run this code
     if (isRunning) {
       // The setInterval() method calls a function at specified intervals (in milliseconds).
-      let interval = setInterval(() => {
+      const interval = setInterval(() => {
         // clearInterval(interval)
 
         // To make the countdown for the seconds work properly
@@ -44,8 +44,8 @@ const PomodoroTimer = () => {
             setMinutes(minutes - 1)
             setSecondsLeft(secondsLeft - 1)
           } else {
-            let minutes = work ? 24 : 4
-            let seconds = 59
+            const minutes = work ? 24 : 4
+            const seconds = 59
 
             setSeconds(seconds)
             setMinutes(minutes)
