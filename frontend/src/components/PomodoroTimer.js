@@ -16,8 +16,8 @@ import {
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
-  const [work, setWork] = useState(false)
-  const totalSeconds = !work ? 25 * 60 : 5 * 60
+  const [work, setWork] = useState(true)
+  const totalSeconds = work ? 25 * 60 : 5 * 60
   const [isRunning, setIsRunning] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
 
@@ -33,10 +33,6 @@ const PomodoroTimer = () => {
     if (isRunning) {
       // The setInterval() method calls a function at specified intervals (in milliseconds).
       const interval = setInterval(() => {
-        // clearInterval(interval)
-
-        // To make the countdown for the seconds work properly
-
         // If seconds are equal to 0 we check if there are minutes left or if the timer has come to an end
         if (seconds === 0) {
           if (minutes !== 0) {
@@ -44,13 +40,13 @@ const PomodoroTimer = () => {
             setMinutes(minutes - 1)
             setSecondsLeft(secondsLeft - 1)
           } else {
-            const minutes = work ? 24 : 4
-            const seconds = 59
+            const newMinutes = work ? 4 : 24
+            const newSeconds = 59
 
-            setSeconds(seconds)
-            setMinutes(minutes)
-            setWork(!work)
-            setSecondsLeft(totalSeconds)
+            setSeconds(newSeconds)
+            setMinutes(newMinutes)
+            setSecondsLeft(work ? 5 * 60 : 25 * 60)
+            setWork(work ? !work : work)
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
