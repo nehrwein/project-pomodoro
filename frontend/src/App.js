@@ -14,11 +14,13 @@ import Navigation from './components/Navigation'
 import { user } from './reducers/user'
 import { tasks } from './reducers/tasks'
 import { ui } from './reducers/ui'
+import { pomodoro } from './reducers/pomodoro'
 
 const reducer = combineReducers({
   user: user.reducer,
   tasks: tasks.reducer,
-  ui: ui.reducer
+  ui: ui.reducer,
+  pomodoro: pomodoro.reducer
 })
 
 const preloadedStateJSON = localStorage.getItem('UserTasksReduxState')

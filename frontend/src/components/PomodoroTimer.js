@@ -3,6 +3,7 @@
 
 import React from "react"
 import { useState, useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -12,6 +13,7 @@ import {
   faTimes,
   faPauseCircle,
 } from "@fortawesome/free-solid-svg-icons"
+import { pomodoro } from "reducers/pomodoro"
 
 const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
@@ -21,12 +23,20 @@ const PomodoroTimer = () => {
   const [isRunning, setIsRunning] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
 
+  const dispatch = useDispatch()
+  const description = useSelector((store) => store.pomodoro.items.description)
+
   const ReplayIcon = <FontAwesomeIcon icon={faRedo} />
   const PlayIcon = <FontAwesomeIcon icon={faPlayCircle} />
   const StopIcon = <FontAwesomeIcon icon={faTimes} />
   const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
 
   const percentage = Math.round((secondsLeft / totalSeconds) * 100)
+
+  useEffect(() => {
+    dispatch(pomodoro.actions.setDescription())
+  }, [dispatch]);
+  
 
   useEffect(() => {
     // If the timer is running we want to run this code
@@ -69,7 +79,7 @@ const PomodoroTimer = () => {
         <h1>
           {timerMinutes}:{timerSeconds}
         </h1>
-        <p>Tap on a task to start</p>
+        <p>{description}</p>
       </TimeAndTaskContainer>
       <ButtonsContainer>
         <Button

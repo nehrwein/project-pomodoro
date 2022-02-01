@@ -7,6 +7,7 @@ import AddTask from './AddTask';
 import LoadingIndicator from './LoadingIndicator';
 
 import styled from "styled-components/macro";
+import { pomodoro } from 'reducers/pomodoro';
 
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items);
@@ -69,7 +70,7 @@ const TaskList = () => {
                   //  htmlFor='completed'
                   //  completed={item.completed}>{item.description}
                   //</TaskDescription>
-                  <TaskDescription completed={item.completed}>
+                  <TaskDescription completed={item.completed} onClick={() => dispatch(pomodoro.actions.setItems(item))}>
                     {item.description}
                   </TaskDescription>
                 }
