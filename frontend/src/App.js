@@ -9,7 +9,7 @@ import NotFound from './pages/NotFound'
 import Settings from './pages/Settings'
 import About from './pages/About'
 import Report from './pages/Report'
-import Test from './components/Test'
+import Drawer from './components/Drawer'
 
 import { user } from './reducers/user'
 import { tasks } from './reducers/tasks'
@@ -40,7 +40,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Test />
+        <Drawer />
         <Routes>
           <Route path="/" element={<Main />} /> 
           <Route path="/login" element={<Login />} />

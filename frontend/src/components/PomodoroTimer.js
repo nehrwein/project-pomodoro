@@ -17,7 +17,7 @@ const PomodoroTimer = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(false)
-  const totalSeconds = !work ? 24 * 60 : 4 * 60
+  const totalSeconds = !work ? 25 * 60 : 5 * 60
   const [isRunning, setIsRunning] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
 
