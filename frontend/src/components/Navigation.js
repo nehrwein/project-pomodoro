@@ -5,7 +5,7 @@ import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
 import styled from 'styled-components';
 
 
-const Drawer = () => {
+const Navigation = () => {
   const MenuIcon = <FontAwesomeIcon icon={faBars} />
   const CloseIcon = <FontAwesomeIcon icon={faTimes} />
   const [sidebar, setSidebar] = useState(false);
@@ -26,7 +26,7 @@ const Drawer = () => {
           <Icon onClick={showSidebar}>{MenuIcon}</Icon>
         </Link>
       </NavBar>
-      <NavMenu sidebar={sidebar}>
+      <SideMenu sidebar={sidebar}>
         <StyledUl>
           <StyledLi>
             <Link to='#'>
@@ -43,12 +43,12 @@ const Drawer = () => {
             );
           })}
         </StyledUl>
-      </NavMenu>
+      </SideMenu>
     </>
   );
 }
 
-export default Drawer;
+export default Navigation;
 
 const NavBar = styled.div`
   background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
@@ -66,7 +66,7 @@ const Icon = styled.i`
   background: none;
 `
 
-const NavMenu = styled.nav`
+const SideMenu = styled.nav`
   background-color: rgb(250, 250, 250);
   width: 250px;
   height: 100vh;
