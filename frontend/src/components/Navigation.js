@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
+import { user } from "../reducers/user";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
 import styled from 'styled-components';
 
 
 const Navigation = () => {
+  const dispatch = useDispatch()
   const MenuIcon = <FontAwesomeIcon icon={faBars} />
   const CloseIcon = <FontAwesomeIcon icon={faTimes} />
   const [sidebar, setSidebar] = useState(false);
+
+  const accessToken = useSelector((store) => store.user.accessToken);
 
   const showSidebar = () => setSidebar(!sidebar);
 
@@ -19,31 +24,40 @@ const Navigation = () => {
     {title: 'About us', path: '/about'},
   ]
 
+  const onLogOut = () => {
+    setSidebar(false)
+    dispatch(user.actions.setAccessToken(null))
+  }
+
   return (
     <>
-      <NavBar>
-        <Link to='#'>
-          <Icon onClick={showSidebar}>{MenuIcon}</Icon>
-        </Link>
-      </NavBar>
-      <SideMenu sidebar={sidebar}>
-        <StyledUl>
-          <StyledLi>
+      {accessToken && (
+        <>
+          <NavBar>
             <Link to='#'>
-              <Icon orange onClick={showSidebar}>{CloseIcon}</Icon>
+              <Icon onClick={showSidebar}>{MenuIcon}</Icon>
             </Link>
-          </StyledLi>
-          {NavigationLinks.map((item, index) => {
-            return (
-              <NavList key={index}>
-                <NavLink to={item.path}>
-                  {item.title}
-                </NavLink>
-              </NavList>
-            );
-          })}
-        </StyledUl>
-      </SideMenu>
+          </NavBar>
+          <SideMenu sidebar={sidebar}>
+            <StyledUl>
+              <StyledLi>
+                <Link to='#'>
+                  <Icon orange onClick={showSidebar}>{CloseIcon}</Icon>
+                </Link>
+              </StyledLi>
+              {NavigationLinks.map((item, index) => {
+                return (
+                  <NavList key={index}>
+                    <NavLink to={item.path}>
+                      {item.title}
+                    </NavLink>
+                  </NavList>
+                );
+              })}
+            </StyledUl>
+            <button type='submit' onClick={() => onLogOut()}>Log Out</button>
+          </SideMenu>
+        </>)}
     </>
   );
 }
@@ -71,7 +85,8 @@ const SideMenu = styled.nav`
   width: 250px;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   right: ${props => props.sidebar ? 0 : '-100%'};
