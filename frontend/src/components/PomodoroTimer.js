@@ -76,12 +76,15 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer>
-      <TimeAndTaskContainer percentage={percentage}>
-        <h1>
-          {timerMinutes}:{timerSeconds}
-        </h1>
-        <p>{description}</p>
-      </TimeAndTaskContainer>
+      <Wrapper>
+        <SlidingAnimation percentage={percentage}></SlidingAnimation>
+        <TimeAndTaskContainer>
+          <h1>
+            {timerMinutes}:{timerSeconds}
+          </h1>
+          <p>{description}</p>
+        </TimeAndTaskContainer>
+      </Wrapper>
       <ButtonsContainer>
         <Button
           onClick={() => {
@@ -114,31 +117,50 @@ const PomodoroTimer = () => {
 export default PomodoroTimer
 
 const TimerContainer = styled.div`
-  /*height: 30vh;*/
+  /* height: 30vh; */
+  /* Add some shadow */
   width: 100%;
+  margin: 0;
+  color: white;
   background-image: url("/assets/tomato-background-timer.jpg");
+  width: 100%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  /* Add some shadow */
-  text-align: center;
-  margin: 0;
-  color: white;
 
   h1 {
     font-size: 48px;
     margin: 0;
-`
-
-const TimeAndTaskContainer = styled.div`
-  padding: 20px 0;
-  width: ${(props) => props.percentage}%;
-  background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
-  /* Add some transition here to make it more smooth */
+  }
 
   p {
     color: #ffffff99;
   }
+`
+
+const Wrapper = styled.div`
+  display: flex;
+`
+
+const SlidingAnimation = styled.div`
+  padding: 20px 0;
+  width: ${(props) => props.percentage}%;
+  background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
+  position: relative;
+  z-index: 1;
+  height: 15vh;
+  /* Maybe add some transition here to make it more smooth */
+`
+
+const TimeAndTaskContainer = styled.div`
+  position: absolute;
+  z-index: 2;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
 `
 
 const ButtonsContainer = styled.div`
