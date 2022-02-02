@@ -34,6 +34,7 @@ const PomodoroTimer = () => {
 
   const dispatch = useDispatch()
 
+  // When user enters the page we want the timer to display "tap on a task to start"
   useEffect(() => {
     dispatch(timer.actions.setDescription())
   }, [dispatch])
