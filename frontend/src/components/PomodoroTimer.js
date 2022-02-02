@@ -118,7 +118,7 @@ export default PomodoroTimer
 
 const TimerContainer = styled.div`
   /* height: 30vh; */
-  /* Add some shadow */
+  /* Add some shadow for the background img */
   width: 100%;
   margin: 0;
   color: white;
