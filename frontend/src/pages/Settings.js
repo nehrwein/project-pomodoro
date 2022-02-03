@@ -1,7 +1,11 @@
 import React from 'react';
 
 const Settings = () => {
-  return <div>Settings for pomodoro and user</div>;
+  return (
+    <div>
+      <h2>Settings for pomodoro and user</h2>
+    </div>
+  );
 };
 
 export default Settings;
