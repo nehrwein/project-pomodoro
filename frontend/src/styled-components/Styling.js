@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 
 export const MainContainer = styled.main`
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
   position: absolute;

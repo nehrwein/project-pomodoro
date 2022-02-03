@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit"
 export const timer = createSlice({
   name: "timer",
   initialState: {
-    items: [],
+    items: {},
   },
   reducers: {
     setItems: (store, action) => {
+			console.log(store)
       store.items = action.payload
     },
     setDescription: (store) => {

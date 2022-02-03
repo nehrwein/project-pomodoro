@@ -91,10 +91,6 @@ const TaskList = () => {
                       </button>
                     </>
                   ) : (
-                    //<TaskDescription
-                    //  htmlFor='completed'
-                    //  completed={item.completed}>{item.description}
-                    //</TaskDescription>
                     <TaskDescription
                       onClick={() => dispatch(timer.actions.setItems(item))}
                       completed={item.completed}
@@ -139,6 +135,7 @@ const TaskWrapper = styled.div`
   width: 100%;
   gap: 20px;
   position: relative;
+	color: #FFF9F5;
 `
 
 const Task = styled.div`
