@@ -69,7 +69,7 @@ const TaskSchema = new mongoose.Schema({
     default: Date.now
   },
   completedAt: {
-    type: Date,
+    type: String,
     default: null
   },
   user: {

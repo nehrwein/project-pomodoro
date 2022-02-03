@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 import { API_URL } from "../utils/constants";
 import { ui } from "./ui"
 
+const {format} = require('date-fns');
+
 export const tasks = createSlice({
   name: "tasks",
   initialState: {
@@ -134,7 +136,7 @@ export const toggleIsComplete = (_id, completed, completedAt, accessToken, userI
         "Content-Type": "application/json",
         Authorization: accessToken,
       },
-      body: JSON.stringify({ user: userId, completed: !completed ? true : false, completedAt: completedAt === null ? new Date() : null }),
+      body: JSON.stringify({ user: userId, completed: !completed ? true : false, completedAt: completedAt === null ? format(new Date(),'dd.MM.yyyy') : null }),
     };
     
     dispatch(ui.actions.setLoading(true))
