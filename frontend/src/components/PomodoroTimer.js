@@ -1,5 +1,5 @@
 // TODO:
-// -Mode for timer? useRef hook: useRef is like a “box” that can hold a mutable value in its .current property.
+// Icon buttons should be disabled when user hasn't yet tapped on a task
 
 import React from "react"
 import { useState, useEffect } from "react"
