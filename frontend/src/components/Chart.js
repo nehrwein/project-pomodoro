@@ -22,7 +22,7 @@ ChartJS.register(
 const Chart = ({chartData}) => {
   return (
     <div>
-      <div style={{ width: 600 }}>
+      <div style={{ width: 400 }}>
         <Bar
           data={chartData}
         />

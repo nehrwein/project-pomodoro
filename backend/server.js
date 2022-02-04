@@ -217,10 +217,36 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
-// endpoint to higher the pomodoro score of a task
-// The setup of the endpoint prevents changing the description of already completed tasks
-app.patch('/tasks/:taskId/pomodoro', authenticateUser)
-app.patch('/tasks/:taskId/pomodoro', async (req, res) => {
+// endpoint for getting the tasks per day of a user
+app.get('/tasks/day/:userId', authenticateUser)
+app.get('/tasks/day/:userId', async (req, res) => {
+  const { userId } = req.params
+
+  try {
+    const queriedUser = await User.findById(userId)
+    const tasksPerday = await User.aggregate([
+      {
+        $group: {
+          _id: '$completedAt',
+          count: { $sum: 1 },
+          tasksPerDay: { $push: { description: '$description'} }
+        }
+      }
+    ])
+
+    if (!tasksPerday) {
+      res.status(404).json({ response: 'No tasks found', success: false})
+    } else {
+      res.status(200).json({ response: tasksPerday, success: true})
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+// !!! new version to higher the no of pomodoros without connecting it to a certain task
+app.patch('/tasks/pomodoro', authenticateUser)
+app.patch('/tasks/pomodoro', async (req, res) => {
   const { taskId } = req.params
   const { user } = req.body
 
@@ -258,8 +284,7 @@ app.patch('/tasks/:taskId/pomodoro', async (req, res) => {
     res.status(400).json({ response: error, success: false })
   }
 })
-
-// !!!!!!!!!!!! Test
+// !!!!!!!!!!!! Test check for completed doesn't work
 app.patch('/tasks/:taskId/testpomodoro', authenticateUser)
 app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
   const { taskId } = req.params
@@ -368,10 +393,10 @@ app.post('/signin', async (req, res) => {
 // endpoint for deleting a user
 app.delete('/users/:userId', authenticateUser)
 app.delete('/users/:userId', async (req, res) => {
-  const { user } = req.body
+  const { userId } = req.params
 
   try {
-    const queriedUser = await User.findById(user)
+    const queriedUser = await User.findById(userId)
     const deletedUser = await User.deleteOne({ user: queriedUser._id })
 
     if (!deletedUser) {
