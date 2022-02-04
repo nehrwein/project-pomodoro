@@ -11,6 +11,7 @@ export const timer = createSlice({
       store.items = action.payload
     },
     setDescription: (store) => {
+      store.items = {}
       store.items.description = "Tap on a task to start"
     },
   },
