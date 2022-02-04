@@ -32,6 +32,17 @@ const PomodoroTimer = () => {
 
   const percentage = Math.round((secondsLeft / totalSeconds) * 100)
 
+  const gradientRed = "linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%)"
+  const gradientBlue = "linear-gradient(270deg, #04BDD7 0%, #202D48 100%)"
+  const red = "#592101"
+  const blue = "#202D48"
+  const lightRed = "#D75004"
+  const lightBlue = "#04BDD7"
+
+  const animationColor = work ? gradientRed : gradientBlue
+  const buttonBackgroundColor = work ? red : blue
+  const iconColor = work ? lightRed : lightBlue
+
   const dispatch = useDispatch()
 
   // When user enters the page we want the timer to display "tap on a task to start"
@@ -77,7 +88,10 @@ const PomodoroTimer = () => {
   return (
     <TimerContainer>
       <Wrapper>
-        <SlidingAnimation percentage={percentage}></SlidingAnimation>
+        <SlidingAnimation
+          percentage={percentage}
+          animationColor={animationColor}
+        ></SlidingAnimation>
         <TimeAndTaskContainer>
           <h1>
             {timerMinutes}:{timerSeconds}
@@ -85,7 +99,7 @@ const PomodoroTimer = () => {
           <p>{description}</p>
         </TimeAndTaskContainer>
       </Wrapper>
-      <ButtonsContainer>
+      <ButtonsContainer buttonBackgroundColor={buttonBackgroundColor}>
         <Button
           onClick={() => {
             setIsRunning(false)
@@ -94,20 +108,29 @@ const PomodoroTimer = () => {
             setSecondsLeft(totalSeconds)
           }}
         >
-          <Icon active>{ReplayIcon}</Icon>
+          <Icon iconColor={iconColor} active>
+            {ReplayIcon}
+          </Icon>
         </Button>
         {isRunning ? (
           <Button onClick={() => setIsRunning(false)}>
-            <BigIcon>{PauseIcon}</BigIcon>
+            <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
           </Button>
         ) : (
           <Button onClick={() => setIsRunning(true)}>
-            <BigIcon>{PlayIcon}</BigIcon>
+            <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
           </Button>
         )}
         {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
-        <Button onClick={() => dispatch(timer.actions.setDescription())}>
-          <Icon>{StopIcon}</Icon>
+        <Button
+          onClick={() => {
+            setIsRunning(false)
+            setSeconds(0)
+            setMinutes(25)
+            dispatch(timer.actions.setDescription())
+          }}
+        >
+          <Icon iconColor={iconColor}>{StopIcon}</Icon>
         </Button>
       </ButtonsContainer>
     </TimerContainer>
@@ -118,7 +141,6 @@ export default PomodoroTimer
 
 const TimerContainer = styled.div`
   /*height: 30vh;*/
-  /* Add some shadow for the background img */
   width: 100%;
   margin: 0;
   color: white;
@@ -145,7 +167,7 @@ const Wrapper = styled.div`
 const SlidingAnimation = styled.div`
   padding: 20px 0;
   width: ${(props) => props.percentage}%;
-  background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
+  background: ${(props) => props.animationColor};
   position: relative;
   z-index: 1;
   height: 15vh;
@@ -164,15 +186,14 @@ const TimeAndTaskContainer = styled.div`
 `
 
 const ButtonsContainer = styled.div`
-  background: #4e1e04;
+  background: ${(props) => props.buttonBackgroundColor};
   padding: 20px 0;
-
   display: flex;
   justify-content: space-evenly;
 `
 
 const Icon = styled.i`
-  color: #d75004;
+  color: ${(props) => props.iconColor};
   font-size: 28px;
 
   :hover {

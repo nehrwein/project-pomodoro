@@ -11,6 +11,7 @@ import {
 import { timer } from "../reducers/timer"
 import AddTask from "./AddTask"
 import LoadingIndicator from "./LoadingIndicator"
+// import PomodoroTimer from "./PomodoroTimer"
 
 import styled from "styled-components/macro"
 
@@ -28,6 +29,13 @@ const TaskList = () => {
 
   const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
   const penIcon = <FontAwesomeIcon icon={faPen} />
+
+  // We need to change the color of the task depending on if user is doing a pomodoro or having a break
+  // We need to access information from PomodoroTimer.js
+
+  // const red = "#592101"
+  // const blue = "#202D48"
+  // const taskColor = work ? red : blue
 
   const dispatch = useDispatch()
 
@@ -48,7 +56,11 @@ const TaskList = () => {
         {!loading && (
           <>
             {allTasks.map((item) => (
-              <Task key={item._id} completed={item.completed}>
+              <Task
+                key={item._id}
+                // taskColor={taskColor}
+                completed={item.completed}
+              >
                 <div>
                   <CheckboxInput
                     id="completed"
@@ -135,7 +147,7 @@ const TaskWrapper = styled.div`
   width: 100%;
   gap: 20px;
   position: relative;
-	color: #FFF9F5;
+  color: #fff9f5;
 `
 
 const Task = styled.div`
