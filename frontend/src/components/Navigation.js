@@ -78,6 +78,7 @@ const NavBar = styled.div`
   position: absolute;
 `
 
+// Changed the color to #592101 just for now in order to see the icon
 const Icon = styled.i`
   margin-right: 15px;
   color: ${(props) => (props.orange ? "#D75004" : "#592101  ")};
