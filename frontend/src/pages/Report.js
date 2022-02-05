@@ -4,12 +4,22 @@ import Chart from '../components/Chart'
 
 const Report = () => {
   const allTasks = useSelector((store) => store.tasks.items)
+  let tempResult = {}
+
+  for (let { completedAt } of allTasks) 
+    tempResult[completedAt] = {
+      completedAt,
+      count: tempResult[completedAt] ? tempResult[completedAt].count + 1 : 1
+    }
+
+  const tasksPerDay = Object.values(tempResult) 
+  console.log('Result: ', tasksPerDay)
 
   const userData = {
-    labels: allTasks.map((data) => data.completedAt),
+    labels: tasksPerDay.map((data) => data.completedAt),
     datasets: [{
-      label: "No of Pomodoros",
-      data: allTasks.map((data) => data.pomodoros),
+      label: "No of completed tasks per day",
+      data: tasksPerDay.map((data) => data.count),
       backgroundColor: [
         "#d75004",
       ],
