@@ -140,7 +140,6 @@ const PomodoroTimer = () => {
 export default PomodoroTimer
 
 const TimerContainer = styled.div`
-  /*height: 30vh;*/
   width: 100%;
   margin: 0;
   color: white;
@@ -183,6 +182,8 @@ const TimeAndTaskContainer = styled.div`
   left: 0;
   right: 0;
   text-align: center;
+  top: 0;
+  padding-top: 30px;
 `
 
 const ButtonsContainer = styled.div`

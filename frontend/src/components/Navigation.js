@@ -67,19 +67,28 @@ const Navigation = () => {
 export default Navigation
 
 const NavBar = styled.div`
-  background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
+  /* background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%); */
   height: 30px;
   padding: 5px 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 100%;
+  top: 0;
+  position: absolute;
 `
 
 const Icon = styled.i`
   margin-right: 15px;
-  color: ${(props) => (props.orange ? "#D75004" : "white")};
+  color: ${(props) => (props.orange ? "#D75004" : "#592101  ")};
   font-size: 28px;
   background: none;
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+  margin-top: 5px;
 `
 
 const SideMenu = styled.nav`

@@ -147,7 +147,6 @@ const TaskWrapper = styled.div`
   width: 100%;
   gap: 20px;
   position: relative;
-  color: #fff9f5;
 `
 
 const Task = styled.div`
