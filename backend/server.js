@@ -64,6 +64,10 @@ const TaskSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  pomCompletedAt: {
+    type: String,
+    default: null
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -80,6 +84,24 @@ const TaskSchema = new mongoose.Schema({
 })
 
 const Task = mongoose.model('Task', TaskSchema)
+
+const PomodoroSchema = new mongoose.Schema({
+  pomodoro: {
+    type: Number,
+    default: 1
+  },
+  completedAt: {
+    type: String,
+    default: null
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  }
+})
+
+const Pomodoro = mongoose.model('Pomodoro', PomodoroSchema)
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
@@ -118,13 +140,14 @@ app.get('/endpoints', (req, res) => {
   })  
 })
 
-// endpoint for getting all the tasks of a user
+// endpoint for getting all the tasks and pomodoros of a user
 app.get('/tasks/:userId', authenticateUser)
 app.get('/tasks/:userId', async (req, res) => {
   const { userId } = req.params
 
   const tasks = await Task.find({ user: userId }).sort({ createdAt: 'desc' })
-  res.status(201).json({ response: tasks, success: true })
+  const pomodoros = await Pomodoro.find({ user: userId })
+  res.status(201).json({ response: { tasks, pomodoros}, success: true })
 })
 
 // endpoint for posting a new task
@@ -217,74 +240,23 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
-// endpoint for getting the tasks per day of a user
-app.get('/tasks/day/:userId', authenticateUser)
-app.get('/tasks/day/:userId', async (req, res) => {
+// !!! new version to higher the no of pomodoros without connecting it to a certain task
+app.post('/tasks/:userId/pomodoro', authenticateUser)
+app.post('/tasks/:userId/pomodoro', async (req, res) => {
   const { userId } = req.params
+  const { completedAt } = req.body
 
   try {
     const queriedUser = await User.findById(userId)
-    const tasksPerday = await User.aggregate([
-      {
-        $group: {
-          _id: '$completedAt',
-          count: { $sum: 1 },
-          tasksPerDay: { $push: { description: '$description'} }
-        }
-      }
-    ])
+    const addPomodoro = await new Pomodoro ({ completedAt, user: queriedUser._id}).save()
 
-    if (!tasksPerday) {
-      res.status(404).json({ response: 'No tasks found', success: false})
-    } else {
-      res.status(200).json({ response: tasksPerday, success: true})
-    }
+    res.status(201).json({ response: addPomodoro, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
 })
 
-// !!! new version to higher the no of pomodoros without connecting it to a certain task
-app.patch('/tasks/pomodoro', authenticateUser)
-app.patch('/tasks/pomodoro', async (req, res) => {
-  const { taskId } = req.params
-  const { user } = req.body
-
-  try {
-    const queriedUser = await User.findById(user)
-    const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser._id},
-      [
-        {
-          $inc: {
-            pomodoros: {
-              $switch: {
-                branches: [
-                  {
-                    case: { $eq: ['$completed', false] },
-                    then: 1,
-                  },
-                ],
-              },
-            },
-          },
-        },
-      ],
-      {
-        new: true,
-      }
-    );  
-
-    if (!updatedTask) {
-      res.status(404).json({ response: 'No task found with this Id', success: false})
-    } else {
-      res.status(200).json({ response: updatedTask, success: true})
-    }
-  } catch (error) {
-    res.status(400).json({ response: error, success: false })
-  }
-})
-// !!!!!!!!!!!! Test check for completed doesn't work
+/* // !!!!!!!!!!!! Test check for completed doesn't work
 app.patch('/tasks/:taskId/testpomodoro', authenticateUser)
 app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
   const { taskId } = req.params
@@ -312,7 +284,7 @@ app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
-})
+}) */
 
 // endpoint for deleting tasks
 app.delete('/tasks/:taskId', authenticateUser)

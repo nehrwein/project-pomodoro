@@ -15,7 +15,7 @@ import LoadingIndicator from "./LoadingIndicator"
 import styled from "styled-components/macro"
 
 const TaskList = () => {
-  const allTasks = useSelector((store) => store.tasks.items)
+  const allTasks = useSelector((store) => store.tasks.items.tasks)
   const accessToken = useSelector((store) => store.user.accessToken)
   const userId = useSelector((store) => store.user.userId)
   const loading = useSelector((store) => store.ui.loading)
