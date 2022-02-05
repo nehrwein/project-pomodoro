@@ -256,36 +256,6 @@ app.post('/tasks/:userId/pomodoro', async (req, res) => {
   }
 })
 
-/* // !!!!!!!!!!!! Test check for completed doesn't work
-app.patch('/tasks/:taskId/testpomodoro', authenticateUser)
-app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
-  const { taskId } = req.params
-  const { user } = req.body
-
-  try {
-    const queriedUser = await User.findById(user)
-    const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser._id},
-      {
-        $inc: {
-          pomodoros: 1
-        }
-      },
-      {
-        new: true,
-      }
-    );  
-
-    if (!updatedTask) {
-      res.status(404).json({ response: 'No task found with this Id', success: false})
-    } else {
-      res.status(200).json({ response: updatedTask, success: true})
-    }
-  } catch (error) {
-    res.status(400).json({ response: error, success: false })
-  }
-}) */
-
 // endpoint for deleting tasks
 app.delete('/tasks/:taskId', authenticateUser)
 app.delete('/tasks/:taskId', async (req, res) => {
