@@ -40,7 +40,7 @@ const Report = () => {
   console.log('Ergebnis Pomo: ', pomoData)
 
   const userData = {
-    labels: pomoData.map((data) => data.completedAt),
+    labels: tasksPerDay.map((data) => data.completedAt),
     datasets: [
       {
         label: "No of completed tasks per day",

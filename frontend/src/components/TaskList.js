@@ -22,7 +22,9 @@ const TaskList = () => {
   const loading = useSelector((store) => store.ui.loading)
   const error = useSelector((store) => store.tasks.error)
   console.log("Error: ", error)
-  console.log(allTasks)
+  console.log("AT: ", accessToken)
+  console.log("userId: ", userId)
+  console.log('allTasks: ', allTasks)
 
   const [pickedId, setPickedId] = useState("")
   const [updatedDescription, setUpdatedDescription] = useState("")
@@ -53,7 +55,7 @@ const TaskList = () => {
     <>
       <TaskWrapper>
         {loading && <LoadingIndicator />}
-        {!loading && (
+        {allTasks && !loading && (
           <>
             {allTasks.map((item) => (
               <Task

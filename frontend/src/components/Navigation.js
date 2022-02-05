@@ -25,7 +25,10 @@ const Navigation = () => {
 
   const onLogOut = () => {
     setSidebar(false)
+    dispatch(user.actions.setUserId(null))
+    dispatch(user.actions.setUsername(null))
     dispatch(user.actions.setAccessToken(null))
+    dispatch(user.actions.setError(null))
   }
 
   return (
