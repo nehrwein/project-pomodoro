@@ -7,7 +7,6 @@ export const timer = createSlice({
   },
   reducers: {
     setItems: (store, action) => {
-			console.log(store)
       store.items = action.payload
     },
     setDescription: (store) => {

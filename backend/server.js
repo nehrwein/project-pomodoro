@@ -64,6 +64,10 @@ const TaskSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  pomCompletedAt: {
+    type: String,
+    default: null
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -80,6 +84,24 @@ const TaskSchema = new mongoose.Schema({
 })
 
 const Task = mongoose.model('Task', TaskSchema)
+
+const PomodoroSchema = new mongoose.Schema({
+  pomodoro: {
+    type: Number,
+    default: 1
+  },
+  completedAt: {
+    type: String,
+    default: null
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  }
+})
+
+const Pomodoro = mongoose.model('Pomodoro', PomodoroSchema)
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
@@ -118,13 +140,14 @@ app.get('/endpoints', (req, res) => {
   })  
 })
 
-// endpoint for getting all the tasks of a user
+// endpoint for getting all the tasks and pomodoros of a user
 app.get('/tasks/:userId', authenticateUser)
 app.get('/tasks/:userId', async (req, res) => {
   const { userId } = req.params
 
   const tasks = await Task.find({ user: userId }).sort({ createdAt: 'desc' })
-  res.status(201).json({ response: tasks, success: true })
+  const pomodoros = await Pomodoro.find({ user: userId })
+  res.status(201).json({ response: { tasks, pomodoros}, success: true })
 })
 
 // endpoint for posting a new task
@@ -217,73 +240,17 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
-// endpoint to higher the pomodoro score of a task
-// The setup of the endpoint prevents changing the description of already completed tasks
-app.patch('/tasks/:taskId/pomodoro', authenticateUser)
-app.patch('/tasks/:taskId/pomodoro', async (req, res) => {
-  const { taskId } = req.params
-  const { user } = req.body
+// !!! new version to higher the no of pomodoros without connecting it to a certain task
+app.post('/tasks/:userId/pomodoro', authenticateUser)
+app.post('/tasks/:userId/pomodoro', async (req, res) => {
+  const { userId } = req.params
+  const { completedAt } = req.body
 
   try {
-    const queriedUser = await User.findById(user)
-    const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser._id},
-      [
-        {
-          $inc: {
-            pomodoros: {
-              $switch: {
-                branches: [
-                  {
-                    case: { $eq: ['$completed', false] },
-                    then: 1,
-                  },
-                ],
-              },
-            },
-          },
-        },
-      ],
-      {
-        new: true,
-      }
-    );  
+    const queriedUser = await User.findById(userId)
+    const addPomodoro = await new Pomodoro ({ completedAt, user: queriedUser._id}).save()
 
-    if (!updatedTask) {
-      res.status(404).json({ response: 'No task found with this Id', success: false})
-    } else {
-      res.status(200).json({ response: updatedTask, success: true})
-    }
-  } catch (error) {
-    res.status(400).json({ response: error, success: false })
-  }
-})
-
-// !!!!!!!!!!!! Test
-app.patch('/tasks/:taskId/testpomodoro', authenticateUser)
-app.patch('/tasks/:taskId/testpomodoro', async (req, res) => {
-  const { taskId } = req.params
-  const { user } = req.body
-
-  try {
-    const queriedUser = await User.findById(user)
-    const updatedTask = await Task.findOneAndUpdate(
-      { _id: taskId, user: queriedUser._id},
-      {
-        $inc: {
-          pomodoros: 1
-        }
-      },
-      {
-        new: true,
-      }
-    );  
-
-    if (!updatedTask) {
-      res.status(404).json({ response: 'No task found with this Id', success: false})
-    } else {
-      res.status(200).json({ response: updatedTask, success: true})
-    }
+    res.status(201).json({ response: addPomodoro, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
@@ -368,10 +335,10 @@ app.post('/signin', async (req, res) => {
 // endpoint for deleting a user
 app.delete('/users/:userId', authenticateUser)
 app.delete('/users/:userId', async (req, res) => {
-  const { user } = req.body
+  const { userId } = req.params
 
   try {
-    const queriedUser = await User.findById(user)
+    const queriedUser = await User.findById(userId)
     const deletedUser = await User.deleteOne({ user: queriedUser._id })
 
     if (!deletedUser) {
