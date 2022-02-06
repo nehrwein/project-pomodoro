@@ -52,7 +52,7 @@ const Navigation = () => {
               {NavigationLinks.map((item, index) => {
                 return (
                   <NavList key={index}>
-                    <NavLink to={item.path}>{item.title}</NavLink>
+                    <NavLink to={item.path} onClick={() => setSidebar(false)}>{item.title}</NavLink>
                   </NavList>
                 )
               })}

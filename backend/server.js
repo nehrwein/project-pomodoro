@@ -64,10 +64,6 @@ const TaskSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  pomCompletedAt: {
-    type: String,
-    default: null
-  },
   createdAt: {
     type: Date,
     default: Date.now
