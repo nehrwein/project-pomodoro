@@ -3,13 +3,18 @@ import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { user } from "../reducers/user"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
+import {
+  faBars,
+  faTimes,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons"
 import styled from "styled-components"
 
 const Navigation = () => {
   const dispatch = useDispatch()
   const MenuIcon = <FontAwesomeIcon icon={faBars} />
   const CloseIcon = <FontAwesomeIcon icon={faTimes} />
+  const LogOutIcon = <FontAwesomeIcon icon={faSignOutAlt} />
   const [sidebar, setSidebar] = useState(false)
 
   const accessToken = useSelector((store) => store.user.accessToken)
@@ -57,9 +62,10 @@ const Navigation = () => {
                 )
               })}
             </StyledUl>
-            <button type="submit" onClick={() => onLogOut()}>
-              Log Out
-            </button>
+            <LogOutButton type="submit" onClick={() => onLogOut()}>
+              <p>Log out</p>
+              <p>{LogOutIcon}</p>
+            </LogOutButton>
           </SideMenu>
         </>
       )}
@@ -144,4 +150,28 @@ const StyledLi = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+`
+
+const LogOutButton = styled.button`
+  width: 110px;
+  border: 2px solid #d75004;
+  cursor: pointer;
+  color: #d75004;
+  padding: 10px;
+  margin: 50px auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  font-size: 14px;
+  display: flex;
+  justify-content: space-evenly;
+
+  p {
+    margin: 0;
+    display: inline;
+  }
+
+  &:hover {
+    background-color: #d75004;
+    color: #FFF9F5;
+  
 `
