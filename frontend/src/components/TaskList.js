@@ -24,7 +24,7 @@ const TaskList = () => {
   console.log("Error: ", error)
   console.log("AT: ", accessToken)
   console.log("userId: ", userId)
-  console.log('allTasks: ', allTasks)
+  console.log("allTasks: ", allTasks)
 
   const [pickedId, setPickedId] = useState("")
   const [updatedDescription, setUpdatedDescription] = useState("")
@@ -32,6 +32,7 @@ const TaskList = () => {
   const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
   const penIcon = <FontAwesomeIcon icon={faPen} />
 
+  //TODO
   // We need to change the color of the task depending on if user is doing a pomodoro or having a break
   // We need to access information from PomodoroTimer.js
 
