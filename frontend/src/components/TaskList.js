@@ -17,7 +17,7 @@ import styled from "styled-components/macro"
 
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
-  const allOpenTasks = allTasks.filter(item => item.completed === false)
+  /* const allOpenTasks = allTasks.filter(item => item.completed === false) */
   const accessToken = useSelector((store) => store.user.accessToken)
   const userId = useSelector((store) => store.user.userId)
   const loading = useSelector((store) => store.ui.loading)
@@ -57,9 +57,9 @@ const TaskList = () => {
     <>
       <TaskWrapper>
         {loading && <LoadingIndicator />}
-        {allOpenTasks && !loading && (
+        {allTasks && !loading && (
           <>
-            {allOpenTasks.map((item) => (
+            {allTasks.map((item) => (
               <Task
                 key={item._id}
                 // taskColor={taskColor}

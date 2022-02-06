@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Chart from '../components/Chart'
-import { sub, format } from 'date-fns'
 
 const Report = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
@@ -31,28 +30,23 @@ const Report = () => {
   })
 
   let pomoData = []
+
   for (let prop in pomoResult) {
     pomoData.push({ completedAt: prop, pomodoro: pomoResult[prop]})
   }
   pomoData.sort((a,b) => a.completedAt > b.completedAt)
 
 
-  // create an array with the last 7 days' dates
-  let sevenDays = []
-  for(let i = 6; i >= 0; i--) {
-    const daysDate = sub(new Date(), {days: i})
-    sevenDays.push(format(daysDate,'dd.MM.yyyy'))
-  }
+  console.log('Ergebnis Pomo: ', pomoData)
 
-  // The two datasets for ChartJs
   const userData = {
-    labels: sevenDays,
+    labels: tasksPerDay.map((data) => data.completedAt),
     datasets: [
       {
         label: "No of completed tasks per day",
-        data: tasksPerDay.map((data) => ({ x: data.completedAt, y: data.count})),
+        data: tasksPerDay.map((data) => data.count),
         backgroundColor: [
-          "#592101",
+          "#d75004",
         ],
         borderColor: "grey",
         borderWidth: 1,     
@@ -61,7 +55,7 @@ const Report = () => {
         label: "Pomodoros per day",
         data: pomoData.map((data) => data.pomodoro),
         backgroundColor: [
-          "#D75004",
+          "red",
         ],
         borderColor: "grey",
         borderWidth: 1,     
@@ -72,7 +66,6 @@ const Report = () => {
   return (
     <div>
       <h2>Productivity Report</h2>
-      <h3>See your results of the last 7 days</h3>
       <Chart chartData={userData}/>
     </div>
   );
