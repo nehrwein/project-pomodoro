@@ -40,15 +40,23 @@ const AddTask = () => {
 export default AddTask
 
 const AddTaskContainer = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-top: 2px solid #d75004;
   padding: 20px 0;
   gap: 10px;
+	background-color: #fff9f5;
   /*box-sizing: border-box;*/
   /* margin: 10px auto; */
+
+	@media (min-width: 768px) {
+    border: 2px solid #d75004;
+		border-radius: 30px;
+		width:80%;
+		margin-top:20px;
+  }
 `
 
 const AddButton = styled.button`
@@ -63,7 +71,8 @@ const Input = styled.input`
   outline: none;
   font-size: 20px;
   color: #d75004;
-  width: 40%;
+  width: 144px;
+	background-color: #fff9f5;
 
   ::placeholder {
     color: #d75004;

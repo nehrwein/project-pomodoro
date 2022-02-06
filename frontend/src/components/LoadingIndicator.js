@@ -12,20 +12,20 @@ const LoadingIndicator = () => {
 export default LoadingIndicator;
 
 const LoadingOverlay = styled.div`
-  position: absolute;
+  /*position: absolute;
   top: 0;
   right: 0;
-  bottom: 60%;
-  left: 0;
+  bottom: 40%;
+  left: 0;*/
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+
 `
 
 const LoadingSpinner = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 25px;
+  height: 25px;
   border: 5px solid #dcdcdc;
   border-radius: 50%;
   border-left: 5px solid #D75004;

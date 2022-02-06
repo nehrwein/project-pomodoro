@@ -17,14 +17,24 @@ const Main = () => {
   }, [accessToken, navigate]);
 
   return (
-    <MainContainer>
-      <PomodoroTimer />
-      <TaskList />
-    </MainContainer>   
+		<Wrapper>
+			<MainContainer>
+				<PomodoroTimer />
+				<TaskList />
+			</MainContainer>  
+		</Wrapper>
   );
 };
 
 export default Main;
+
+const Wrapper = styled.div`
+  background-image: url("/assets/tomato-background.jpg");
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+	height:100vh;
+`
 
 
 const MainContainer = styled.div `
@@ -34,14 +44,13 @@ const MainContainer = styled.div `
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  /*background-image: url("/assets/tomato-background.jpg");*/
-  background-repeat: no-repeat;
-  background-size: 70%;
-  background-position: center;
   padding-bottom: 50px;
 
-  @media (min-width: 992px) {
+
+  @media (min-width: 768px) {
     width: 400px;
     align-items: center;
+		border-radius: 10px;
+		margin-top:30px;
   }
 `

@@ -149,6 +149,7 @@ const TimerContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  border-radius:25px;
 
   h1 {
     font-size: 48px;
@@ -171,6 +172,13 @@ const SlidingAnimation = styled.div`
   position: relative;
   z-index: 1;
   height: 15vh;
+
+  @media (min-width: 768px) {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+  }
+
+
   /* Maybe add some transition here to make it more smooth */
 `
 
