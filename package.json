@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "postinstall": "npm install --prefix backend"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.0.2"
   }
 }
