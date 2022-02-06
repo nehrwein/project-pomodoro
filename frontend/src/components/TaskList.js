@@ -17,13 +17,17 @@ import { Checkbox } from "../library/Checkbox"
 import styled from "styled-components/macro"
 
 const TaskList = () => {
-  const allTasks = useSelector((store) => store.tasks.items)
+  const allTasks = useSelector((store) => store.tasks.items.tasks)
+  /* const allOpenTasks = allTasks.filter(item => item.completed === false) */
   const accessToken = useSelector((store) => store.user.accessToken)
   const userId = useSelector((store) => store.user.userId)
   const loading = useSelector((store) => store.ui.loading)
   const error = useSelector((store) => store.tasks.error)
   console.log("Error: ", error)
   console.log(allTasks.tasks)
+  console.log("AT: ", accessToken)
+  console.log("userId: ", userId)
+  console.log("allTasks: ", allTasks)
 
   const [pickedId, setPickedId] = useState("")
   const [updatedDescription, setUpdatedDescription] = useState("")
@@ -33,6 +37,7 @@ const TaskList = () => {
   const penIcon = <FontAwesomeIcon icon={faPen} />
   const saveIcon = <FontAwesomeIcon icon={faPlus} />
 
+  //TODO
   // We need to change the color of the task depending on if user is doing a pomodoro or having a break
   // We need to access information from PomodoroTimer.js
 
@@ -56,8 +61,7 @@ const TaskList = () => {
     <>
       <TaskWrapper>
         {loading && <LoadingIndicator />}
-        {allTasks.length === 0 && <NoTasks>No tasks? Add more!</NoTasks>}
-        {!loading && (
+        {allTasks && !loading && (
           <>
             {allTasks.tasks.map((item) => (
               <ItemContainer key={item._id} checked={item.completed}>

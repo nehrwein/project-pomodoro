@@ -3,13 +3,18 @@ import { useSelector, useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { user } from "../reducers/user"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons"
+import {
+  faBars,
+  faTimes,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons"
 import styled from "styled-components"
 
 const Navigation = () => {
   const dispatch = useDispatch()
   const MenuIcon = <FontAwesomeIcon icon={faBars} />
   const CloseIcon = <FontAwesomeIcon icon={faTimes} />
+  const LogOutIcon = <FontAwesomeIcon icon={faSignOutAlt} />
   const [sidebar, setSidebar] = useState(false)
 
   const accessToken = useSelector((store) => store.user.accessToken)
@@ -25,7 +30,10 @@ const Navigation = () => {
 
   const onLogOut = () => {
     setSidebar(false)
+    dispatch(user.actions.setUserId(null))
+    dispatch(user.actions.setUsername(null))
     dispatch(user.actions.setAccessToken(null))
+    dispatch(user.actions.setError(null))
   }
 
   return (
@@ -49,14 +57,15 @@ const Navigation = () => {
               {NavigationLinks.map((item, index) => {
                 return (
                   <NavList key={index}>
-                    <NavLink to={item.path}>{item.title}</NavLink>
+                    <NavLink to={item.path} onClick={() => setSidebar(false)}>{item.title}</NavLink>
                   </NavList>
                 )
               })}
             </StyledUl>
-            <button type="submit" onClick={() => onLogOut()}>
-              Log Out
-            </button>
+            <LogOutButton type="submit" onClick={() => onLogOut()}>
+              <p>Log out</p>
+              <p>{LogOutIcon}</p>
+            </LogOutButton>
           </SideMenu>
         </>
       )}
@@ -67,19 +76,29 @@ const Navigation = () => {
 export default Navigation
 
 const NavBar = styled.div`
-  background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
+  /* background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%); */
   height: 30px;
   padding: 5px 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 100%;
+  top: 0;
+  position: absolute;
 `
 
+// Changed the color to #592101 just for now in order to see the icon
 const Icon = styled.i`
   margin-right: 15px;
-  color: ${(props) => (props.orange ? "#D75004" : "white")};
+  color: ${(props) => (props.orange ? "#D75004" : "#592101  ")};
   font-size: 28px;
   background: none;
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+  margin-top: 5px;
 `
 
 const SideMenu = styled.nav`
@@ -131,4 +150,28 @@ const StyledLi = styled.ul`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+`
+
+const LogOutButton = styled.button`
+  width: 110px;
+  border: 2px solid #d75004;
+  cursor: pointer;
+  color: #d75004;
+  padding: 10px;
+  margin: 50px auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  font-size: 14px;
+  display: flex;
+  justify-content: space-evenly;
+
+  p {
+    margin: 0;
+    display: inline;
+  }
+
+  &:hover {
+    background-color: #d75004;
+    color: #FFF9F5;
+  
 `
