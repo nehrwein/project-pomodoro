@@ -89,7 +89,7 @@ const TaskList = () => {
                       )}
                     onClick={() => dispatch(timer.actions.setItems(item))}
                     />				*/}
-                    {item._id === pickedId && item.completed === false ? (
+                    {item._id === pickedId ? (
                       <>
                         <EditInput
                           type="text"

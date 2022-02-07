@@ -1,6 +1,3 @@
-// TODO:
-// Icon buttons should be disabled when user hasn't yet tapped on a task
-
 import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
@@ -19,6 +16,7 @@ import {
 const PomodoroTimer = () => {
   const workMinutes = useSelector(state => state.pomosettings.workMinutes)
   const breakMinutes = useSelector(state => state.pomosettings.breakMinutes)
+  const activatedButton = useSelector(state => state.timer.items._id)
   const [minutes, setMinutes] = useState(workMinutes)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(true)
@@ -96,6 +94,7 @@ const PomodoroTimer = () => {
       </Wrapper>
       <ButtonsContainer buttonBackgroundColor={buttonBackgroundColor}>
         <Button
+          disabled={!activatedButton}
           onClick={() => {
             setIsRunning(false)
             setSeconds(0)
@@ -108,20 +107,28 @@ const PomodoroTimer = () => {
           </Icon>
         </Button>
         {isRunning ? (
-          <Button onClick={() => setIsRunning(false)}>
+          <Button 
+            disabled={!activatedButton}
+            onClick={() => setIsRunning(false)}
+          >
             <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
           </Button>
         ) : (
-          <Button onClick={() => setIsRunning(true)}>
+          <Button 
+            disabled={!activatedButton}
+            onClick={() => setIsRunning(true)}
+          >
             <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
           </Button>
         )}
         {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
         <Button
+          disabled={!activatedButton}
           onClick={() => {
             setIsRunning(false)
             setSeconds(0)
             setMinutes(workMinutes)
+            dispatch(timer.actions.deleteItems())
             dispatch(timer.actions.setDescription())
           }}
         >
