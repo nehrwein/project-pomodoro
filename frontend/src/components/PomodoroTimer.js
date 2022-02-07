@@ -128,6 +128,7 @@ const PomodoroTimer = () => {
             setIsRunning(false)
             setSeconds(0)
             setMinutes(workMinutes)
+            setSecondsLeft(workMinutes * 60)
             dispatch(timer.actions.deleteItems())
             dispatch(timer.actions.setDescription())
           }}
