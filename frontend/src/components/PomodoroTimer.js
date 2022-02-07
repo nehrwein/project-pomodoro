@@ -14,9 +14,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroTimer = () => {
-  const workMinutes = useSelector(state => state.pomosettings.workMinutes)
-  const breakMinutes = useSelector(state => state.pomosettings.breakMinutes)
-  const activatedButton = useSelector(state => state.timer.items._id)
+  const workMinutes = useSelector((state) => state.pomosettings.workMinutes)
+  const breakMinutes = useSelector((state) => state.pomosettings.breakMinutes)
+  const activatedButton = useSelector((state) => state.timer.items._id)
   const [minutes, setMinutes] = useState(workMinutes)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(true)
@@ -72,7 +72,17 @@ const PomodoroTimer = () => {
       // clearInterval clears the timer set (stops setInterval)
       return () => clearInterval(interval)
     }
-  }, [isRunning, work, minutes, seconds, secondsLeft, percentage, totalSeconds, breakMinutes, workMinutes])
+  }, [
+    isRunning,
+    work,
+    minutes,
+    seconds,
+    secondsLeft,
+    percentage,
+    totalSeconds,
+    breakMinutes,
+    workMinutes,
+  ])
 
   // In order to always show two digits for minutes and seconds
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes
@@ -107,14 +117,14 @@ const PomodoroTimer = () => {
           </Icon>
         </Button>
         {isRunning ? (
-          <Button 
+          <Button
             disabled={!activatedButton}
             onClick={() => setIsRunning(false)}
           >
             <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
           </Button>
         ) : (
-          <Button 
+          <Button
             disabled={!activatedButton}
             onClick={() => setIsRunning(true)}
           >
@@ -151,7 +161,7 @@ const TimerContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius:25px;
+  border-radius: 25px;
 
   h1 {
     font-size: 48px;
@@ -180,7 +190,6 @@ const SlidingAnimation = styled.div`
     border-top-right-radius: 25px;
   }
 
-
   /* Maybe add some transition here to make it more smooth */
 `
 
@@ -195,6 +204,14 @@ const TimeAndTaskContainer = styled.div`
   text-align: center;
   top: 0;
   padding-top: 30px;
+
+  @media (min-width: 768px) {
+    padding-top: 90px;
+  }
+
+  @media (min-width: 992px) {
+    padding-top: 65px;
+  }
 `
 
 const ButtonsContainer = styled.div`
