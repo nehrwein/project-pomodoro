@@ -13,6 +13,12 @@ const AddTask = () => {
   const plusIcon = <FontAwesomeIcon icon={faPlus} />
   const dispatch = useDispatch()
 
+  const onPressEnter = (event) => {
+    if (event.key === 'Enter') {
+      onAddTodo(accessToken, userId, task)
+    }
+  }
+
   const onAddTodo = (accessToken, userId, task) => {
     dispatch(addTodo(accessToken, userId, task))
     setTask("")
@@ -22,6 +28,7 @@ const AddTask = () => {
     <AddTaskContainer>
       <AddButton
         type="submit"
+        disabled = {!task}
         onClick={() => onAddTodo(accessToken, userId, task)}
       >
         <Icon>{plusIcon}</Icon>
@@ -32,6 +39,7 @@ const AddTask = () => {
         value={task}
         placeholder="Add new task"
         onChange={(e) => setTask(e.target.value)}
+        onKeyPress={(e) => onPressEnter(e)}
       />
     </AddTaskContainer>
   )

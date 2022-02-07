@@ -62,7 +62,7 @@ const Login = () => {
     <>
       <MainContainer>
         <FormWrapper>
-          <h3 style={{ color: "#592101" }}>
+          <h3 style={{ color: "var(--red)" }}>
             {mode === "signin"
               ? "Log in to your account"
               : "Create new account"}

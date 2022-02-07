@@ -30,12 +30,12 @@ import styled from "styled-components/macro"
     padding: 2px;
     margin-right: 6px;
     border-radius: 20px;
-    border: ${(props) => (props.checked ? "none" : "1px solid #D75004;")};
-    background: ${(props) => (props.checked ? "#D75004" : "white")};
+    border: ${(props) => (props.checked ? "none" : "1px solid var(--lightRed);")};
+    background: ${(props) => (props.checked ? "var(--lightRed)" : "white")};
 
     ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
-    color: ${(props) => (props.checked ? "#D75004" : "white")}
+    color: ${(props) => (props.checked ? "var(--lightRed)" : "white")}
     }
   `
 

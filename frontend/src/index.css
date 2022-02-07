@@ -1,3 +1,12 @@
+:root {
+  --gradientRed: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%);
+  --gradientBlue: linear-gradient(270deg, #04BDD7 0%, #202D48 100%);
+  --red: #592101;
+  --blue: #202D48;
+  --lightRed: #D75004;
+  --lightBlue: #04BDD7;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

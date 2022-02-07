@@ -28,7 +28,7 @@ const LoadingSpinner = styled.div`
   height: 25px;
   border: 5px solid #dcdcdc;
   border-radius: 50%;
-  border-left: 5px solid #D75004;
+  border-left: 5px solid var(--lightRed);
   animation: spinner infinite 0.5s;
 
   @keyframes spinner {

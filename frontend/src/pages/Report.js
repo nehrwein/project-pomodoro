@@ -52,7 +52,7 @@ const Report = () => {
         label: "No of completed tasks per day",
         data: tasksPerDay.map((data) => ({ x: data.completedAt, y: data.count})),
         backgroundColor: [
-          "#592101",
+          "var(--red)",
         ],
         borderColor: "grey",
         borderWidth: 1,     
@@ -61,7 +61,7 @@ const Report = () => {
         label: "Pomodoros per day",
         data: pomoData.map((data) => data.pomodoro),
         backgroundColor: [
-          "#D75004",
+          "var(--lightRed)",
         ],
         borderColor: "grey",
         borderWidth: 1,     

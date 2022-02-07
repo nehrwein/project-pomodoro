@@ -76,7 +76,7 @@ const Navigation = () => {
 export default Navigation
 
 const NavBar = styled.div`
-  /* background: linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%); */
+  /* background: var(--gradientRed); */
   height: 30px;
   padding: 5px 0;
   display: flex;
@@ -87,10 +87,10 @@ const NavBar = styled.div`
   position: absolute;
 `
 
-// Changed the color to #592101 just for now in order to see the icon
+// Changed the color to var(--red) just for now in order to see the icon
 const Icon = styled.i`
   margin-right: 15px;
-  color: ${(props) => (props.orange ? "#D75004" : "#592101  ")};
+  color: ${(props) => (props.orange ? "var(--lightRed)" : "var(--red)  ")};
   font-size: 28px;
   background: none;
   z-index: 3;
@@ -126,7 +126,7 @@ const NavList = styled.li`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: #d75004;
+  color: var(--lightRed);
   font-size: 18px;
   width: 95%;
   height: 100%;
@@ -136,7 +136,7 @@ const NavLink = styled(Link)`
   border-radius: 4px;
 
   :hover {
-    background-color: #d75004;
+    background-color: var(--lightRed);
     color: white;
   }
 `
@@ -154,9 +154,9 @@ const StyledLi = styled.ul`
 
 const LogOutButton = styled.button`
   width: 110px;
-  border: 2px solid #d75004;
+  border: 2px solid var(--lightRed);
   cursor: pointer;
-  color: #d75004;
+  color: var(--lightRed);
   padding: 10px;
   margin: 50px auto;
   border-radius: 4px;
@@ -171,7 +171,7 @@ const LogOutButton = styled.button`
   }
 
   &:hover {
-    background-color: #d75004;
+    background-color: var(--lightRed);
     color: #FFF9F5;
   
 `

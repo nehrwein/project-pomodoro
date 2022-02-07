@@ -32,16 +32,9 @@ const PomodoroTimer = () => {
 
   const percentage = Math.round((secondsLeft / totalSeconds) * 100)
 
-  const gradientRed = "linear-gradient(270.42deg, #d75004 0.3%, #8a3403 99.58%)"
-  const gradientBlue = "linear-gradient(270deg, #04BDD7 0%, #202D48 100%)"
-  const red = "#592101"
-  const blue = "#202D48"
-  const lightRed = "#D75004"
-  const lightBlue = "#04BDD7"
-
-  const animationColor = work ? gradientRed : gradientBlue
-  const buttonBackgroundColor = work ? red : blue
-  const iconColor = work ? lightRed : lightBlue
+  const animationColor = work ? "var(--gradientRed)" : "var(--gradientBlue)"
+  const buttonBackgroundColor = work ? "var(--red)" : "var(--blue)"
+  const iconColor = work ? "var(--lightRed)" : "var(--lightBlue)"
 
   const dispatch = useDispatch()
 

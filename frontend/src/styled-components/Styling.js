@@ -25,7 +25,7 @@ export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #d75004;
+  color: var(--lightRed);
 
   @media (min-width: 992px) {
     width: auto;
@@ -38,7 +38,7 @@ export const TaskWrapper = styled(FormWrapper)`
 
 export const PomodoroTimerWrapper = styled(FormWrapper)`
 	border-radius: 10px 10px 0 0;
-	background: linear-gradient(270.42deg, #D75004 0.3%, #8A3403 99.58%);
+	background: var(--gradientRed);
 
 	@media (min-width: 992px) {
     width: 297px;
@@ -46,7 +46,7 @@ export const PomodoroTimerWrapper = styled(FormWrapper)`
 `
 
 export const UserInfoWrapper = styled.fieldset`
-  border: 2px solid #d75004;
+  border: 2px solid var(--lightRed);
   border-radius: 7px;
   display: flex;
   justify-content: space-between;
@@ -66,7 +66,7 @@ export const UserInput = styled.input`
 `
 
 export const LoginButton = styled.button`
-  background-color: #d75004;
+  background-color: var(--lightRed);
   width: 100px;
   display: flex;
   justify-content: center;
@@ -81,7 +81,7 @@ export const LoginButton = styled.button`
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
   &:hover {
-    background-color: #592101;
+    background-color: var(--red);
   }
 `
 
@@ -99,6 +99,6 @@ export const LinkText = styled.div`
 `
 
 export const Icon = styled.i`
-  color: #D75004;;
+  color: var(--lightRed);;
   font-size: 20px;
 `;

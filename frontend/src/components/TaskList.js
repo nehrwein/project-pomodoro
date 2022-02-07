@@ -18,13 +18,12 @@ import styled from "styled-components/macro"
 
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
-  /* const allOpenTasks = allTasks.filter(item => item.completed === false) */
+  // const allOpenTasks = allTasks.filter(item => item.completed === false)
   const accessToken = useSelector((store) => store.user.accessToken)
   const userId = useSelector((store) => store.user.userId)
   const loading = useSelector((store) => store.ui.loading)
   const error = useSelector((store) => store.tasks.error)
   console.log("Error: ", error)
-  console.log(allTasks.tasks)
   console.log("AT: ", accessToken)
   console.log("userId: ", userId)
   console.log("allTasks: ", allTasks)
@@ -41,8 +40,8 @@ const TaskList = () => {
   // We need to change the color of the task depending on if user is doing a pomodoro or having a break
   // We need to access information from PomodoroTimer.js
 
-  // const red = "#592101"
-  // const blue = "#202D48"
+  // const red = "var(--red)"
+  // const blue = "var(--blue)"
   // const taskColor = work ? red : blue
 
   const dispatch = useDispatch()
@@ -50,6 +49,16 @@ const TaskList = () => {
   useEffect(() => {
     dispatch(showTasklist(accessToken, userId))
   }, [dispatch, accessToken, userId])
+
+  const onPressEnter = (event, id) => {
+    if (event.key === 'Enter') {
+      onUpdateTodo(
+        id,
+        accessToken,
+        updatedDescription,
+        userId)
+    }
+  }
 
   const onUpdateTodo = (taskId, accessToken, updatedDescription, userId) => {
     dispatch(updateTodo(taskId, accessToken, updatedDescription, userId))
@@ -63,7 +72,7 @@ const TaskList = () => {
         {loading && <LoadingIndicator />}
         {allTasks && !loading && (
           <>
-            {allTasks.tasks.map((item) => (
+            {allTasks.map((item) => (
               <ItemContainer key={item._id} checked={item.completed}>
                 <Item>
                   {/*<Checkbox
@@ -86,12 +95,14 @@ const TaskList = () => {
                         <EditInput
                           type="text"
                           value={updatedDescription}
+                          onKeyPress={(e) => onPressEnter(e, item._id)}
                           onChange={(event) => {
                             setUpdatedDescription(event.target.value)
                           }}
                         />
                         <SaveButton
                           type="submit"
+                          disabled = {!updatedDescription}
                           onClick={() =>
                             onUpdateTodo(
                               item._id,
@@ -194,16 +205,16 @@ const Icon = styled.i`
   font-size: 16px;
 `
 
-const NoTasks = styled.div`
+/* const NoTasks = styled.div`
   color: gray;
-`
+` */
 
 const EditInput = styled.input`
   border: none;
   border-bottom: 1px solid red;
   outline: none;
   font-size: 20px;
-  color: #d75004;
+  color: var(--lightRed);
   width: 67%;
   background-color: #fff9f5;
 `
