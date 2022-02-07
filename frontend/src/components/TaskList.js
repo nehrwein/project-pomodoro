@@ -40,9 +40,7 @@ const TaskList = () => {
   // We need to change the color of the task depending on if user is doing a pomodoro or having a break
   // We need to access information from PomodoroTimer.js
 
-  // const red = "var(--red)"
-  // const blue = "var(--blue)"
-  // const taskColor = work ? red : blue
+  // const taskColor = work ? "var(--red)" : "var(--blue)"
 
   const dispatch = useDispatch()
 

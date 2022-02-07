@@ -2,6 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Chart from '../components/Chart'
 import { sub, format } from 'date-fns'
+var style = getComputedStyle(document.body);
+var lightRed = style.getPropertyValue('--lightRed');
+var lightBlue = style.getPropertyValue('--lightBlue');
 
 const Report = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
@@ -52,7 +55,7 @@ const Report = () => {
         label: "No of completed tasks per day",
         data: tasksPerDay.map((data) => ({ x: data.completedAt, y: data.count})),
         backgroundColor: [
-          "var(--red)",
+          lightBlue,
         ],
         borderColor: "grey",
         borderWidth: 1,     
@@ -61,7 +64,7 @@ const Report = () => {
         label: "Pomodoros per day",
         data: pomoData.map((data) => data.pomodoro),
         backgroundColor: [
-          "var(--lightRed)",
+          lightRed,
         ],
         borderColor: "grey",
         borderWidth: 1,     
