@@ -12,5 +12,8 @@ export const timer = createSlice({
     setDescription: (store) => {
       store.items.description = "Tap on a task to start"
     },
+    deleteItems: (store) => {
+      store.items = {}
+    }
   },
 })

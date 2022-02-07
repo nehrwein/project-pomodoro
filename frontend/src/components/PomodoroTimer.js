@@ -17,10 +17,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroTimer = () => {
-  const [minutes, setMinutes] = useState(25)
+  const workMinutes = useSelector(state => state.pomosettings.workMinutes)
+  const breakMinutes = useSelector(state => state.pomosettings.breakMinutes)
+  const [minutes, setMinutes] = useState(workMinutes)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(true)
-  const totalSeconds = work ? 25 * 60 : 5 * 60
+  const totalSeconds = work ? workMinutes * 60 : breakMinutes * 60
   const [isRunning, setIsRunning] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
   const ReplayIcon = <FontAwesomeIcon icon={faRedo} />
@@ -55,13 +57,13 @@ const PomodoroTimer = () => {
             setMinutes(minutes - 1)
             setSecondsLeft(secondsLeft - 1)
           } else {
-            const newMinutes = work ? 4 : 24
+            const newMinutes = work ? breakMinutes - 1 : workMinutes - 1
             const newSeconds = 59
 
             setSeconds(newSeconds)
             setMinutes(newMinutes)
-            setSecondsLeft(work ? 5 * 60 : 25 * 60)
-            setWork(work ? !work : work)
+            setSecondsLeft(work ? breakMinutes * 60 : workMinutes * 60)
+            setWork(work ? false : true)
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
@@ -72,7 +74,7 @@ const PomodoroTimer = () => {
       // clearInterval clears the timer set (stops setInterval)
       return () => clearInterval(interval)
     }
-  }, [isRunning, work, minutes, seconds, secondsLeft, percentage, totalSeconds])
+  }, [isRunning, work, minutes, seconds, secondsLeft, percentage, totalSeconds, breakMinutes, workMinutes])
 
   // In order to always show two digits for minutes and seconds
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes
@@ -97,7 +99,7 @@ const PomodoroTimer = () => {
           onClick={() => {
             setIsRunning(false)
             setSeconds(0)
-            setMinutes(25)
+            setMinutes(workMinutes)
             setSecondsLeft(totalSeconds)
           }}
         >
@@ -119,7 +121,7 @@ const PomodoroTimer = () => {
           onClick={() => {
             setIsRunning(false)
             setSeconds(0)
-            setMinutes(25)
+            setMinutes(workMinutes)
             dispatch(timer.actions.setDescription())
           }}
         >

@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { user } from "../reducers/user"
+import { timer } from "../reducers/timer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faBars,
@@ -16,10 +17,9 @@ const Navigation = () => {
   const CloseIcon = <FontAwesomeIcon icon={faTimes} />
   const LogOutIcon = <FontAwesomeIcon icon={faSignOutAlt} />
   const [sidebar, setSidebar] = useState(false)
-
   const accessToken = useSelector((store) => store.user.accessToken)
-
   const showSidebar = () => setSidebar(!sidebar)
+  const navigate = useNavigate();
 
   const NavigationLinks = [
     { title: "Home", path: "/" },
@@ -28,12 +28,19 @@ const Navigation = () => {
     { title: "About us", path: "/about" },
   ]
 
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [accessToken, navigate]);
+
   const onLogOut = () => {
     setSidebar(false)
     dispatch(user.actions.setUserId(null))
     dispatch(user.actions.setUsername(null))
     dispatch(user.actions.setAccessToken(null))
     dispatch(user.actions.setError(null))
+    dispatch(timer.actions.deleteItems())
   }
 
   return (
@@ -90,7 +97,7 @@ const NavBar = styled.div`
 // Changed the color to var(--red) just for now in order to see the icon
 const Icon = styled.i`
   margin-right: 15px;
-  color: ${(props) => (props.orange ? "var(--lightRed)" : "var(--red)  ")};
+  color: ${(props) => (props.orange ? "var(--lightRed)" : "var(--red)")};
   font-size: 28px;
   background: none;
   z-index: 3;
