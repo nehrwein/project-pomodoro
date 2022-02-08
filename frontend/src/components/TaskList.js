@@ -65,6 +65,12 @@ const TaskList = () => {
     setUpdatedDescription("")
   }
 
+  const onIsComplete = (_id, completed, completedAt, accessToken, userId) => {
+    dispatch(toggleIsComplete(_id, completed, completedAt, accessToken, userId))
+    dispatch(timer.actions.deleteItems())
+    dispatch(timer.actions.setDescription())
+  }
+
   return (
     <>
       <TaskWrapper>
@@ -114,22 +120,23 @@ const TaskList = () => {
                           <Icon>{saveIcon}</Icon>
                         </SaveButton>
                       </>
-                    ) : (
+                    ) : 
+                    (
+                      <>
                       <Checkbox
                       isChecked={item.completed}
-                      itemDescription={item.description}
-                      onChange={() =>
-                        dispatch(
-                          toggleIsComplete(
-                            item._id,
-                            item.completed,
-                            item.completedAt,
-                            accessToken,
-                            userId
-                          )
-                        )}
-                      onClick={() => dispatch(timer.actions.setItems(item))}
+                      /* itemDescription={item.description} */
+                      onChange={() => onIsComplete(
+                        item._id,
+                        item.completed,
+                        item.completedAt,
+                        accessToken,
+                        userId
+                      )}                      
                       />
+                      <label onClick={() => dispatch(timer.actions.setItems(item))}>{item.description}</label>
+                      </>
+                      
                     )}
                   <TaskSettings>
                 {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}

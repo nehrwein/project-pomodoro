@@ -57,7 +57,6 @@ const PomodoroTimer = () => {
           } else {
             const newMinutes = work ? breakMinutes - 1 : workMinutes - 1
             const newSeconds = 59
-
             setSeconds(newSeconds)
             setMinutes(newMinutes)
             setSecondsLeft(work ? breakMinutes * 60 : workMinutes * 60)
