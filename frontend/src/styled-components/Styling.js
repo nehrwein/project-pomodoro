@@ -102,3 +102,11 @@ export const Icon = styled.i`
   color: var(--lightRed);;
   font-size: 20px;
 `;
+
+export const PagesContainer = styled.div`
+margin: 0 auto;
+width: 80%;
+max-width: 1000px;
+padding-top: 50px;
+text-align: center;
+`

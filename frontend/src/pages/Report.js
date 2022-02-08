@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Chart from '../components/Chart'
 import { sub, format } from 'date-fns'
+import { PagesContainer } from "styled-components/Styling"
+
 var style = getComputedStyle(document.body);
 var lightRed = style.getPropertyValue('--lightRed');
 var lightBlue = style.getPropertyValue('--lightBlue');
@@ -10,6 +12,7 @@ const Report = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
   const allCompletedTasks = allTasks.filter(item => item.completed === true)
   const allPomodoros = useSelector((store) => store.tasks.items.pomodoros)
+  console.log('alle Pomos: ', allPomodoros)
  
   // completed tasks per day
   // https://stackoverflow.com/questions/53280115/how-to-count-unique-value-from-object-of-array-in-javascript
@@ -62,7 +65,7 @@ const Report = () => {
       },
       {
         label: "Pomodoros per day",
-        data: pomoData.map((data) => data.pomodoro),
+        data: pomoData.map((data) => ({ x: data.completedAt, y: data.pomodoro})),
         backgroundColor: [
           lightRed,
         ],
@@ -73,12 +76,13 @@ const Report = () => {
   }
 
   return (
-    <div>
+    <PagesContainer>
       <h2>Productivity Report</h2>
       <h3>See your results of the last 7 days</h3>
       <Chart chartData={userData}/>
-    </div>
+    </PagesContainer>
   );
 };
 
 export default Report;
+

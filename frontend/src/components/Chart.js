@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar } from "react-chartjs-2";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,13 +23,14 @@ ChartJS.register(
 const Chart = ({chartData}) => {
   return (
     <div>
-      <div style={{ width: '80%' }}>
+
         <Bar
           data={chartData}
         />
-      </div>
     </div>
   );
 };
 
 export default Chart;
+
+

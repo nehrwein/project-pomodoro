@@ -2,8 +2,7 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import styled from "styled-components"
-
-import { timer } from "../reducers/timer"
+import { timer, addPomodoro } from "../reducers/timer"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
@@ -19,6 +18,8 @@ const PomodoroTimer = () => {
   const shortBreakMinutes = useSelector((state) => state.settings.shortBreakMinutes)
   const longBreakMinutes = useSelector((state) => state.settings.longBreakMinutes)
   const activatedButton = useSelector((state) => state.timer.items._id)
+  const accessToken = useSelector(state => state.user.accessToken)
+  const userId = useSelector(state => state.user.userId)
   const [breakMinutes, setBreakMinutes] = useState(shortBreakMinutes)
   const [minutes, setMinutes] = useState(workMinutes)
   const [seconds, setSeconds] = useState(0)
@@ -64,6 +65,7 @@ const PomodoroTimer = () => {
             setSecondsLeft(work ? breakMinutes * 60 : workMinutes * 60)
             setBreakMinutes(counter % 4 ? longBreakMinutes : shortBreakMinutes)
             setCounter(work ? counter + 1 : counter)
+            work && dispatch(addPomodoro(accessToken, userId))
             setWork(work ? false : true)
           }
         } else {
@@ -87,7 +89,10 @@ const PomodoroTimer = () => {
     workMinutes,
     counter,
     longBreakMinutes,
-    shortBreakMinutes
+    shortBreakMinutes,
+    dispatch,
+    accessToken,
+    userId
   ])
 
   // In order to always show two digits for minutes and seconds

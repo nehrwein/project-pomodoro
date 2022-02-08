@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { API_URL } from "../utils/constants";
 import { ui } from "./ui"
-
-const {format} = require('date-fns');
+import { format } from "date-fns"
 
 export const tasks = createSlice({
   name: "tasks",
