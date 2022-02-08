@@ -122,21 +122,20 @@ const TaskList = () => {
                       </>
                     ) : 
                     (
-                      <>
-                      <Checkbox
-                      isChecked={item.completed}
-                      /* itemDescription={item.description} */
-                      onChange={() => onIsComplete(
-                        item._id,
-                        item.completed,
-                        item.completedAt,
-                        accessToken,
-                        userId
-                      )}                      
-                      />
-                      <label onClick={() => dispatch(timer.actions.setItems(item))}>{item.description}</label>
-                      </>
-                      
+                      <Container>
+                        <Checkbox
+                        isChecked={item.completed}
+                        /* itemDescription={item.description} */
+                        onChange={() => onIsComplete(
+                          item._id,
+                          item.completed,
+                          item.completedAt,
+                          accessToken,
+                          userId
+                        )}                      
+                        />
+                        <label onClick={() => dispatch(timer.actions.setItems(item))}>{item.description}</label>
+                      </Container>
                     )}
                   <TaskSettings>
                 {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
@@ -209,6 +208,15 @@ const TaskSettings = styled.div`
 const Icon = styled.i`
   color: #b4b2b2;
   font-size: 16px;
+`
+
+const Container = styled.div`
+  display: inline-flex;
+
+  label {
+    padding-top: 1px;
+    padding-left: 8px;
+  }
 `
 
 /* const NoTasks = styled.div`
