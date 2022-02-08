@@ -15,11 +15,15 @@ import {
 const PomodoroTimer = () => {
   const [counter, setCounter] = useState(0)
   const workMinutes = useSelector((state) => state.settings.workMinutes)
-  const shortBreakMinutes = useSelector((state) => state.settings.shortBreakMinutes)
-  const longBreakMinutes = useSelector((state) => state.settings.longBreakMinutes)
+  const shortBreakMinutes = useSelector(
+    (state) => state.settings.shortBreakMinutes
+  )
+  const longBreakMinutes = useSelector(
+    (state) => state.settings.longBreakMinutes
+  )
   const activatedButton = useSelector((state) => state.timer.items._id)
-  const accessToken = useSelector(state => state.user.accessToken)
-  const userId = useSelector(state => state.user.userId)
+  const accessToken = useSelector((state) => state.user.accessToken)
+  const userId = useSelector((state) => state.user.userId)
   const [breakMinutes, setBreakMinutes] = useState(shortBreakMinutes)
   const [minutes, setMinutes] = useState(workMinutes)
   const [seconds, setSeconds] = useState(0)
@@ -32,7 +36,7 @@ const PomodoroTimer = () => {
   const StopIcon = <FontAwesomeIcon icon={faTimes} />
   const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
   const description = useSelector((store) => store.timer.items.description)
-  
+
   const percentage = Math.round((secondsLeft / totalSeconds) * 100)
 
   const animationColor = work ? "var(--gradientRed)" : "var(--gradientBlue)"
@@ -67,6 +71,8 @@ const PomodoroTimer = () => {
             setCounter(work ? counter + 1 : counter)
             work && dispatch(addPomodoro(accessToken, userId))
             setWork(work ? false : true)
+            work && dispatch(timer.actions.setMode("break"))
+            !work && dispatch(timer.actions.setMode("work"))
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
@@ -92,7 +98,7 @@ const PomodoroTimer = () => {
     shortBreakMinutes,
     dispatch,
     accessToken,
-    userId
+    userId,
   ])
 
   // In order to always show two digits for minutes and seconds
