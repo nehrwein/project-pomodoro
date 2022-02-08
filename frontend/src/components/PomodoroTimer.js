@@ -70,10 +70,6 @@ const PomodoroTimer = () => {
           // if seconds are not equal to 0 we lower them by 1
           setSeconds(seconds - 1)
           setSecondsLeft(secondsLeft - 1)
-          console.log(counter)
-          console.log('Breakmin: ', breakMinutes)
-          console.log('totalsec: ', totalSeconds)
-          console.log('SecLeft: ', secondsLeft)
         }
       }, 1000)
       // clearInterval clears the timer set (stops setInterval)
@@ -89,6 +85,9 @@ const PomodoroTimer = () => {
     totalSeconds,
     breakMinutes,
     workMinutes,
+    counter,
+    longBreakMinutes,
+    shortBreakMinutes
   ])
 
   // In order to always show two digits for minutes and seconds
