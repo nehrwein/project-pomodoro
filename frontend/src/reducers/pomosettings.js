@@ -5,14 +5,18 @@ export const pomosettings = createSlice({
   name: 'pomosettings',
   initialState: {
     workMinutes : 25,
-    breakMinutes: 5,
+    shortBreakMinutes: 5,
+    longBreakMinutes: 15,
   },
   reducers: {
     setWorkMinutes: (state, action) => {
       state.workMinutes = action.payload
     },
-    setBreakMinutes: (state, action) => {
-      state.breakMinutes = action.payload
+    setShortBreakMinutes: (state, action) => {
+      state.shortBreakMinutes = action.payload
+    },
+    setLongBreakMinutes: (state, action) => {
+      state.longBreakMinutes = action.payload
     }
   }
 })

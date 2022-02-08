@@ -6,7 +6,8 @@ import './Slider.css'
 
 const Settings = () => {
   const workMinutes = useSelector((state) => state.pomosettings.workMinutes)
-  const breakMinutes = useSelector((state) => state.pomosettings.breakMinutes)
+  const shortBreakMinutes = useSelector((state) => state.pomosettings.shortBreakMinutes)
+  const longBreakMinutes = useSelector((state) => state.pomosettings.longBreakMinutes)
   const dispatch = useDispatch()
 
   return (
@@ -23,13 +24,23 @@ const Settings = () => {
           min={0}
           max={120}
         />
-      <label>break: {breakMinutes} minutes</label>
+      <label>short break: {shortBreakMinutes} minutes</label>
         <ReactSlider
           className='slider blue'
           thumbClassName='thumb'
           trackClassName='track'
-          value={breakMinutes}
-          onChange={newValue => dispatch(pomosettings.actions.setBreakMinutes(newValue))}
+          value={shortBreakMinutes}
+          onChange={newValue => dispatch(pomosettings.actions.setShortBreakMinutes(newValue))}
+          min={0}
+          max={60}
+        />
+      <label>long break: {longBreakMinutes} minutes</label>
+        <ReactSlider
+          className='slider blue'
+          thumbClassName='thumb'
+          trackClassName='track'
+          value={longBreakMinutes}
+          onChange={newValue => dispatch(pomosettings.actions.setLongBreakMinutes(newValue))}
           min={0}
           max={60}
         />

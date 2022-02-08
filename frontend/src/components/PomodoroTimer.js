@@ -14,9 +14,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroTimer = () => {
+  const [counter, setCounter] = useState(0)
   const workMinutes = useSelector((state) => state.pomosettings.workMinutes)
-  const breakMinutes = useSelector((state) => state.pomosettings.breakMinutes)
+  const shortBreakMinutes = useSelector((state) => state.pomosettings.shortBreakMinutes)
+  const longBreakMinutes = useSelector((state) => state.pomosettings.longBreakMinutes)
   const activatedButton = useSelector((state) => state.timer.items._id)
+  const [breakMinutes, setBreakMinutes] = useState(shortBreakMinutes)
   const [minutes, setMinutes] = useState(workMinutes)
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(true)
@@ -27,9 +30,8 @@ const PomodoroTimer = () => {
   const PlayIcon = <FontAwesomeIcon icon={faPlayCircle} />
   const StopIcon = <FontAwesomeIcon icon={faTimes} />
   const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
-
   const description = useSelector((store) => store.timer.items.description)
-
+  
   const percentage = Math.round((secondsLeft / totalSeconds) * 100)
 
   const animationColor = work ? "var(--gradientRed)" : "var(--gradientBlue)"
@@ -60,12 +62,18 @@ const PomodoroTimer = () => {
             setSeconds(newSeconds)
             setMinutes(newMinutes)
             setSecondsLeft(work ? breakMinutes * 60 : workMinutes * 60)
+            setBreakMinutes(counter % 4 ? longBreakMinutes : shortBreakMinutes)
+            setCounter(work ? counter + 1 : counter)
             setWork(work ? false : true)
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
           setSeconds(seconds - 1)
           setSecondsLeft(secondsLeft - 1)
+          console.log(counter)
+          console.log('Breakmin: ', breakMinutes)
+          console.log('totalsec: ', totalSeconds)
+          console.log('SecLeft: ', secondsLeft)
         }
       }, 1000)
       // clearInterval clears the timer set (stops setInterval)
