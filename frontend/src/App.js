@@ -15,14 +15,14 @@ import { user } from "./reducers/user"
 import { tasks } from "./reducers/tasks"
 import { ui } from "./reducers/ui"
 import { timer } from "./reducers/timer"
-import { pomosettings } from "./reducers/pomosettings"
+import { settings } from "./reducers/settings"
 
 const reducer = combineReducers({
   user: user.reducer,
   tasks: tasks.reducer,
   ui: ui.reducer,
   timer: timer.reducer,
-  pomosettings: pomosettings.reducer
+  settings: settings.reducer
 })
 
 const preloadedStateJSON = localStorage.getItem("UserTasksReduxState")

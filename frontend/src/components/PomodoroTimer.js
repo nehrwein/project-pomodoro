@@ -15,9 +15,9 @@ import {
 
 const PomodoroTimer = () => {
   const [counter, setCounter] = useState(0)
-  const workMinutes = useSelector((state) => state.pomosettings.workMinutes)
-  const shortBreakMinutes = useSelector((state) => state.pomosettings.shortBreakMinutes)
-  const longBreakMinutes = useSelector((state) => state.pomosettings.longBreakMinutes)
+  const workMinutes = useSelector((state) => state.settings.workMinutes)
+  const shortBreakMinutes = useSelector((state) => state.settings.shortBreakMinutes)
+  const longBreakMinutes = useSelector((state) => state.settings.longBreakMinutes)
   const activatedButton = useSelector((state) => state.timer.items._id)
   const [breakMinutes, setBreakMinutes] = useState(shortBreakMinutes)
   const [minutes, setMinutes] = useState(workMinutes)

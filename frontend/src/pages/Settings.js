@@ -1,13 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ReactSlider from 'react-slider'
-import { pomosettings } from '../reducers/pomosettings'
+import { settings } from '../reducers/settings'
 import './Slider.css'
 
 const Settings = () => {
-  const workMinutes = useSelector((state) => state.pomosettings.workMinutes)
-  const shortBreakMinutes = useSelector((state) => state.pomosettings.shortBreakMinutes)
-  const longBreakMinutes = useSelector((state) => state.pomosettings.longBreakMinutes)
+  const workMinutes = useSelector((state) => state.settings.workMinutes)
+  const shortBreakMinutes = useSelector((state) => state.settings.shortBreakMinutes)
+  const longBreakMinutes = useSelector((state) => state.settings.longBreakMinutes)
   const dispatch = useDispatch()
 
   return (
@@ -20,7 +20,7 @@ const Settings = () => {
           thumbClassName='thumb'
           trackClassName='track'
           value={workMinutes}
-          onChange={newValue => dispatch(pomosettings.actions.setWorkMinutes(newValue))}
+          onChange={newValue => dispatch(settings.actions.setWorkMinutes(newValue))}
           min={0}
           max={120}
         />
@@ -30,7 +30,7 @@ const Settings = () => {
           thumbClassName='thumb'
           trackClassName='track'
           value={shortBreakMinutes}
-          onChange={newValue => dispatch(pomosettings.actions.setShortBreakMinutes(newValue))}
+          onChange={newValue => dispatch(settings.actions.setShortBreakMinutes(newValue))}
           min={0}
           max={60}
         />
@@ -40,7 +40,7 @@ const Settings = () => {
           thumbClassName='thumb'
           trackClassName='track'
           value={longBreakMinutes}
-          onChange={newValue => dispatch(pomosettings.actions.setLongBreakMinutes(newValue))}
+          onChange={newValue => dispatch(settings.actions.setLongBreakMinutes(newValue))}
           min={0}
           max={60}
         />

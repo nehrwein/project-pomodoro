@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../utils/constants";
 
-export const pomosettings = createSlice({
-  name: 'pomosettings',
+export const settings = createSlice({
+  name: 'settings',
   initialState: {
     workMinutes : 25,
     shortBreakMinutes: 5,
