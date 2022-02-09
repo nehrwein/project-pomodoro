@@ -19,7 +19,7 @@ const Navigation = () => {
   const [sidebar, setSidebar] = useState(false)
   const accessToken = useSelector((store) => store.user.accessToken)
   const showSidebar = () => setSidebar(!sidebar)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const NavigationLinks = [
     { title: "Home", path: "/" },
@@ -30,9 +30,9 @@ const Navigation = () => {
 
   useEffect(() => {
     if (!accessToken) {
-      navigate("/login");
+      navigate("/login")
     }
-  }, [accessToken, navigate]);
+  }, [accessToken, navigate])
 
   const onLogOut = () => {
     setSidebar(false)
@@ -41,7 +41,7 @@ const Navigation = () => {
     dispatch(user.actions.setAccessToken(null))
     dispatch(user.actions.setError(null))
     dispatch(timer.actions.deleteItems())
-    dispatch(timer.actions.setMode('work'))
+    dispatch(timer.actions.setMode("work"))
   }
 
   return (
@@ -65,7 +65,9 @@ const Navigation = () => {
               {NavigationLinks.map((item, index) => {
                 return (
                   <NavList key={index}>
-                    <NavLink to={item.path} onClick={() => setSidebar(false)}>{item.title}</NavLink>
+                    <NavLink to={item.path} onClick={() => setSidebar(false)}>
+                      {item.title}
+                    </NavLink>
                   </NavList>
                 )
               })}
@@ -109,9 +111,9 @@ const Icon = styled.i`
   margin-top: 5px;
 
   @media (min-width: 768px) {
-      font-size: 40px;
-      margin-right: 20px;
-    }
+    font-size: 40px;
+    margin-right: 20px;
+  }
 `
 
 const SideMenu = styled.nav`
@@ -128,8 +130,8 @@ const SideMenu = styled.nav`
   z-index: 3;
 
   @media (min-width: 768px) {
-      width: 400px;
-    }
+    width: 400px;
+  }
 `
 
 const NavList = styled.li`
@@ -158,8 +160,8 @@ const NavLink = styled(Link)`
   }
 
   @media (min-width: 768px) {
-      font-size: 30px;
-    }
+    font-size: 30px;
+  }
 `
 const StyledUl = styled.ul`
   width: 100%;
@@ -193,12 +195,11 @@ const LogOutButton = styled.button`
 
   &:hover {
     background-color: var(--lightRed);
-    color: #FFF9F5;
-  } 
+    color: #fff9f5;
+  }
 
   @media (min-width: 768px) {
-      font-size: 20px;
-      width: 150px;
-    }
-  
+    font-size: 20px;
+    width: 150px;
+  }
 `

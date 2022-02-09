@@ -30,15 +30,13 @@ const StyledCheckbox = styled.div`
   padding: 2px;
   margin-right: 6px;
   border-radius: 20px;
-  border: ${(props) => (props.checked ? "none" : "1px solid var(--lightRed);")};
-  background: ${(props) => (props.checked ? "var(--lightRed)" : "white")};
+  border: ${(props) => (props.checked ? "none" : "1px solid #747171")};
+  background: ${(props) => (props.checked ? "#747171" : "white")};
 
   ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
-    color: ${(props) => (props.checked ? "var(--lightRed)" : "white")};
+    color: ${(props) => (props.checked ? "#747171" : "white")};
   }
-
-
 `
 
 const CheckboxContainer = styled.div`

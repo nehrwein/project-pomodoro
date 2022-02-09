@@ -98,11 +98,6 @@ export const LinkText = styled.div`
   }
 `
 
-export const Icon = styled.i`
-  color: var(--lightRed);
-  font-size: 20px;
-`
-
 export const PagesContainer = styled.div`
   margin: 0 auto;
   width: 80%;
@@ -111,10 +106,8 @@ export const PagesContainer = styled.div`
   text-align: center;
 
   h3 {
-      margin-top: -20px;
-    }
-
-
+    margin-top: -20px;
+  }
 
   @media (min-width: 768px) {
     h2 {
@@ -129,6 +122,4 @@ export const PagesContainer = styled.div`
       font-size: 18px;
     }
   }
-
-
 `

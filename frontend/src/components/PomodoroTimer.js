@@ -68,11 +68,13 @@ const PomodoroTimer = () => {
             setSeconds(newSeconds)
             setMinutes(newMinutes)
             setSecondsLeft(work ? breakMinutes * 60 : workMinutes * 60)
-            setBreakMinutes(longBreakTime ? longBreakMinutes : shortBreakMinutes)
+            setBreakMinutes(
+              longBreakTime ? longBreakMinutes : shortBreakMinutes
+            )
             setCounter(work ? counter + 1 : counter)
             work && dispatch(addPomodoro(accessToken, userId))
             setWork(work ? false : true)
-            dispatch(timer.actions.setMode(work ? "break" : "work")) 
+            dispatch(timer.actions.setMode(work ? "break" : "work"))
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
@@ -99,7 +101,7 @@ const PomodoroTimer = () => {
     dispatch,
     accessToken,
     userId,
-    longBreakTime
+    longBreakTime,
   ])
 
   // In order to always show two digits for minutes and seconds
@@ -122,48 +124,48 @@ const PomodoroTimer = () => {
       </Wrapper>
       <ButtonsContainer buttonBackgroundColor={buttonBackgroundColor}>
         <InnerButtonContainer>
-        <Button
-          disabled={!activatedButton}
-          onClick={() => {
-            setIsRunning(false)
-            setSeconds(0)
-            setMinutes(workMinutes)
-            setSecondsLeft(totalSeconds)
-          }}
-        >
-          <Icon iconColor={iconColor} active>
-            {ReplayIcon}
-          </Icon>
-        </Button>
-        {isRunning ? (
           <Button
             disabled={!activatedButton}
-            onClick={() => setIsRunning(false)}
+            onClick={() => {
+              setIsRunning(false)
+              setSeconds(0)
+              setMinutes(workMinutes)
+              setSecondsLeft(totalSeconds)
+            }}
           >
-            <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
+            <Icon iconColor={iconColor} active>
+              {ReplayIcon}
+            </Icon>
           </Button>
-        ) : (
+          {isRunning ? (
+            <Button
+              disabled={!activatedButton}
+              onClick={() => setIsRunning(false)}
+            >
+              <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
+            </Button>
+          ) : (
+            <Button
+              disabled={!activatedButton}
+              onClick={() => setIsRunning(true)}
+            >
+              <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
+            </Button>
+          )}
+          {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
           <Button
             disabled={!activatedButton}
-            onClick={() => setIsRunning(true)}
+            onClick={() => {
+              setIsRunning(false)
+              setSeconds(0)
+              setMinutes(workMinutes)
+              setSecondsLeft(workMinutes * 60)
+              dispatch(timer.actions.deleteItems())
+              dispatch(timer.actions.setDescription())
+            }}
           >
-            <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
+            <Icon iconColor={iconColor}>{StopIcon}</Icon>
           </Button>
-        )}
-        {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
-        <Button
-          disabled={!activatedButton}
-          onClick={() => {
-            setIsRunning(false)
-            setSeconds(0)
-            setMinutes(workMinutes)
-            setSecondsLeft(workMinutes * 60)
-            dispatch(timer.actions.deleteItems())
-            dispatch(timer.actions.setDescription())
-          }}
-        >
-          <Icon iconColor={iconColor}>{StopIcon}</Icon>
-        </Button>
         </InnerButtonContainer>
       </ButtonsContainer>
     </TimerContainer>
@@ -181,7 +183,7 @@ const TimerContainer = styled.div`
       ? `url("/assets/timer-work-background.png")`
       : `url("/assets/timer-break-background.png")`};
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: center;
   background-size: cover;
 
   h1 {
@@ -227,7 +229,7 @@ const SlidingAnimation = styled.div`
   }
 
   @media (min-width: 1024px) {
-    height: 40vh;
+    height: 30vh;
   }
 
   /* Maybe add some transition here to make it more smooth */
@@ -249,8 +251,8 @@ const TimeAndTaskContainer = styled.div`
     padding-top: 90px;
   }
 
-  @media (min-width: 1024px) {
-    padding-top: 200px;
+  @media (min-width: 992px) {
+    padding-top: 50px;
   }
 `
 
@@ -278,24 +280,24 @@ const Icon = styled.i`
   }
 
   @media (min-width: 768px) {
-      font-size: 40px;
-    }
+    font-size: 40px;
+  }
 
   @media (min-width: 1024px) {
     font-size: 50px;
-  }  
+  }
 `
 
 const BigIcon = styled(Icon)`
   font-size: 50px;
 
   @media (min-width: 768px) {
-      font-size: 62px;
-    }
+    font-size: 62px;
+  }
 
   @media (min-width: 1024px) {
     font-size: 75px;
-  }  
+  }
 `
 
 const Button = styled.button`
