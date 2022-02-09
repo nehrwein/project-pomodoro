@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroTimer = () => {
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(1)
   const workMinutes = useSelector((state) => state.settings.workMinutes)
   const shortBreakMinutes = useSelector(
     (state) => state.settings.shortBreakMinutes
@@ -21,6 +21,7 @@ const PomodoroTimer = () => {
   const longBreakMinutes = useSelector(
     (state) => state.settings.longBreakMinutes
   )
+  const longBreakTime = counter % 4 === 0
   const activatedButton = useSelector((state) => state.timer.items._id)
   const accessToken = useSelector((state) => state.user.accessToken)
   const userId = useSelector((state) => state.user.userId)
@@ -67,7 +68,7 @@ const PomodoroTimer = () => {
             setSeconds(newSeconds)
             setMinutes(newMinutes)
             setSecondsLeft(work ? breakMinutes * 60 : workMinutes * 60)
-            setBreakMinutes(counter % 4 ? longBreakMinutes : shortBreakMinutes)
+            setBreakMinutes(longBreakTime ? longBreakMinutes : shortBreakMinutes)
             setCounter(work ? counter + 1 : counter)
             work && dispatch(addPomodoro(accessToken, userId))
             setWork(work ? false : true)
@@ -98,6 +99,7 @@ const PomodoroTimer = () => {
     dispatch,
     accessToken,
     userId,
+    longBreakTime
   ])
 
   // In order to always show two digits for minutes and seconds
@@ -119,6 +121,7 @@ const PomodoroTimer = () => {
         </TimeAndTaskContainer>
       </Wrapper>
       <ButtonsContainer buttonBackgroundColor={buttonBackgroundColor}>
+        <InnerButtonContainer>
         <Button
           disabled={!activatedButton}
           onClick={() => {
@@ -161,6 +164,7 @@ const PomodoroTimer = () => {
         >
           <Icon iconColor={iconColor}>{StopIcon}</Icon>
         </Button>
+        </InnerButtonContainer>
       </ButtonsContainer>
     </TimerContainer>
   )
@@ -187,6 +191,10 @@ const TimerContainer = styled.div`
     @media (min-width: 768px) {
       font-size: 60px;
     }
+
+    @media (min-width: 1024px) {
+      font-size: 80px;
+    }
   }
 
   p {
@@ -194,6 +202,10 @@ const TimerContainer = styled.div`
 
     @media (min-width: 768px) {
       font-size: 25px;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 40px;
     }
   }
 `
@@ -212,6 +224,10 @@ const SlidingAnimation = styled.div`
 
   @media (min-width: 768px) {
     height: 25vh;
+  }
+
+  @media (min-width: 1024px) {
+    height: 40vh;
   }
 
   /* Maybe add some transition here to make it more smooth */
@@ -233,16 +249,23 @@ const TimeAndTaskContainer = styled.div`
     padding-top: 90px;
   }
 
-  @media (min-width: 992px) {
-    padding-top: 65px;
+  @media (min-width: 1024px) {
+    padding-top: 200px;
   }
 `
 
 const ButtonsContainer = styled.div`
   background: ${(props) => props.buttonBackgroundColor};
-  padding: 20px 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+`
+
+const InnerButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  max-width: 800px;
+  padding: 20px 0;
 `
 
 const Icon = styled.i`
@@ -257,6 +280,10 @@ const Icon = styled.i`
   @media (min-width: 768px) {
       font-size: 40px;
     }
+
+  @media (min-width: 1024px) {
+    font-size: 50px;
+  }  
 `
 
 const BigIcon = styled(Icon)`
@@ -265,6 +292,10 @@ const BigIcon = styled(Icon)`
   @media (min-width: 768px) {
       font-size: 62px;
     }
+
+  @media (min-width: 1024px) {
+    font-size: 75px;
+  }  
 `
 
 const Button = styled.button`

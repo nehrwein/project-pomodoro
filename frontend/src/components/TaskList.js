@@ -145,16 +145,24 @@ const TaskWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-top: 30px;
   padding-bottom: 30px;
-  width: 80%;
+  width: 95%;
+  min-height: 45%;
   overflow-y:auto;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
 
   @media (min-width: 768px) {
     max-width: 550px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 1000px;
+    min-height: 30vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-content: start;
   }
 `
 
@@ -164,6 +172,10 @@ const Task = styled.div`
   align-items: center;
   justify-content: space-between;
   padding-bottom: 5px;
+
+  @media (min-width: 1024px) {
+    padding: 0 20px;
+  }
 `
 
 const TaskSettings = styled.div`

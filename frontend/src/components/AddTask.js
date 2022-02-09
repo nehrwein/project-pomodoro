@@ -56,12 +56,12 @@ const AddTaskContainer = styled.div`
   padding: 20px 0;
   gap: 10px;
 
-	@media (min-width: 768px) {
+/* 	@media (min-width: 768px) {
     border: 2px solid #d75004;
 		border-radius: 30px;
 		width:80%;
     max-width: 400px;
-		margin-top:20px;
+		margin-top:20px; */
   }
 `
 
@@ -78,7 +78,7 @@ const Input = styled.input`
   font-size: 20px;
   color: #d75004;
   width: 144px;
-  text-align: right;
+  text-align: center;
 	background-color: #fff9f5;
 
   ::placeholder {
@@ -89,4 +89,9 @@ const Input = styled.input`
       font-size: 30px;
       width: 240px;
     }
+
+  @media (min-width: 1024px) {
+    font-size: 40px;
+    width: 400px;
+  }  
 `
