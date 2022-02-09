@@ -2,6 +2,7 @@
   height: 40px;
   border: 2px solid var(--lightRed);
   border-radius: 20px;
+  margin-bottom: 10px;
 }
 
 .slider.blue {

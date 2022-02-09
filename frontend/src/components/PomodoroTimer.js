@@ -71,8 +71,7 @@ const PomodoroTimer = () => {
             setCounter(work ? counter + 1 : counter)
             work && dispatch(addPomodoro(accessToken, userId))
             setWork(work ? false : true)
-            work && dispatch(timer.actions.setMode("break"))
-            !work && dispatch(timer.actions.setMode("work"))
+            dispatch(timer.actions.setMode(work ? "break" : "work")) 
           }
         } else {
           // if seconds are not equal to 0 we lower them by 1
@@ -178,15 +177,22 @@ const TimerContainer = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border-radius: 25px;
 
   h1 {
     font-size: 48px;
     margin: 0;
+
+    @media (min-width: 768px) {
+      font-size: 60px;
+    }
   }
 
   p {
     color: #ffffff99;
+
+    @media (min-width: 768px) {
+      font-size: 25px;
+    }
   }
 `
 
@@ -203,8 +209,7 @@ const SlidingAnimation = styled.div`
   height: 15vh;
 
   @media (min-width: 768px) {
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    height: 25vh;
   }
 
   /* Maybe add some transition here to make it more smooth */
@@ -246,10 +251,18 @@ const Icon = styled.i`
     color: white;
     transition: ease 0.5s;
   }
+
+  @media (min-width: 768px) {
+      font-size: 40px;
+    }
 `
 
 const BigIcon = styled(Icon)`
   font-size: 50px;
+
+  @media (min-width: 768px) {
+      font-size: 62px;
+    }
 `
 
 const Button = styled.button`

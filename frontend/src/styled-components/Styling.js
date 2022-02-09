@@ -104,9 +104,31 @@ export const Icon = styled.i`
 `;
 
 export const PagesContainer = styled.div`
-margin: 0 auto;
-width: 80%;
-max-width: 1000px;
-padding-top: 50px;
-text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1000px;
+  padding-top: 50px;
+  text-align: center;
+
+  h3 {
+      margin-top: -20px;
+    }
+
+
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-size: 25px;
+    }
+
+    label {
+      font-size: 18px;
+    }
+  }
+
+
 `

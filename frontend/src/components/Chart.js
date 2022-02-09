@@ -23,10 +23,11 @@ ChartJS.register(
 const Chart = ({chartData}) => {
   return (
     <div>
-
-        <Bar
-          data={chartData}
-        />
+      <Bar 
+        data={chartData}
+        height={500}
+        options={{ maintainAspectRatio: false }}
+      />
     </div>
   );
 };

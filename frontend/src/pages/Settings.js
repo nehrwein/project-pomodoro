@@ -14,11 +14,11 @@ const Settings = () => {
 
   return (
     <PagesContainer>
-      <h2>Setttings</h2>
+      <h2>Settings</h2>
       <h3>Pomodoro-Timer</h3>
       <div>
         <div style={{textAlign:'left'}}>
-        <label>Set time for work: {workMinutes} {workMinutes > 1 ? 'minutes' : 'minute'}</label>
+        <label>Time for work: {workMinutes} {workMinutes > 1 ? 'minutes' : 'minute'}</label>
           <ReactSlider
             className='slider'
             thumbClassName='thumb'
@@ -28,7 +28,7 @@ const Settings = () => {
             min={0}
             max={60}
           />
-        <label>Set time for short breaks: {shortBreakMinutes} {shortBreakMinutes > 1 ? 'minutes' : 'minute'}</label>
+        <label>Time for short breaks: {shortBreakMinutes} {shortBreakMinutes > 1 ? 'minutes' : 'minute'}</label>
           <ReactSlider
             className='slider blue'
             thumbClassName='thumb'
@@ -38,7 +38,7 @@ const Settings = () => {
             min={0}
             max={60}
           />
-        <label>Set time for long breaks after 4 pomodoros: {longBreakMinutes} {longBreakMinutes > 1 ? 'minutes' : 'minute'}</label>
+        <label>Time for long breaks: {longBreakMinutes} {longBreakMinutes > 1 ? 'minutes' : 'minute'}</label>
           <ReactSlider
             className='slider blue'
             thumbClassName='thumb'

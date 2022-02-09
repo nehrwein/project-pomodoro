@@ -80,7 +80,8 @@ const Report = () => {
     <PagesContainer>
       <h2>Productivity Report</h2>
       <h3>See your results of the last 7 days</h3>
-      <Chart chartData={userData}/>
+      <Chart 
+        chartData={userData}/>
     </PagesContainer>
   );
 };

@@ -32,10 +32,13 @@ const StyledCheckbox = styled.div`
   border-radius: 20px;
   border: ${(props) => (props.checked ? "none" : "1px solid var(--lightRed);")};
   background: ${(props) => (props.checked ? "var(--lightRed)" : "white")};
+
   ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
     color: ${(props) => (props.checked ? "var(--lightRed)" : "white")};
   }
+
+
 `
 
 const CheckboxContainer = styled.div`
@@ -43,16 +46,12 @@ const CheckboxContainer = styled.div`
   vertical-align: middle;
 `
 
-export const Checkbox = ({ isChecked, onChange, itemDescription, onClick }) => {
+export const Checkbox = ({ isChecked, onChange }) => {
   const [checked, setChecked] = useState(isChecked)
 
   const handleOnChange = (event) => {
     onChange()
     setChecked(event.target.checked)
-  }
-
-  const handleOnClick = () => {
-    onClick()
   }
 
   const Checkbox = ({ className, checked, ...props }) => (
@@ -68,9 +67,8 @@ export const Checkbox = ({ isChecked, onChange, itemDescription, onClick }) => {
 
   return (
     <div>
-      <label onClick={handleOnClick}>
+      <label>
         <Checkbox checked={checked} onChange={handleOnChange}></Checkbox>
-        {itemDescription}
       </label>
     </div>
   )
