@@ -23,6 +23,7 @@ const Icon = styled.svg`
 `
 
 //Custom checkbox that will show on screen
+//The grey color is a darker shade of the one for the edit and delete icons
 const StyledCheckbox = styled.div`
   display: inline-block;
   width: 16px;
