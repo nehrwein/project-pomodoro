@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components/macro"
 
 export const MainContainer = styled.main`
   height: 100vh;
@@ -33,14 +33,14 @@ export const FormWrapper = styled.div`
 `
 
 export const TaskWrapper = styled(FormWrapper)`
-	border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
 `
 
 export const PomodoroTimerWrapper = styled(FormWrapper)`
-	border-radius: 10px 10px 0 0;
-	background: var(--gradientRed);
+  border-radius: 10px 10px 0 0;
+  background: var(--gradientRed);
 
-	@media (min-width: 992px) {
+  @media (min-width: 992px) {
     width: 297px;
   }
 `
@@ -99,14 +99,14 @@ export const LinkText = styled.div`
 `
 
 export const Icon = styled.i`
-  color: var(--lightRed);;
+  color: var(--lightRed);
   font-size: 20px;
-`;
+`
 
 export const PagesContainer = styled.div`
-margin: 0 auto;
-width: 80%;
-max-width: 1000px;
-padding-top: 50px;
-text-align: center;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1000px;
+  padding-top: 50px;
+  text-align: center;
 `

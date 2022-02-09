@@ -106,7 +106,7 @@ const PomodoroTimer = () => {
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds
 
   return (
-    <TimerContainer>
+    <TimerContainer work={work}>
       <Wrapper>
         <SlidingAnimation
           percentage={percentage}
@@ -173,10 +173,12 @@ const TimerContainer = styled.div`
   width: 100%;
   margin: 0;
   color: white;
-  background-image: url("/assets/tomato-background-timer.jpg");
-  width: 100%;
+  background-image: ${(props) =>
+    props.work
+      ? `url("/assets/timer-work-background.png")`
+      : `url("/assets/timer-break-background.png")`};
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: bottom;
   background-size: cover;
   border-radius: 25px;
 

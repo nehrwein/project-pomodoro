@@ -14,7 +14,7 @@ const AddTask = () => {
   const dispatch = useDispatch()
 
   const onPressEnter = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       onAddTodo(accessToken, userId, task)
     }
   }
@@ -28,7 +28,7 @@ const AddTask = () => {
     <AddTaskContainer>
       <AddButton
         type="submit"
-        disabled = {!task}
+        disabled={!task}
         onClick={() => onAddTodo(accessToken, userId, task)}
       >
         <Icon>{plusIcon}</Icon>
@@ -55,15 +55,14 @@ const AddTaskContainer = styled.div`
   border-top: 2px solid #d75004;
   padding: 20px 0;
   gap: 10px;
-	background-color: #fff9f5;
+  background-color: #fff9f5;
   /*box-sizing: border-box;*/
   /* margin: 10px auto; */
-
-	@media (min-width: 768px) {
+  @media (min-width: 768px) {
     border: 2px solid #d75004;
-		border-radius: 30px;
-		width:80%;
-		margin-top:20px;
+    border-radius: 30px;
+    width: 80%;
+    margin-top: 20px;
   }
 `
 
@@ -80,8 +79,7 @@ const Input = styled.input`
   font-size: 20px;
   color: #d75004;
   width: 144px;
-	background-color: #fff9f5;
-
+  background-color: #fff9f5;
   ::placeholder {
     color: #d75004;
   }

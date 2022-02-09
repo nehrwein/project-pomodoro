@@ -35,10 +35,6 @@ const TaskList = () => {
   const penIcon = <FontAwesomeIcon icon={faPen} />
   const saveIcon = <FontAwesomeIcon icon={faPlus} />
 
-  //TODO
-  // We need to change the color of the task depending on if user is doing a pomodoro or having a break
-  // We need to access information from PomodoroTimer.js
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -186,7 +182,6 @@ const ItemContainer = styled.div`
   gap: 16px;
   position: relative;
   background-color: #fff9f5;
-
   span {
     color: ${(props) => (props.checked ? "red" : "#84817a")};
   }
@@ -213,11 +208,6 @@ const Icon = styled.i`
 
 const Container = styled.div`
   display: inline-flex;
-
-  label {
-    padding-top: 1px;
-    padding-left: 8px;
-  }
 `
 
 /* const NoTasks = styled.div`
@@ -244,6 +234,8 @@ const SaveButton = styled.button`
 
 const TaskLabel = styled.label`
   color: ${(props) => props.taskColor};
+  padding-top: 1px;
+  padding-left: 8px;
 `
 
 //<Task
