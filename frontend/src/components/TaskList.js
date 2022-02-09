@@ -9,7 +9,6 @@ import {
   toggleIsComplete,
 } from "../reducers/tasks"
 import { timer } from "../reducers/timer"
-import AddTask from "./AddTask"
 import LoadingIndicator from "./LoadingIndicator"
 import { Checkbox } from "../library/Checkbox"
 
@@ -30,7 +29,7 @@ const TaskList = () => {
 
   const [pickedId, setPickedId] = useState("")
   const [updatedDescription, setUpdatedDescription] = useState("")
-
+  
   const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
   const penIcon = <FontAwesomeIcon icon={faPen} />
   const saveIcon = <FontAwesomeIcon icon={faPlus} />
@@ -70,90 +69,71 @@ const TaskList = () => {
         {allOpenTasks && !loading && (
           <>
             {allOpenTasks.map((item) => (
-              <ItemContainer key={item._id} checked={item.completed}>
-                <Item>
-                  {/*<Checkbox
-                    isChecked={item.completed}
-                    itemDescription={item.description}
-                    onChange={() =>
-                      dispatch(
-                        toggleIsComplete(
+              <Task key={item._id}>
+                {item._id === pickedId ? (
+                  <>
+                    <EditInput
+                      type="text"
+                      value={updatedDescription}
+                      onKeyPress={(e) => onPressEnter(e, item._id)}
+                      onChange={(event) => {
+                        setUpdatedDescription(event.target.value)
+                      }}
+                    />
+                    <SaveButton
+                      type="submit"
+                      disabled={!updatedDescription}
+                      onClick={() =>
+                        onUpdateTodo(
+                          item._id,
+                          accessToken,
+                          updatedDescription,
+                          userId
+                        )
+                      }
+                    >
+                      <Icon>{saveIcon}</Icon>
+                    </SaveButton>
+                  </>
+                ) : (
+                  <CheckContainer>
+                    <Checkbox
+                      isChecked={item.completed}
+                      onChange={() =>
+                        onIsComplete(
                           item._id,
                           item.completed,
                           item.completedAt,
                           accessToken,
                           userId
                         )
-                      )}
-                    onClick={() => dispatch(timer.actions.setItems(item))}
-                    />				*/}
-                  {item._id === pickedId ? (
-                    <>
-                      <EditInput
-                        type="text"
-                        value={updatedDescription}
-                        onKeyPress={(e) => onPressEnter(e, item._id)}
-                        onChange={(event) => {
-                          setUpdatedDescription(event.target.value)
-                        }}
-                      />
-                      <SaveButton
-                        type="submit"
-                        disabled={!updatedDescription}
-                        onClick={() =>
-                          onUpdateTodo(
-                            item._id,
-                            accessToken,
-                            updatedDescription,
-                            userId
-                          )
-                        }
-                      >
-                        <Icon>{saveIcon}</Icon>
-                      </SaveButton>
-                    </>
-                  ) : (
-                    <Container>
-                      <Checkbox
-                        isChecked={item.completed}
-                        /* itemDescription={item.description} */
-                        onChange={() =>
-                          onIsComplete(
-                            item._id,
-                            item.completed,
-                            item.completedAt,
-                            accessToken,
-                            userId
-                          )
-                        }
-                      />
-                      <TaskLabel
-                        taskColor={taskColor}
-                        onClick={() => dispatch(timer.actions.setItems(item))}
-                      >
-                        {item.description}
-                      </TaskLabel>
-                    </Container>
-                  )}
-                  <TaskSettings>
-                    {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
-                    <div onClick={() => setPickedId(item._id)}>
-                      <Icon>{penIcon}</Icon>
-                    </div>
-                    <div
-                      onClick={() =>
-                        dispatch(deleteTodo(accessToken, userId, item._id))
                       }
+                    />
+                    <TaskLabel
+                      taskColor={taskColor}
+                      onClick={() => dispatch(timer.actions.setItems(item))}
                     >
-                      <Icon>{trashCanIcon}</Icon>
-                    </div>
-                  </TaskSettings>
-                </Item>
-              </ItemContainer>
+                      {item.description}
+                    </TaskLabel>
+                  </CheckContainer>
+                )}
+                <TaskSettings>
+                  {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
+                  <div onClick={() => setPickedId(item._id)}>
+                    <Icon>{penIcon}</Icon>
+                  </div>
+                  <div
+                    onClick={() =>
+                      dispatch(deleteTodo(accessToken, userId, item._id))
+                    }
+                  >
+                    <Icon>{trashCanIcon}</Icon>
+                  </div>
+                </TaskSettings>
+              </Task>
             ))}
           </>
         )}
-        <AddTask />
       </TaskWrapper>
     </>
   )
@@ -165,55 +145,48 @@ const TaskWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-top: 30px;
   padding-bottom: 30px;
-  width: 100%;
-  height: auto;
-  gap: 16px;
-  position: relative;
-  background-color: #fff9f5;
+  width: 80%;
+  overflow-y:auto;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-`
 
-const ItemContainer = styled.div`
-  width: 80%;
-  height: auto;
-  gap: 16px;
-  position: relative;
-  background-color: #fff9f5;
-  span {
-    color: ${(props) => (props.checked ? "red" : "#84817a")};
+  @media (min-width: 768px) {
+    max-width: 550px;
   }
 `
 
-const Item = styled.div`
+const Task = styled.div`
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 5px;
 `
 
 const TaskSettings = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  /*width: 20%;*/
   gap: 20px;
 `
 
 const Icon = styled.i`
   color: #b4b2b2;
   font-size: 16px;
+  
+  @media (min-width: 768px) {
+      font-size: 20px;
+    }
 `
 
-const Container = styled.div`
+const CheckContainer = styled.div`
   display: inline-flex;
+  flex-direction: row;
+  align-items: center;
 `
-
-/* const NoTasks = styled.div`
-  color: gray;
-` */
 
 const EditInput = styled.input`
   border: none;
@@ -222,89 +195,24 @@ const EditInput = styled.input`
   font-size: 20px;
   color: var(--lightRed);
   width: 67%;
-  background-color: #fff9f5;
+  background-color: transparent;
 `
 
 const SaveButton = styled.button`
   border: none;
   background-color: transparent;
-  border: none;
   font-size: 15px;
   cursor: pointer;
 `
 
 const TaskLabel = styled.label`
   color: ${(props) => props.taskColor};
-  padding-top: 1px;
   padding-left: 8px;
+
+  
+  @media (min-width: 768px) {
+      font-size: 20px;
+      padding-bottom: 6px;
+    }
 `
 
-//<Task
-//  key={item._id}
-//  // taskColor={taskColor}
-//  completed={item.completed}
-//>
-//  <div>
-//    <CheckboxInput
-//      id="completed"
-//      checked={item.completed}
-//      type="checkbox"
-//      onChange={() =>
-//        dispatch(
-//          toggleIsComplete(
-//            item._id,
-//            item.completed,
-//            item.completedAt,
-//            accessToken,
-//            userId
-//          )
-//        )
-//      }
-//    />
-//    {item._id === pickedId && item.completed === false ? (
-//      <>
-//        <EditInput
-//          type="text"
-//          value={updatedDescription}
-//          onChange={(event) => {
-//            setUpdatedDescription(event.target.value)
-//          }}
-//        />
-//        <SaveButton
-//          type="submit"
-//          onClick={() =>
-//            onUpdateTodo(
-//              item._id,
-//              accessToken,
-//              updatedDescription,
-//              userId
-//            )
-//          }
-//        >
-//          Save
-//        </SaveButton>
-//      </>
-//    ) : (
-//      <TaskDescription
-//        onClick={() => dispatch(timer.actions.setItems(item))}
-//        completed={item.completed}
-//      >
-//        {item.description}
-//      </TaskDescription>
-//    )}
-//  </div>
-
-//  <TaskSettings>
-//    {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
-//    <div onClick={() => setPickedId(item._id)}>
-//      <Icon>{penIcon}</Icon>
-//    </div>
-//    <div
-//      onClick={() =>
-//        dispatch(deleteTodo(accessToken, userId, item._id))
-//      }
-//    >
-//      <Icon>{trashCanIcon}</Icon>
-//    </div>
-//  </TaskSettings>
-//</Task>

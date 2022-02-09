@@ -41,6 +41,7 @@ const Navigation = () => {
     dispatch(user.actions.setAccessToken(null))
     dispatch(user.actions.setError(null))
     dispatch(timer.actions.deleteItems())
+    dispatch(timer.actions.setMode('work'))
   }
 
   return (
@@ -106,6 +107,11 @@ const Icon = styled.i`
   right: 0;
   margin-right: 10px;
   margin-top: 5px;
+
+  @media (min-width: 768px) {
+      font-size: 40px;
+      margin-right: 20px;
+    }
 `
 
 const SideMenu = styled.nav`
@@ -120,6 +126,10 @@ const SideMenu = styled.nav`
   right: ${(props) => (props.sidebar ? 0 : "-100%")};
   transition: ${(props) => (props.sidebar ? "350ms" : "850ms")};
   z-index: 3;
+
+  @media (min-width: 768px) {
+      width: 400px;
+    }
 `
 
 const NavList = styled.li`
@@ -146,6 +156,10 @@ const NavLink = styled(Link)`
     background-color: var(--lightRed);
     color: white;
   }
+
+  @media (min-width: 768px) {
+      font-size: 30px;
+    }
 `
 const StyledUl = styled.ul`
   width: 100%;
@@ -180,5 +194,11 @@ const LogOutButton = styled.button`
   &:hover {
     background-color: var(--lightRed);
     color: #FFF9F5;
+  } 
+
+  @media (min-width: 768px) {
+      font-size: 20px;
+      width: 150px;
+    }
   
 `

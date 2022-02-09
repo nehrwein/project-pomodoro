@@ -6,7 +6,7 @@ export const timer = createSlice({
   name: "timer",
   initialState: {
     items: {},
-    mode: "work",
+    mode: "work"
   },
   reducers: {
     setItems: (store, action) => {
@@ -20,7 +20,7 @@ export const timer = createSlice({
     },
     setMode: (store, action) => {
       store.mode = action.payload
-    },
+    }
   },
 })
 

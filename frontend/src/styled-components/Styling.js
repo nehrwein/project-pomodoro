@@ -109,4 +109,26 @@ export const PagesContainer = styled.div`
   max-width: 1000px;
   padding-top: 50px;
   text-align: center;
+
+  h3 {
+      margin-top: -20px;
+    }
+
+
+
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 30px;
+    }
+
+    h3 {
+      font-size: 25px;
+    }
+
+    label {
+      font-size: 18px;
+    }
+  }
+
+
 `
