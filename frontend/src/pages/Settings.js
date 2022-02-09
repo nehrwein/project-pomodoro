@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ReactSlider from 'react-slider'
 import { settings } from '../reducers/settings'
 import { PagesContainer } from "styled-components/Styling"
+// import styled from 'styled-components'
 import './Slider.css'
 
 const Settings = () => {
@@ -54,3 +55,9 @@ const Settings = () => {
 };
 
 export default Settings;
+
+/* const Slider = styled(ReactSlider)`
+  height: 40px;
+  border: 2px solid var(--lightRed);
+  border-radius: 20px;
+` */

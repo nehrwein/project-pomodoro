@@ -10,10 +10,19 @@ var lightBlue = style.getPropertyValue('--lightBlue');
 
 const Report = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
-  const allCompletedTasks = allTasks.filter(item => item.completed === true)
   const allPomodoros = useSelector((store) => store.tasks.items.pomodoros)
-  console.log('alle Pomos: ', allPomodoros)
- 
+
+  // create an array with the last 7 days' dates
+  let sevenDays = []
+  for(let i = 6; i >= 0; i--) {
+    const daysDate = sub(new Date(), {days: i})
+    sevenDays.push(format(daysDate,'dd.MM.yyyy'))
+  }
+
+  // We need to filter out completed tasks and pomodoros that were completed within the last seven days
+  const allCompletedTasks = allTasks.filter(item => item.completed === true && sevenDays.includes(item.completedAt))
+  const sevenDaysPomodoros = allPomodoros.filter(item => sevenDays.includes(item.completedAt))
+  
   // completed tasks per day
   // https://stackoverflow.com/questions/53280115/how-to-count-unique-value-from-object-of-array-in-javascript
   let tempResult = {}
@@ -28,7 +37,7 @@ const Report = () => {
   // no of pomodoros per day
   // https://stackoverflow.com/questions/24444738/sum-similar-keys-in-an-array-of-objects
   let pomoResult = {}
-  allPomodoros.forEach(item => {
+  sevenDaysPomodoros.forEach(item => {
     if (pomoResult.hasOwnProperty(item.completedAt)) {
       pomoResult[item.completedAt] = pomoResult[item.completedAt] + item.pomodoro
     } else {
@@ -41,14 +50,6 @@ const Report = () => {
     pomoData.push({ completedAt: prop, pomodoro: pomoResult[prop]})
   }
   pomoData.sort((a,b) => a.completedAt > b.completedAt)
-
-
-  // create an array with the last 7 days' dates
-  let sevenDays = []
-  for(let i = 6; i >= 0; i--) {
-    const daysDate = sub(new Date(), {days: i})
-    sevenDays.push(format(daysDate,'dd.MM.yyyy'))
-  }
 
   // The two datasets for ChartJs
   const userData = {
