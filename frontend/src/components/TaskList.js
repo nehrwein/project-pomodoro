@@ -59,6 +59,7 @@ const TaskList = () => {
     dispatch(timer.actions.setDescription())
   }
 
+  // color changes depending on mode
   const colorMode = useSelector((store) => store.timer.mode)
   const taskColor = colorMode === "work" ? "var(--red)" : "var(--blue)"
 
