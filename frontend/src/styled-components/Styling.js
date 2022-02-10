@@ -128,8 +128,8 @@ export const PagesContainer = styled.div`
   text-align: center;
   background-color: var(--beige);
 
-  h3 {
-    margin-top: -20px;
+  h2 {
+    margin-bottom: -20px;
   }
 
   @media (min-width: 768px) {
@@ -145,7 +145,7 @@ export const PagesContainer = styled.div`
       font-size: 18px;
     }
 
-    p {
+    p, span {
       font-size: 20px;
     }
   }
@@ -163,7 +163,7 @@ export const PagesContainer = styled.div`
       font-size: 25px;
     }
 
-    p {
+    p, span {
       font-size: 25px;
     }
   }

@@ -236,7 +236,6 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
-// !!! new version to higher the no of pomodoros without connecting it to a certain task
 app.post('/tasks/:userId/pomodoro', authenticateUser)
 app.post('/tasks/:userId/pomodoro', async (req, res) => {
   const { userId } = req.params
@@ -252,7 +251,7 @@ app.post('/tasks/:userId/pomodoro', async (req, res) => {
   }
 })
 
-// endpoint for deleting tasks
+// endpoint for deleting single tasks
 app.delete('/tasks/:taskId', authenticateUser)
 app.delete('/tasks/:taskId', async (req, res) => {
   const { taskId } = req.params
@@ -328,19 +327,20 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// endpoint for deleting a user
+// endpoint for deleting a user and all his tasks
 app.delete('/users/:userId', authenticateUser)
 app.delete('/users/:userId', async (req, res) => {
   const { userId } = req.params
 
   try {
     const queriedUser = await User.findById(userId)
-    const deletedUser = await User.deleteOne({ user: queriedUser._id })
+    const deletedTasks = await Task.deleteMany({ user: queriedUser._id })
+    const deletedUser = await User.deleteOne({ _id: queriedUser._id })
 
     if (!deletedUser) {
       res.status(404).json({ response: 'No user found with this Id', success: false})
     } else {
-      res.status(200).json({ response: deletedUser, success: true})
+      res.status(200).json({ response: {deletedUser, deletedTasks}, success: true})
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false })

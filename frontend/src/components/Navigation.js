@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch, batch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { user } from "../reducers/user"
 import { timer } from "../reducers/timer"
@@ -41,12 +41,14 @@ const Navigation = () => {
 
   const onLogOut = () => {
     setSidebar(false)
-    dispatch(user.actions.setUserId(null))
-    dispatch(user.actions.setUsername(null))
-    dispatch(user.actions.setAccessToken(null))
-    dispatch(user.actions.setError(null))
-    dispatch(timer.actions.deleteItems())
-    dispatch(timer.actions.setMode("work"))
+    batch(() => {
+      dispatch(user.actions.setUserId(null))
+      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setAccessToken(null))
+      dispatch(user.actions.setError(null))
+      dispatch(timer.actions.deleteItems())
+      dispatch(timer.actions.setMode("work"))
+    })
   }
 
   return (
@@ -91,7 +93,6 @@ const Navigation = () => {
 export default Navigation
 
 const NavBar = styled.div`
-  /* background: var(--gradientRed); */
   height: 30px;
   padding: 5px 0;
   display: flex;
@@ -102,7 +103,6 @@ const NavBar = styled.div`
   position: absolute;
 `
 
-// Changed the color to var(--red) just for now in order to see the icon
 const Icon = styled.i`
   margin-right: 15px;
   color: ${(props) => (props.orange ? "var(--lightRed)" : window.location.pathname === '/' ? "var(--beige)" : "var(--lightRed)")};
