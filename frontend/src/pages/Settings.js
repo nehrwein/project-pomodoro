@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ReactSlider from 'react-slider'
 import { settings } from '../reducers/settings'
 import { PagesContainer } from "styled-components/Styling"
-// import styled from 'styled-components'
+import styled from 'styled-components'
 import './Slider.css'
 
 const Settings = () => {
@@ -13,7 +13,7 @@ const Settings = () => {
   const dispatch = useDispatch()
 
   return (
-    <PagesContainer>
+    <SettingsPagesContainer>
       <h2>Settings</h2>
       <h3>Pomodoro-Timer</h3>
       <div>
@@ -50,7 +50,7 @@ const Settings = () => {
           />
         </div>
        </div> 
-    </PagesContainer>
+    </SettingsPagesContainer>
   );
 };
 
@@ -61,3 +61,7 @@ export default Settings;
   border: 2px solid var(--lightRed);
   border-radius: 20px;
 ` */
+
+const SettingsPagesContainer = styled(PagesContainer)`
+  max-width: 600px;
+`

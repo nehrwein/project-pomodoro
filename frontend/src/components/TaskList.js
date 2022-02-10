@@ -21,11 +21,6 @@ const TaskList = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
   const userId = useSelector((store) => store.user.userId)
   const loading = useSelector((store) => store.ui.loading)
-  const error = useSelector((store) => store.tasks.error)
-  console.log("Error: ", error)
-  console.log("AT: ", accessToken)
-  console.log("userId: ", userId)
-  console.log("allTasks: ", allTasks)
 
   const [pickedId, setPickedId] = useState("")
   const [updatedDescription, setUpdatedDescription] = useState("")
@@ -64,7 +59,7 @@ const TaskList = () => {
 
   return (
     <>
-      <TaskWrapper>
+      <TaskWrapper loadingAnimation={loading}>
         {loading && <LoadingIndicator />}
         {allOpenTasks && !loading && (
           <>
@@ -160,7 +155,7 @@ const TaskWrapper = styled.div`
     max-width: 1000px;
     min-height: 30vh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: ${(props) => props.loadingAnimation ? '1fr' : '1fr 1fr'};
     justify-items: center;
     align-content: start;
   }
@@ -174,7 +169,7 @@ const Task = styled.div`
   padding-bottom: 5px;
 
   @media (min-width: 1024px) {
-    padding: 0 20px;
+    padding: 6px 20px;
   }
 `
 
@@ -192,6 +187,10 @@ const Icon = styled.i`
   @media (min-width: 768px) {
       font-size: 20px;
     }
+
+  @media (min-width: 1024px) {
+    font-size: 25px;
+  }    
 `
 
 const CheckContainer = styled.div`
@@ -226,5 +225,9 @@ const TaskLabel = styled.label`
       font-size: 20px;
       padding-bottom: 6px;
     }
+
+    @media (min-width: 1024px) {
+      font-size: 25px;
+    }  
 `
 

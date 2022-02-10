@@ -27,7 +27,7 @@ const MainContainer = styled.div `
   align-items: center;
   justify-content: flex-start;
   margin: 0 auto;
-  background-color: #fff9f5;
+  background-color: var(--beige);
 
 /*   @media (min-width: 768px) {
     width: 400px;

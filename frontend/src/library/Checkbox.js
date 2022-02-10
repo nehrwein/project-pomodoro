@@ -32,11 +32,11 @@ const StyledCheckbox = styled.div`
   margin-right: 6px;
   border-radius: 20px;
   border: ${(props) => (props.checked ? "none" : "1px solid #747171")};
-  background: ${(props) => (props.checked ? "#747171" : "white")};
+  background: ${(props) => (props.checked ? "#747171" : "var(--beige)")};
 
   ${Icon} {
     visibility: ${(props) => (props.checked ? "visible" : "hidden")};
-    color: ${(props) => (props.checked ? "#747171" : "white")};
+    color: ${(props) => (props.checked ? "#747171" : "var(--beige)")};
   }
 `
 

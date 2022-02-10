@@ -33,6 +33,11 @@ const Navigation = () => {
       navigate("/login")
     }
   }, [accessToken, navigate])
+  
+  const onClickingLink = () => {
+    dispatch(timer.actions.deleteItems())
+    setSidebar(false)
+  }
 
   const onLogOut = () => {
     setSidebar(false)
@@ -65,7 +70,7 @@ const Navigation = () => {
               {NavigationLinks.map((item, index) => {
                 return (
                   <NavList key={index}>
-                    <NavLink to={item.path} onClick={() => setSidebar(false)}>
+                    <NavLink to={item.path} onClick={() => onClickingLink()}>
                       {item.title}
                     </NavLink>
                   </NavList>
@@ -100,7 +105,7 @@ const NavBar = styled.div`
 // Changed the color to var(--red) just for now in order to see the icon
 const Icon = styled.i`
   margin-right: 15px;
-  color: ${(props) => (props.orange ? "var(--lightRed)" : "var(--red)")};
+  color: ${(props) => (props.orange ? "var(--lightRed)" : window.location.pathname === '/' ? "var(--beige)" : "var(--lightRed)")};
   font-size: 28px;
   background: none;
   z-index: 3;
@@ -114,10 +119,17 @@ const Icon = styled.i`
     font-size: 40px;
     margin-right: 20px;
   }
+
+  @media (min-width: 768px) {
+    font-size: 50px;
+    margin-right: 30px;
+    margin-top: 20px;
+  }
 `
 
 const SideMenu = styled.nav`
-  background-color: rgb(250, 250, 250);
+  background-color: var(--beige);
+  border-left: 2px solid var(--lightRed);
   width: 250px;
   height: 100vh;
   display: flex;
@@ -132,6 +144,10 @@ const SideMenu = styled.nav`
   @media (min-width: 768px) {
     width: 400px;
   }
+
+  @media (min-width: 1024px) {
+    width: 500px;
+  }
 `
 
 const NavList = styled.li`
@@ -141,6 +157,11 @@ const NavList = styled.li`
   padding: 8px 0px 8px 32px;
   list-style: none;
   height: 60px;
+
+  @media (min-width: 1024px) {
+    padding-left: 80px;
+    height: 80px;
+  }
 `
 
 const NavLink = styled(Link)`
@@ -156,12 +177,17 @@ const NavLink = styled(Link)`
 
   :hover {
     background-color: var(--lightRed);
-    color: white;
+    color: var(--beige);
   }
 
   @media (min-width: 768px) {
     font-size: 30px;
   }
+
+  @media (min-width: 1024px) {
+    font-size: 35px;
+  }
+  
 `
 const StyledUl = styled.ul`
   width: 100%;
@@ -195,11 +221,16 @@ const LogOutButton = styled.button`
 
   &:hover {
     background-color: var(--lightRed);
-    color: #fff9f5;
+    color: var(--beige);
   }
 
   @media (min-width: 768px) {
     font-size: 20px;
     width: 150px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 25px;
+    width: 200px;
   }
 `

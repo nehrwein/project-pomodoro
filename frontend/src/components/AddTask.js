@@ -59,14 +59,6 @@ const AddTaskContainer = styled.div`
   border-top: 2px solid ${(props) => props.taskColor};
   padding: 20px 0;
   gap: 10px;
-
-/* 	@media (min-width: 768px) {
-    border: 2px solid #d75004;
-		border-radius: 30px;
-		width:80%;
-    max-width: 400px;
-		margin-top:20px; */
-  }
 `
 
 const AddButton = styled.button`
@@ -83,7 +75,7 @@ const Input = styled.input`
   color: ${(props) => props.taskColor};
   width: 144px;
   text-align: center;
-  background-color: #fff9f5;
+  background-color: var(--beige);
 
   ::placeholder {
     color: ${(props) => props.taskColor};
@@ -103,4 +95,12 @@ const Input = styled.input`
 const Icon = styled.i`
   color: #747171;
   font-size: 20px;
+
+  @media (min-width: 768px) {
+    font-size: 23px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 30px;
+  }
 `

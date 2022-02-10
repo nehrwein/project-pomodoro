@@ -177,7 +177,7 @@ export default PomodoroTimer
 const TimerContainer = styled.div`
   width: 100%;
   margin: 0;
-  color: white;
+  color: var(--beige);
   background-image: ${(props) =>
     props.work
       ? `url("/assets/timer-work-background.png")`

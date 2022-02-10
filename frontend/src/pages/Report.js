@@ -20,36 +20,44 @@ const Report = () => {
   }
 
   // We need to filter out completed tasks and pomodoros that were completed within the last seven days
-  const allCompletedTasks = allTasks.filter(item => item.completed === true && sevenDays.includes(item.completedAt))
+  const sevenDaysTasks = allTasks.filter(item => item.completed === true && sevenDays.includes(item.completedAt))
   const sevenDaysPomodoros = allPomodoros.filter(item => sevenDays.includes(item.completedAt))
   
   // completed tasks per day
   // https://stackoverflow.com/questions/53280115/how-to-count-unique-value-from-object-of-array-in-javascript
-  let tempResult = {}
-  for (let { completedAt } of allCompletedTasks) 
-    tempResult[completedAt] = {
-      completedAt,
-      count: tempResult[completedAt] ? tempResult[completedAt].count + 1 : 1
+  // https://stackoverflow.com/questions/24444738/sum-similar-keys-in-an-array-of-objects
+  let taskResult = {}
+  sevenDaysTasks.forEach(item => {
+    if (taskResult.hasOwnProperty(item.completedAt)) {
+      taskResult[item.completedAt] = {
+        completedAt: item.completedAt,
+        count: taskResult[item.completedAt].count + 1
+      }
+    } else {
+      taskResult[item.completedAt] = {
+        completedAt: item.completedAt,
+        count: 1
+      }
     }
-
-  const tasksPerDay = Object.values(tempResult) 
+  })  
+  const tasksPerDay = Object.values(taskResult) 
   
   // no of pomodoros per day
-  // https://stackoverflow.com/questions/24444738/sum-similar-keys-in-an-array-of-objects
   let pomoResult = {}
   sevenDaysPomodoros.forEach(item => {
     if (pomoResult.hasOwnProperty(item.completedAt)) {
-      pomoResult[item.completedAt] = pomoResult[item.completedAt] + item.pomodoro
+      pomoResult[item.completedAt] = {
+        completedAt: item.completedAt,
+        count: pomoResult[item.completedAt].count + 1
+      }
     } else {
-      pomoResult[item.completedAt] = item.pomodoro
+      pomoResult[item.completedAt] = {
+        completedAt: item.completedAt,
+        count: 1
+      }
     }
   })
-
-  let pomoData = []
-  for (let prop in pomoResult) {
-    pomoData.push({ completedAt: prop, pomodoro: pomoResult[prop]})
-  }
-  pomoData.sort((a,b) => a.completedAt > b.completedAt)
+  const pomoData = Object.values(pomoResult)
 
   // The two datasets for ChartJs
   const userData = {
@@ -66,7 +74,7 @@ const Report = () => {
       },
       {
         label: "Pomodoros per day",
-        data: pomoData.map((data) => ({ x: data.completedAt, y: data.pomodoro})),
+        data: pomoData.map((data) => ({ x: data.completedAt, y: data.count})),
         backgroundColor: [
           lightRed,
         ],

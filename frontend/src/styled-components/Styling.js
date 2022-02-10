@@ -8,12 +8,10 @@ export const MainContainer = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
   background-image: url("/assets/tomato-background.jpg");
   background-repeat: no-repeat;
-  background-size: 70%;
   background-position: center;
-  padding-bottom: 50px;
+  background-size: cover;
 `
 
 export const FormWrapper = styled.div`
@@ -27,8 +25,22 @@ export const FormWrapper = styled.div`
   align-items: center;
   color: var(--lightRed);
 
-  @media (min-width: 992px) {
+  @media (min-width: 768px) {
     width: auto;
+    font-size: 20px;
+
+    h3 {
+      font-size: 22px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 23px;
+    padding: 70px;
+
+    h3 {
+      font-size: 25px;
+    }
   }
 `
 
@@ -72,7 +84,7 @@ export const LoginButton = styled.button`
   justify-content: center;
   border: none;
   cursor: pointer;
-  color: #fff9f5;
+  color: var(--beige);
   font-size: 20px;
   font-weight: 500;
   padding: 10px;
@@ -82,6 +94,16 @@ export const LoginButton = styled.button`
 
   &:hover {
     background-color: var(--red);
+  }
+
+  @media (min-width: 768px) {
+    font-size: 22px;
+    width: 120px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 25px;
+    width: 150px;
   }
 `
 
@@ -104,6 +126,7 @@ export const PagesContainer = styled.div`
   max-width: 1000px;
   padding-top: 50px;
   text-align: center;
+  background-color: var(--beige);
 
   h3 {
     margin-top: -20px;
@@ -120,6 +143,28 @@ export const PagesContainer = styled.div`
 
     label {
       font-size: 18px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    h2 {
+      font-size: 40px;
+    }
+
+    h3 {
+      font-size: 35px;
+    }
+
+    label {
+      font-size: 25px;
+    }
+
+    p {
+      font-size: 25px;
     }
   }
 `
