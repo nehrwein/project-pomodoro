@@ -39,7 +39,9 @@ const Report = () => {
         count: 1
       }
     }
-  })  
+  })
+  // The Object.values() method returns an array of a given object's own enumerable property values, 
+  // in the same order as that provided by a for...in loop.  
   const tasksPerDay = Object.values(taskResult) 
   
   // no of pomodoros per day

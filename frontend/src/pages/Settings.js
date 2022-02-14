@@ -6,7 +6,6 @@ import { user } from '../reducers/user'
 import { settings, deleteAccount } from '../reducers/settings'
 import { PagesContainer, LoginButton } from "styled-components/Styling"
 import styled from 'styled-components'
-import './Slider.css'
 
 const Settings = () => {
   const workMinutes = useSelector((state) => state.settings.workMinutes)
@@ -35,8 +34,7 @@ const Settings = () => {
       <div>
         <div style={{textAlign:'left'}}>
         <label>Time for work: {workMinutes} {workMinutes > 1 ? 'minutes' : 'minute'}</label>
-          <ReactSlider
-            className='slider'
+          <Slider
             thumbClassName='thumb'
             trackClassName='track'
             value={workMinutes}
@@ -45,9 +43,9 @@ const Settings = () => {
             max={60}
           />
         <label>Time for short breaks: {shortBreakMinutes} {shortBreakMinutes > 1 ? 'minutes' : 'minute'}</label>
-          <ReactSlider
-            className='slider blue'
-            thumbClassName='thumb'
+          <Slider
+            lightBlue
+            thumbClassName='thumb lightBlue'
             trackClassName='track'
             value={shortBreakMinutes}
             onChange={newValue => dispatch(settings.actions.setShortBreakMinutes(newValue))}
@@ -55,9 +53,9 @@ const Settings = () => {
             max={60}
           />
         <label>Time for long breaks: {longBreakMinutes} {longBreakMinutes > 1 ? 'minutes' : 'minute'}</label>
-          <ReactSlider
-            className='slider blue'
-            thumbClassName='thumb'
+          <Slider
+            blue
+            thumbClassName='thumb blue'
             trackClassName='track'
             value={longBreakMinutes}
             onChange={newValue => dispatch(settings.actions.setLongBreakMinutes(newValue))}
@@ -75,11 +73,12 @@ const Settings = () => {
 
 export default Settings;
 
-/* const Slider = styled(ReactSlider)`
+const Slider = styled(ReactSlider)`
   height: 40px;
-  border: 2px solid var(--lightRed);
+  border: 2px solid;
+  border-color: ${(props) => props.lightBlue ? 'var(--lightBlue)' : props.blue ? 'var(--blue)' : 'var(--lightRed)'} ;
   border-radius: 20px;
-` */
+`
 
 const SettingsPagesContainer = styled(PagesContainer)`
   max-width: 600px;
