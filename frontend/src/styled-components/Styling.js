@@ -129,7 +129,7 @@ export const PagesContainer = styled.div`
   background-color: var(--beige);
 
   h2 {
-    margin-bottom: -20px;
+    margin-bottom: 20px;
   }
 
   @media (min-width: 768px) {
@@ -166,5 +166,48 @@ export const PagesContainer = styled.div`
     p, span {
       font-size: 25px;
     }
+  }
+`
+
+export const CardContainer = styled.div`
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  @media (min-width: 768px) {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    gap: 10px;
+  }
+`
+export const Card = styled.div`
+  width: 300px;
+  border: 1px solid gray;
+  padding: 8px;
+  border-radius: 10px;
+  margin:10px 0;
+
+  p {
+    font-size: 16px;
+  }
+`
+
+export const Image = styled.img`
+  border-radius: 50%;
+  width: 100px; 
+  height:100px;
+`
+
+export const Link = styled.a`
+  color: var(--lightRed);
+
+  :hover {
+    color: var(--gradientRed);
+    text-decoration: none;
   }
 `
