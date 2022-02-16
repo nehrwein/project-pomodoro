@@ -84,7 +84,7 @@ const TaskList = () => {
                       }}
                       onDoubleClick={() => setPickedId("")}
                     />
-                    <EditButton
+                    <SaveButton
                       type="submit"
                       disabled={!updatedDescription}
                       onClick={() =>
@@ -97,7 +97,7 @@ const TaskList = () => {
                       }
                     >
                       <Icon>{saveIcon}</Icon>
-                    </EditButton>
+                    </SaveButton>
                   </>
                 ) : (
                   <CheckContainer>
@@ -228,7 +228,7 @@ const EditInput = styled.input`
   background-color: transparent;
 `
 
-const EditButton = styled.button`
+const SaveButton = styled.button`
   border: none;
   background-color: transparent;
   font-size: 15px;
