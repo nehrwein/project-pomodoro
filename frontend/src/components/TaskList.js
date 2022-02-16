@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTrash, faPen, faPlus } from "@fortawesome/free-solid-svg-icons"
+import {
+  faTrash,
+  faPen,
+  faPlus,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons"
 import {
   showTasklist,
   updateTodo,
@@ -28,6 +33,7 @@ const TaskList = () => {
   const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
   const penIcon = <FontAwesomeIcon icon={faPen} />
   const saveIcon = <FontAwesomeIcon icon={faPlus} />
+  const exitIcon = <FontAwesomeIcon icon={faTimes} />
 
   const activatedTask = useSelector((state) => state.timer.items._id)
 
@@ -76,8 +82,9 @@ const TaskList = () => {
                       onChange={(event) => {
                         setUpdatedDescription(event.target.value)
                       }}
+                      onDoubleClick={() => setPickedId("")}
                     />
-                    <SaveButton
+                    <EditButton
                       type="submit"
                       disabled={!updatedDescription}
                       onClick={() =>
@@ -90,7 +97,7 @@ const TaskList = () => {
                       }
                     >
                       <Icon>{saveIcon}</Icon>
-                    </SaveButton>
+                    </EditButton>
                   </>
                 ) : (
                   <CheckContainer>
@@ -117,7 +124,10 @@ const TaskList = () => {
                 <TaskSettings>
                   {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
                   {!activatedTask ? (
-                    <div onClick={() => setPickedId(item._id)}>
+                    <div
+                      onClick={() => setPickedId(item._id)}
+                      onDoubleClick={() => setPickedId("")}
+                    >
                       <Icon>{penIcon}</Icon>
                     </div>
                   ) : (
@@ -218,7 +228,7 @@ const EditInput = styled.input`
   background-color: transparent;
 `
 
-const SaveButton = styled.button`
+const EditButton = styled.button`
   border: none;
   background-color: transparent;
   font-size: 15px;
