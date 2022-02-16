@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import { API_URL } from "../utils/constants"
 import { user } from "../reducers/user"
+import { settings } from "../reducers/settings"
 
 import { MainContainer, FormWrapper, UserInfoWrapper, UserInput, LoginButton, LinkText } from "styled-components/Styling"
 
@@ -39,12 +40,14 @@ const Login = () => {
     fetch(API_URL(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log('data:', data)
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
+            dispatch(settings.actions.setWorkMinutes(data.response.workMinutes))
+            dispatch(settings.actions.setShortBreakMinutes(data.response.shortBreakMinutes))
+            dispatch(settings.actions.setLongBreakMinutes(data.response.longBreakMinutes))
             dispatch(user.actions.setError(null))
           })
         } else {
@@ -52,6 +55,9 @@ const Login = () => {
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
+            dispatch(settings.actions.setWorkMinutes(null))
+            dispatch(settings.actions.setShortBreakMinutes(null))
+            dispatch(settings.actions.setLongBreakMinutes(null))
             dispatch(user.actions.setError(data.response))
           })
         }

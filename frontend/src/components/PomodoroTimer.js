@@ -81,7 +81,7 @@ const PomodoroTimer = () => {
           setSeconds(seconds - 1)
           setSecondsLeft(secondsLeft - 1)
         }
-      }, 100)
+      }, 1000)
       // clearInterval clears the timer set (stops setInterval)
       return () => clearInterval(interval)
     }

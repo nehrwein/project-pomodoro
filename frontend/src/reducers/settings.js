@@ -5,9 +5,9 @@ import { ui } from "./ui"
 export const settings = createSlice({
   name: 'settings',
   initialState: {
-    workMinutes : 25,
-    shortBreakMinutes: 5,
-    longBreakMinutes: 15,
+    workMinutes : null,
+    shortBreakMinutes: null,
+    longBreakMinutes: null
   },
   reducers: {
     setWorkMinutes: (state, action) => {
@@ -36,6 +36,32 @@ export const deleteAccount = (accessToken, userId) => {
     fetch(API_URL(`users/${userId}`), options)
       .then((res) => res.json())
       .then((data) => console.log(data.response))
+      .finally(() => dispatch(ui.actions.setLoading(false)))
+  }
+}
+
+// updating the settings of the Pomodoro Timer
+export const updateSettings = (accessToken, userId, workMinutes, shortBreakMinutes, longBreakMinutes) => {
+  return (dispatch) => {
+    const options = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+      body: JSON.stringify({ workMinutes, shortBreakMinutes, longBreakMinutes }),
+    };
+    
+    dispatch(ui.actions.setLoading(true))
+    fetch(API_URL(`users/${userId}/settings`), options)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          console.log('Settings were successfully updated')
+        } else {
+          console.log(data.response)
+        }
+      })
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
 }

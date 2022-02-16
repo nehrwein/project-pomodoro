@@ -43,6 +43,18 @@ const UserSchema = new mongoose.Schema({
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
+  },
+  workMinutes: {
+    type: Number,
+    default: 25
+  },
+  shortBreakMinutes: {
+    type: Number,
+    default: 5
+  },
+  longBreakMinutes: {
+    type: Number,
+    default: 15
   }
 })
 
@@ -312,7 +324,10 @@ app.post('/signin', async (req, res) => {
         response: {
           userId: user._id,
           username: user.username,
-          accessToken: user.accessToken
+          accessToken: user.accessToken,
+          workMinutes: user.workMinutes,
+          shortBreakMinutes: user.shortBreakMinutes,
+          longBreakMinutes: user.longBreakMinutes
         },
         success: true
       })
@@ -321,6 +336,30 @@ app.post('/signin', async (req, res) => {
         response: "Username or password doesn't match",
         success: false
       })
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+// endpoint for updating the settings for the Pomodoro-timer
+app.patch('/users/:userId/settings', authenticateUser)
+app.patch('/users/:userId/settings', async (req, res) => {
+  const { userId } = req.params
+  const { workMinutes, shortBreakMinutes, longBreakMinutes } = req.body
+
+  try {
+    const queriedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { workMinutes, shortBreakMinutes, longBreakMinutes },
+      { new: true }
+    )
+
+
+    if (!queriedUser) {
+      res.status(404).json({ response: 'No user found with this Id', success: false})
+    } else {
+      res.status(200).json({ response: {workMinutes, shortBreakMinutes, longBreakMinutes}, success: true})
     }
   } catch (error) {
     res.status(400).json({ response: error, success: false })

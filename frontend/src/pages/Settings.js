@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import ReactSlider from 'react-slider'
 import { user } from '../reducers/user'
-import { settings, deleteAccount } from '../reducers/settings'
+import { settings, deleteAccount, updateSettings } from '../reducers/settings'
 import { PagesContainer, LoginButton } from "styled-components/Styling"
 import styled from 'styled-components'
 
@@ -64,9 +64,10 @@ const Settings = () => {
           />
         </div>
        </div>
+       <SettingsButton type='submit' onClick={() => dispatch(updateSettings(accessToken, userId, workMinutes, shortBreakMinutes, longBreakMinutes))}>Save Settings</SettingsButton>
        <h3>Delete account</h3>
        <p>By clicking on 'Delete Account' you can delete your user account including all the stored data.</p>
-       <DeleteButton type='submit' onClick={() => onDeletingAccount(accessToken, userId)}>Delete Account</DeleteButton>
+       <SettingsButton type='submit' onClick={() => onDeletingAccount(accessToken, userId)}>Delete Account</SettingsButton>
     </SettingsPagesContainer>
   );
 };
@@ -84,6 +85,6 @@ const SettingsPagesContainer = styled(PagesContainer)`
   max-width: 600px;
 `
 
-const DeleteButton = styled(LoginButton)`
+const SettingsButton = styled(LoginButton)`
   width: 250px;
 `
