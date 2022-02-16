@@ -5,9 +5,9 @@ import { ui } from "./ui"
 export const settings = createSlice({
   name: 'settings',
   initialState: {
-    workMinutes : null,
-    shortBreakMinutes: null,
-    longBreakMinutes: null
+    workMinutes : 25,
+    shortBreakMinutes: 5,
+    longBreakMinutes: 15
   },
   reducers: {
     setWorkMinutes: (state, action) => {

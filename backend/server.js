@@ -303,7 +303,10 @@ app.post('/signup', async (req, res) => {
       response: {
         userId: newUser._id,
         username: newUser.username,
-        accessToken: newUser.accessToken
+        accessToken: newUser.accessToken,
+        workMinutes: user.workMinutes,
+        shortBreakMinutes: user.shortBreakMinutes,
+        longBreakMinutes: user.longBreakMinutes
       },
       success: true
     })

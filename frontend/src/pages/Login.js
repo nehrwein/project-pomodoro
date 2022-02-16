@@ -41,6 +41,7 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          console.log(data.response)
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))
             dispatch(user.actions.setUsername(data.response.username))
@@ -55,9 +56,9 @@ const Login = () => {
             dispatch(user.actions.setUserId(null))
             dispatch(user.actions.setUsername(null))
             dispatch(user.actions.setAccessToken(null))
-            dispatch(settings.actions.setWorkMinutes(null))
-            dispatch(settings.actions.setShortBreakMinutes(null))
-            dispatch(settings.actions.setLongBreakMinutes(null))
+            dispatch(settings.actions.setWorkMinutes(25))
+            dispatch(settings.actions.setShortBreakMinutes(5))
+            dispatch(settings.actions.setLongBreakMinutes(15))
             dispatch(user.actions.setError(data.response))
           })
         }
