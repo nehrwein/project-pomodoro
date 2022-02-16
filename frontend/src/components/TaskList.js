@@ -24,10 +24,12 @@ const TaskList = () => {
 
   const [pickedId, setPickedId] = useState("")
   const [updatedDescription, setUpdatedDescription] = useState("")
-  
+
   const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
   const penIcon = <FontAwesomeIcon icon={faPen} />
   const saveIcon = <FontAwesomeIcon icon={faPlus} />
+
+  const activatedTask = useSelector((state) => state.timer.items._id)
 
   const dispatch = useDispatch()
 
@@ -114,9 +116,15 @@ const TaskList = () => {
                 )}
                 <TaskSettings>
                   {/* Edit/Update feature: https://ibaslogic.com/how-to-edit-todos-items-in-react/ */}
-                  <div onClick={() => setPickedId(item._id)}>
-                    <Icon>{penIcon}</Icon>
-                  </div>
+                  {!activatedTask ? (
+                    <div onClick={() => setPickedId(item._id)}>
+                      <Icon>{penIcon}</Icon>
+                    </div>
+                  ) : (
+                    <div>
+                      <Icon>{penIcon}</Icon>
+                    </div>
+                  )}
                   <div
                     onClick={() =>
                       dispatch(deleteTodo(accessToken, userId, item._id))
@@ -145,7 +153,7 @@ const TaskWrapper = styled.div`
   padding-bottom: 30px;
   width: 95%;
   min-height: 45%;
-  overflow-y:auto;
+  overflow-y: auto;
 
   @media (min-width: 768px) {
     max-width: 550px;
@@ -155,7 +163,8 @@ const TaskWrapper = styled.div`
     max-width: 1000px;
     min-height: 30vh;
     display: grid;
-    grid-template-columns: ${(props) => props.loadingAnimation ? '1fr' : '1fr 1fr'};
+    grid-template-columns: ${(props) =>
+      props.loadingAnimation ? "1fr" : "1fr 1fr"};
     justify-items: center;
     align-content: start;
   }
@@ -183,14 +192,14 @@ const TaskSettings = styled.div`
 const Icon = styled.i`
   color: #b4b2b2;
   font-size: 16px;
-  
+
   @media (min-width: 768px) {
-      font-size: 20px;
-    }
+    font-size: 20px;
+  }
 
   @media (min-width: 1024px) {
     font-size: 25px;
-  }    
+  }
 `
 
 const CheckContainer = styled.div`
@@ -220,14 +229,12 @@ const TaskLabel = styled.label`
   color: ${(props) => props.taskColor};
   padding-left: 8px;
 
-  
   @media (min-width: 768px) {
-      font-size: 20px;
-      padding-bottom: 6px;
-    }
+    font-size: 20px;
+    padding-bottom: 6px;
+  }
 
-    @media (min-width: 1024px) {
-      font-size: 25px;
-    }  
+  @media (min-width: 1024px) {
+    font-size: 25px;
+  }
 `
-
