@@ -304,9 +304,9 @@ app.post('/signup', async (req, res) => {
         userId: newUser._id,
         username: newUser.username,
         accessToken: newUser.accessToken,
-        workMinutes: user.workMinutes,
-        shortBreakMinutes: user.shortBreakMinutes,
-        longBreakMinutes: user.longBreakMinutes
+        workMinutes: newUser.workMinutes,
+        shortBreakMinutes: newUser.shortBreakMinutes,
+        longBreakMinutes: newUser.longBreakMinutes
       },
       success: true
     })
