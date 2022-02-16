@@ -152,7 +152,6 @@ const PomodoroTimer = () => {
               <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
             </Button>
           )}
-          {/* By pressing this stop button user returns to mode: Mobile-02 (see Figma sketch) */}
           <Button
             disabled={!activatedButton}
             onClick={() => {
@@ -231,8 +230,6 @@ const SlidingAnimation = styled.div`
   @media (min-width: 1024px) {
     height: 30vh;
   }
-
-  /* Maybe add some transition here to make it more smooth */
 `
 
 const TimeAndTaskContainer = styled.div`

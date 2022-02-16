@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  faTrash,
-  faPen,
-  faPlus,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons"
+import { faTrash, faPen, faPlus } from "@fortawesome/free-solid-svg-icons"
 import {
   showTasklist,
   updateTodo,
@@ -33,7 +28,6 @@ const TaskList = () => {
   const trashCanIcon = <FontAwesomeIcon icon={faTrash} />
   const penIcon = <FontAwesomeIcon icon={faPen} />
   const saveIcon = <FontAwesomeIcon icon={faPlus} />
-  const exitIcon = <FontAwesomeIcon icon={faTimes} />
 
   const activatedTask = useSelector((state) => state.timer.items._id)
 
