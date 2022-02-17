@@ -43,7 +43,7 @@ For the backend we used the following technologial stack:
 
 The API provides the following endpoints:
 
-- GET '/' -> start
+- GET '/' -> home
 - GET '/endpoints' -> provides all endpoints
 - GET '/tasks/:userId' -> endpoint for getting all the tasks of a user
 - POST '/tasks' -> endpoint for posting a new task. The body needs a task-description of 5-150 characters and the userId.
@@ -53,8 +53,11 @@ The API provides the following endpoints:
 - DELETE '/tasks/:taskId' -> endpoint for deleting a task
 - POST '/signup' -> endpoint for registering a new user
 - POST '/signin' -> endpoint for login of a registered user
+- PATCH '/:userId/settings' -> endpoint for updating the settings of the Pomodoro-timer
+- DELETE '/users/:userId' -> endpoint for deleting a user and all his tasks
 
 # View it live
 
 - Visit the API: https://final-project-pomodoro-api.herokuapp.com/
 - Visit our Pomodoro-App: https://final-project-pomodoro.netlify.app/
+- API documentation: https://documenter.getpostman.com/view/18068162/UVkiSdnR

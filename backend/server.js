@@ -131,16 +131,17 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// To do: change Endpoints to deployed domain, add API documentation
+// Home
 app.get('/', (req, res) => {
   res.send({ 
     Welcome: 'Welcome to the Pomodoro-API',
     Contributers: 'Birgit Nehrwein, Darya Lapata, Rebecca Philipson',
     Endpoints: 'https://final-project-pomodoro-api.herokuapp.com/endpoints',
-    Documentation: 'placeholder'
+    Documentation: 'https://documenter.getpostman.com/view/18068162/UVkiSdnR'
   })
 })
 
+// all endpoints
 app.get('/endpoints', (req, res) => {
   res.json({
     response: listEndpoints(app),
@@ -248,6 +249,7 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
   }
 })
 
+// endpoint for increasing the no. of pomodoros
 app.post('/tasks/:userId/pomodoro', authenticateUser)
 app.post('/tasks/:userId/pomodoro', async (req, res) => {
   const { userId } = req.params
@@ -345,7 +347,7 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// endpoint for updating the settings for the Pomodoro-timer
+// endpoint for updating the settings of the Pomodoro-timer
 app.patch('/users/:userId/settings', authenticateUser)
 app.patch('/users/:userId/settings', async (req, res) => {
   const { userId } = req.params
