@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { addTodo } from "../reducers/tasks"
-import styled from "styled-components"
+import { AddTaskContainer, AddButton, AddInput, AddIcon } from "styled-components/Styling"
 
 const AddTask = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
@@ -34,9 +34,9 @@ const AddTask = () => {
         disabled={!task}
         onClick={() => onAddTodo(accessToken, userId, task)}
       >
-        <Icon>{plusIcon}</Icon>
+        <AddIcon>{plusIcon}</AddIcon>
       </AddButton>
-      <Input
+      <AddInput
         taskColor={taskColor}
         id="task"
         type="text"
@@ -51,56 +51,4 @@ const AddTask = () => {
 
 export default AddTask
 
-const AddTaskContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-top: 2px solid ${(props) => props.taskColor};
-  padding: 20px 0;
-  gap: 10px;
-`
 
-const AddButton = styled.button`
-  background-color: transparent;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-`
-
-const Input = styled.input`
-  border: none;
-  outline: none;
-  font-size: 20px;
-  color: ${(props) => props.taskColor};
-  width: 144px;
-  text-align: center;
-  background-color: var(--beige);
-
-  ::placeholder {
-    color: ${(props) => props.taskColor};
-  }
-
-  @media (min-width: 768px) {
-    font-size: 30px;
-    width: 240px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 40px;
-    width: 400px;
-  }
-`
-
-const Icon = styled.i`
-  color: #747171;
-  font-size: 20px;
-
-  @media (min-width: 768px) {
-    font-size: 23px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 30px;
-  }
-`

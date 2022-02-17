@@ -6,7 +6,7 @@ import { API_URL } from "../utils/constants"
 import { user } from "../reducers/user"
 import { settings } from "../reducers/settings"
 
-import { MainContainer, FormWrapper, UserInfoWrapper, UserInput, LoginButton, LinkText } from "styled-components/Styling"
+import { LoginContainer, FormWrapper, UserInfoWrapper, UserInput, LoginButton, LinkText } from "styled-components/Styling"
 
 const Login = () => {
   const [username, setUsername] = useState("")
@@ -67,7 +67,7 @@ const Login = () => {
 
   return (
     <>
-      <MainContainer>
+      <LoginContainer>
         <FormWrapper>
           <h3 style={{ color: "var(--red)" }}>
             {mode === "signin"
@@ -145,7 +145,7 @@ const Login = () => {
             </div>
           </form>
         </FormWrapper>
-      </MainContainer>
+      </LoginContainer>
     </>
   )
 }

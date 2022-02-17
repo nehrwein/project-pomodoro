@@ -11,8 +11,7 @@ import {
 import { timer } from "../reducers/timer"
 import LoadingIndicator from "./LoadingIndicator"
 import { Checkbox } from "../library/Checkbox"
-
-import styled from "styled-components/macro"
+import { Task, TaskIcon, TaskLabel, TaskSettings, TaskWrapper, EditInput, SaveButton, CheckContainer } from "styled-components/Styling"
 
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
@@ -90,7 +89,7 @@ const TaskList = () => {
                         )
                       }
                     >
-                      <Icon>{saveIcon}</Icon>
+                      <TaskIcon>{saveIcon}</TaskIcon>
                     </SaveButton>
                   </>
                 ) : (
@@ -122,11 +121,11 @@ const TaskList = () => {
                       onClick={() => setPickedId(item._id)}
                       onDoubleClick={() => setPickedId("")}
                     >
-                      <Icon>{penIcon}</Icon>
+                      <TaskIcon>{penIcon}</TaskIcon>
                     </div>
                   ) : (
                     <div>
-                      <Icon>{penIcon}</Icon>
+                      <TaskIcon>{penIcon}</TaskIcon>
                     </div>
                   )}
                   <div
@@ -134,7 +133,7 @@ const TaskList = () => {
                       dispatch(deleteTodo(accessToken, userId, item._id))
                     }
                   >
-                    <Icon>{trashCanIcon}</Icon>
+                    <TaskIcon>{trashCanIcon}</TaskIcon>
                   </div>
                 </TaskSettings>
               </Task>
@@ -147,98 +146,3 @@ const TaskList = () => {
 }
 
 export default TaskList
-
-const TaskWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  width: 95%;
-  min-height: 45%;
-  overflow-y: auto;
-
-  @media (min-width: 768px) {
-    max-width: 550px;
-  }
-
-  @media (min-width: 1024px) {
-    max-width: 1000px;
-    min-height: 30vh;
-    display: grid;
-    grid-template-columns: ${(props) =>
-      props.loadingAnimation ? "1fr" : "1fr 1fr"};
-    justify-items: center;
-    align-content: start;
-  }
-`
-
-const Task = styled.div`
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 5px;
-
-  @media (min-width: 1024px) {
-    padding: 6px 20px;
-  }
-`
-
-const TaskSettings = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  gap: 20px;
-`
-
-const Icon = styled.i`
-  color: #b4b2b2;
-  font-size: 16px;
-
-  @media (min-width: 768px) {
-    font-size: 20px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 25px;
-  }
-`
-
-const CheckContainer = styled.div`
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-const EditInput = styled.input`
-  border: none;
-  border-bottom: 1px solid red;
-  outline: none;
-  font-size: 20px;
-  color: var(--lightRed);
-  width: 67%;
-  background-color: transparent;
-`
-
-const SaveButton = styled.button`
-  border: none;
-  background-color: transparent;
-  font-size: 15px;
-  cursor: pointer;
-`
-
-const TaskLabel = styled.label`
-  color: ${(props) => props.taskColor};
-  padding-left: 8px;
-
-  @media (min-width: 768px) {
-    font-size: 20px;
-    padding-bottom: 6px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 25px;
-  }
-`

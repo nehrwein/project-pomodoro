@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import styled from "styled-components"
+import { ButtonsContainer, TimeAndTaskContainer, SlidingAnimation, TimerWrapper, InnerButtonContainer, TimerContainer, TimerButton, TimerIcon, BigIcon } from "styled-components/Styling"
 import { timer, addPomodoro } from "../reducers/timer"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -110,7 +110,7 @@ const PomodoroTimer = () => {
 
   return (
     <TimerContainer work={work}>
-      <Wrapper>
+      <TimerWrapper>
         <SlidingAnimation
           percentage={percentage}
           animationColor={animationColor}
@@ -121,10 +121,10 @@ const PomodoroTimer = () => {
           </h1>
           <p>{description}</p>
         </TimeAndTaskContainer>
-      </Wrapper>
+      </TimerWrapper>
       <ButtonsContainer buttonBackgroundColor={buttonBackgroundColor}>
         <InnerButtonContainer>
-          <Button
+          <TimerButton
             disabled={!activatedButton}
             onClick={() => {
               setIsRunning(false)
@@ -133,26 +133,26 @@ const PomodoroTimer = () => {
               setSecondsLeft(totalSeconds)
             }}
           >
-            <Icon iconColor={iconColor} active>
+            <TimerIcon iconColor={iconColor} active>
               {ReplayIcon}
-            </Icon>
-          </Button>
+            </TimerIcon>
+          </TimerButton>
           {isRunning ? (
-            <Button
+            <TimerButton
               disabled={!activatedButton}
               onClick={() => setIsRunning(false)}
             >
               <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
-            </Button>
+            </TimerButton>
           ) : (
-            <Button
+            <TimerButton
               disabled={!activatedButton}
               onClick={() => setIsRunning(true)}
             >
               <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
-            </Button>
+            </TimerButton>
           )}
-          <Button
+          <TimerButton
             disabled={!activatedButton}
             onClick={() => {
               setIsRunning(false)
@@ -163,8 +163,8 @@ const PomodoroTimer = () => {
               dispatch(timer.actions.setDescription())
             }}
           >
-            <Icon iconColor={iconColor}>{StopIcon}</Icon>
-          </Button>
+            <TimerIcon iconColor={iconColor}>{StopIcon}</TimerIcon>
+          </TimerButton>
         </InnerButtonContainer>
       </ButtonsContainer>
     </TimerContainer>
@@ -172,132 +172,3 @@ const PomodoroTimer = () => {
 }
 
 export default PomodoroTimer
-
-const TimerContainer = styled.div`
-  width: 100%;
-  margin: 0;
-  color: var(--beige);
-  background-image: ${(props) =>
-    props.work
-      ? `url("/assets/timer-work-background.png")`
-      : `url("/assets/timer-break-background.png")`};
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-
-  h1 {
-    font-size: 48px;
-    margin: 0;
-
-    @media (min-width: 768px) {
-      font-size: 60px;
-    }
-
-    @media (min-width: 1024px) {
-      font-size: 80px;
-    }
-  }
-
-  p {
-    color: #ffffff99;
-
-    @media (min-width: 768px) {
-      font-size: 25px;
-    }
-
-    @media (min-width: 1024px) {
-      font-size: 40px;
-    }
-  }
-`
-
-const Wrapper = styled.div`
-  display: flex;
-`
-
-const SlidingAnimation = styled.div`
-  padding: 20px 0;
-  width: ${(props) => props.percentage}%;
-  background: ${(props) => props.animationColor};
-  position: relative;
-  z-index: 1;
-  height: 15vh;
-
-  @media (min-width: 768px) {
-    height: 25vh;
-  }
-
-  @media (min-width: 1024px) {
-    height: 30vh;
-  }
-`
-
-const TimeAndTaskContainer = styled.div`
-  position: absolute;
-  z-index: 2;
-  align-self: center;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
-  top: 0;
-  padding-top: 30px;
-
-  @media (min-width: 768px) {
-    padding-top: 90px;
-  }
-
-  @media (min-width: 992px) {
-    padding-top: 50px;
-  }
-`
-
-const ButtonsContainer = styled.div`
-  background: ${(props) => props.buttonBackgroundColor};
-  display: flex;
-  justify-content: center;
-`
-
-const InnerButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  max-width: 800px;
-  padding: 20px 0;
-`
-
-const Icon = styled.i`
-  color: ${(props) => props.iconColor};
-  font-size: 28px;
-
-  :hover {
-    color: white;
-    transition: ease 0.5s;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 40px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 50px;
-  }
-`
-
-const BigIcon = styled(Icon)`
-  font-size: 50px;
-
-  @media (min-width: 768px) {
-    font-size: 62px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 75px;
-  }
-`
-
-const Button = styled.button`
-  border: none;
-  background-color: transparent;
-`

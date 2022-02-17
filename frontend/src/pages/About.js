@@ -1,5 +1,5 @@
 import React from 'react';
-import { PagesContainer, CardContainer, Card, Image, Link } from "styled-components/Styling"
+import { PagesContainer, CardContainer, Card, Image, AboutLink } from "styled-components/Styling"
 import img_Darya from '../images/darya.jpeg'
 import img_Birgit from "../images/birgit.jpeg"
 import img_Rebecca from "../images/rebecca.jpeg"
@@ -40,7 +40,7 @@ const About = () => {
             <h1>{item.name}</h1>
             <Image src={item.img}  alt="img"/>
             <p>{item.description}</p>
-            <Link href={item.link} target="_blank" rel="noopener noreferrer">Github</Link>
+            <AboutLink href={item.link} target="_blank" rel="noopener noreferrer">Github</AboutLink>
           </Card>
         ))}
       </CardContainer>

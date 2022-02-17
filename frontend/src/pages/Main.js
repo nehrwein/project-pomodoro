@@ -2,8 +2,8 @@ import React from "react"
 import TaskList from "../components/TaskList"
 import PomodoroTimer from "../components/PomodoroTimer"
 import AddTask from "../components/AddTask"
+import { MainContainer } from "styled-components/Styling"
 
-import styled from "styled-components"
 
 const Main = () => {
   return (
@@ -17,14 +17,3 @@ const Main = () => {
 
 export default Main
 
-const MainContainer = styled.div`
-  width: 100%;
-  height: 100vh;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 0 auto;
-  background-color: var(--beige);
-`

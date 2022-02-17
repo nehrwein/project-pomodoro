@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
-import ReactSlider from 'react-slider'
 import { user } from '../reducers/user'
 import { settings, deleteAccount, updateSettings } from '../reducers/settings'
-import { PagesContainer, LoginButton } from "styled-components/Styling"
-import styled from 'styled-components'
+import { SettingsPagesContainer, SettingsButton, Slider } from "styled-components/Styling"
 
 const Settings = () => {
   const workMinutes = useSelector((state) => state.settings.workMinutes)
@@ -74,17 +72,4 @@ const Settings = () => {
 
 export default Settings;
 
-const Slider = styled(ReactSlider)`
-  height: 40px;
-  border: 2px solid;
-  border-color: ${(props) => props.lightBlue ? 'var(--lightBlue)' : props.blue ? 'var(--blue)' : 'var(--lightRed)'} ;
-  border-radius: 20px;
-`
 
-const SettingsPagesContainer = styled(PagesContainer)`
-  max-width: 600px;
-`
-
-const SettingsButton = styled(LoginButton)`
-  width: 250px;
-`
