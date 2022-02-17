@@ -1,11 +1,11 @@
 import styled from "styled-components/macro"
-import ReactSlider from 'react-slider'
+import ReactSlider from "react-slider"
 import { Link } from "react-router-dom"
 
 /***** PAGES *****/
 /*** About.js ***/
 export const CardContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   justify-content: space-between;
@@ -26,7 +26,7 @@ export const Card = styled.div`
   border: 1px solid gray;
   padding: 8px;
   border-radius: 10px;
-  margin:10px 0;
+  margin: 10px 0;
 
   p {
     font-size: 16px;
@@ -35,8 +35,8 @@ export const Card = styled.div`
 
 export const Image = styled.img`
   border-radius: 50%;
-  width: 100px; 
-  height:100px;
+  width: 100px;
+  height: 100px;
 `
 
 export const AboutLink = styled.a`
@@ -171,8 +171,8 @@ export const MainContainer = styled.div`
 
 /*** NotFound.js ***/
 export const NotFoundContainer = styled.main`
-  width:100%;
-  height:100vh;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -225,7 +225,8 @@ export const PagesContainer = styled.div`
       font-size: 18px;
     }
 
-    p, span {
+    p,
+    span {
       font-size: 20px;
     }
   }
@@ -243,7 +244,8 @@ export const PagesContainer = styled.div`
       font-size: 25px;
     }
 
-    p, span {
+    p,
+    span {
       font-size: 25px;
     }
   }
@@ -252,7 +254,12 @@ export const PagesContainer = styled.div`
 export const Slider = styled(ReactSlider)`
   height: 40px;
   border: 2px solid;
-  border-color: ${(props) => props.lightBlue ? 'var(--lightBlue)' : props.blue ? 'var(--blue)' : 'var(--lightRed)'} ;
+  border-color: ${(props) =>
+    props.lightBlue
+      ? "var(--lightBlue)"
+      : props.blue
+      ? "var(--blue)"
+      : "var(--lightRed)"};
   border-radius: 20px;
 `
 
@@ -376,7 +383,12 @@ export const NavBar = styled.div`
 
 export const NavIcon = styled.i`
   margin-right: 15px;
-  color: ${(props) => (props.orange ? "var(--lightRed)" : window.location.pathname === '/' ? "var(--beige)" : "var(--lightRed)")};
+  color: ${(props) =>
+    props.orange
+      ? "var(--lightRed)"
+      : window.location.pathname === "/"
+      ? "var(--beige)"
+      : "var(--lightRed)"};
   font-size: 28px;
   background: none;
   z-index: 3;
@@ -458,7 +470,6 @@ export const NavLink = styled(Link)`
   @media (min-width: 1024px) {
     font-size: 35px;
   }
-  
 `
 
 export const StyledUl = styled.ul`
@@ -485,6 +496,7 @@ export const LogOutButton = styled.button`
   font-size: 14px;
   display: flex;
   justify-content: space-evenly;
+  background: transparent;
 
   p {
     margin: 0;
@@ -732,6 +744,3 @@ export const TaskLabel = styled.label`
     font-size: 25px;
   }
 `
-
-
-
