@@ -36,6 +36,7 @@ const Navigation = () => {
   
   const onClickingLink = () => {
     dispatch(timer.actions.deleteItems())
+    dispatch(timer.actions.setisRunning(false))
     setSidebar(false)
   }
 
@@ -48,6 +49,7 @@ const Navigation = () => {
       dispatch(user.actions.setError(null))
       dispatch(timer.actions.deleteItems())
       dispatch(timer.actions.setMode("work"))
+      dispatch(timer.actions.setisRunning(false))
     })
   }
 

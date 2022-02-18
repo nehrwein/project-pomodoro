@@ -37,9 +37,11 @@ const About = () => {
       <CardContainer>
         {aboutUsArray.map((item) => (
           <Card key={item.id}>
-            <h1>{item.name}</h1>
-            <Image src={item.img}  alt="img"/>
-            <p>{item.description}</p>
+            <div>
+              <h1>{item.name}</h1>
+              <Image src={item.img}  alt="img"/>
+              <p>{item.description}</p>
+            </div>
             <AboutLink href={item.link} target="_blank" rel="noopener noreferrer">Github</AboutLink>
           </Card>
         ))}
