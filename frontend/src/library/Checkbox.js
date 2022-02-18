@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components/macro"
+import { useSelector } from "react-redux"
+
 
 //This is the "original" checkbox, hidden outside the screen
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -46,6 +48,7 @@ const CheckboxContainer = styled.div`
 `
 
 export const Checkbox = ({ isChecked, onChange }) => {
+  const activatedTask = useSelector((state) => state.timer.items._id)
   const [checked, setChecked] = useState(isChecked)
 
   const handleOnChange = (event) => {
@@ -67,7 +70,7 @@ export const Checkbox = ({ isChecked, onChange }) => {
   return (
     <div>
       <label>
-        <Checkbox checked={checked} onChange={handleOnChange}></Checkbox>
+        <Checkbox disabled={activatedTask} checked={checked} onChange={handleOnChange}></Checkbox>
       </label>
     </div>
   )
