@@ -64,17 +64,12 @@ const TaskSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    minlength: 5,
     maxlength: 150,
     trim: true
   },
   completed: {
     type: Boolean,
     default: false
-  },
-  pomodoros: {
-    type: Number,
-    default: 0
   },
   createdAt: {
     type: Date,

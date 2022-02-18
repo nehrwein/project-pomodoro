@@ -8,23 +8,20 @@ export const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  justify-content: space-between;
   margin-bottom: 30px;
 
   @media (min-width: 768px) {
-    gap: 10px;
-    justify-content: center;
-  }
-
-  @media (min-width: 1024px) {
     gap: 10px;
   }
 `
 
 export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 300px;
-  border: 1px solid gray;
-  padding: 8px;
+  border: 1px solid lightgray;
+  padding: 18px;
   border-radius: 10px;
   margin: 10px 0;
 
@@ -41,9 +38,11 @@ export const Image = styled.img`
 
 export const AboutLink = styled.a`
   color: var(--lightRed);
+  font-weight: bold;
+  font-size: 20px;
 
   :hover {
-    color: var(--gradientRed);
+    color: var(--red);
     text-decoration: none;
   }
 `
@@ -203,7 +202,7 @@ export const NotFoundChild = styled.div`
 export const PagesContainer = styled.div`
   margin: 0 auto;
   width: 80%;
-  max-width: 1000px;
+  max-width: 1100px;
   padding-top: 50px;
   text-align: center;
   background-color: var(--beige);
@@ -518,6 +517,55 @@ export const LogOutButton = styled.button`
     width: 200px;
   }
 `
+/*** PomodoroButtons.js ***/
+export const ButtonsContainer = styled.div`
+  background: ${(props) => props.buttonBackgroundColor};
+  display: flex;
+  justify-content: center;
+`
+
+export const InnerButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  max-width: 800px;
+  padding: 20px 0;
+`
+
+export const TimerIcon = styled.i`
+  color: ${(props) => props.iconColor};
+  font-size: 28px;
+
+  :hover {
+    color: white;
+    transition: ease 0.5s;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 40px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 50px;
+  }
+`
+
+export const BigIcon = styled(TimerIcon)`
+  font-size: 50px;
+
+  @media (min-width: 768px) {
+    font-size: 62px;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 75px;
+  }
+`
+
+export const TimerButton = styled.button`
+  border: none;
+  background-color: transparent;
+`
 
 /*** PomodoroTimer.js ***/
 export const TimerContainer = styled.div`
@@ -598,55 +646,6 @@ export const TimeAndTaskContainer = styled.div`
   @media (min-width: 992px) {
     padding-top: 50px;
   }
-`
-
-export const ButtonsContainer = styled.div`
-  background: ${(props) => props.buttonBackgroundColor};
-  display: flex;
-  justify-content: center;
-`
-
-export const InnerButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  max-width: 800px;
-  padding: 20px 0;
-`
-
-export const TimerIcon = styled.i`
-  color: ${(props) => props.iconColor};
-  font-size: 28px;
-
-  :hover {
-    color: white;
-    transition: ease 0.5s;
-  }
-
-  @media (min-width: 768px) {
-    font-size: 40px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 50px;
-  }
-`
-
-export const BigIcon = styled(TimerIcon)`
-  font-size: 50px;
-
-  @media (min-width: 768px) {
-    font-size: 62px;
-  }
-
-  @media (min-width: 1024px) {
-    font-size: 75px;
-  }
-`
-
-export const TimerButton = styled.button`
-  border: none;
-  background-color: transparent;
 `
 
 /*** TaskList.js ***/
