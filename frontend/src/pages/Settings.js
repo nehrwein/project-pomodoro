@@ -25,6 +25,11 @@ const Settings = () => {
     dispatch(user.actions.setAccessToken(null))
   }
 
+  const onSavingSettings = (accessToken, userId, workMinutes, shortBreakMinutes, longBreakMinutes) => {
+    dispatch(updateSettings(accessToken, userId, workMinutes, shortBreakMinutes, longBreakMinutes))
+    navigate("/")
+  }
+
   return (
     <SettingsPagesContainer>
       <h2>Settings</h2>
@@ -62,7 +67,7 @@ const Settings = () => {
           />
         </div>
        </div>
-       <SettingsButton type='submit' onClick={() => dispatch(updateSettings(accessToken, userId, workMinutes, shortBreakMinutes, longBreakMinutes))}>Save Settings</SettingsButton>
+       <SettingsButton type='submit' onClick={() => onSavingSettings(accessToken, userId, workMinutes, shortBreakMinutes, longBreakMinutes)}>Save Settings</SettingsButton>
        <h3>Delete account</h3>
        <p>By clicking on 'Delete Account' you can delete your user account including all the stored data.</p>
        <SettingsButton type='submit' onClick={() => onDeletingAccount(accessToken, userId)}>Delete Account</SettingsButton>
