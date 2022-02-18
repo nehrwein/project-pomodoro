@@ -35,7 +35,7 @@ export const deleteAccount = (accessToken, userId) => {
     dispatch(ui.actions.setLoading(true))
     fetch(API_URL(`users/${userId}`), options)
       .then((res) => res.json())
-      .then((data) => console.log(data.response))
+      .then(() => console.log('User deleted'))
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
 }

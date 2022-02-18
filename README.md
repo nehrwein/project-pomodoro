@@ -46,7 +46,7 @@ The API provides the following endpoints:
 - GET '/' -> home
 - GET '/endpoints' -> provides all endpoints
 - GET '/tasks/:userId' -> endpoint for getting all the tasks of a user
-- POST '/tasks' -> endpoint for posting a new task. The body needs a task-description of 5-150 characters and the userId.
+- POST '/tasks' -> endpoint for posting a new task
 - PATCH '/tasks/:taskId/complete' -> endpoint to complete existing tasks
 - PATCH '/tasks/:taskId/update' -> endpoint to update the description of an existing task
 - POST '/tasks/:userId/pomodoro' -> endpoint for saving the pomodoros of a user
