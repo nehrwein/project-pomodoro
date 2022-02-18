@@ -1,9 +1,16 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { TimeAndTaskContainer, SlidingAnimation, TimerWrapper, TimerContainer } from "styled-components/Styling"
+import { ButtonsContainer, TimeAndTaskContainer, SlidingAnimation, TimerWrapper, InnerButtonContainer, TimerContainer, TimerButton, TimerIcon, BigIcon } from "styled-components/Styling"
 import { timer, addPomodoro } from "../reducers/timer"
-import PomodoroButtons from "./PomodoroButtons"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faRedo,
+  faPlayCircle,
+  faTimes,
+  faPauseCircle,
+} from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroTimer = () => {
   const [counter, setCounter] = useState(1)
@@ -15,6 +22,7 @@ const PomodoroTimer = () => {
     (state) => state.settings.longBreakMinutes
   )
   const longBreakTime = counter % 4 === 0
+  const activatedButton = useSelector((state) => state.timer.items._id)
   const accessToken = useSelector((state) => state.user.accessToken)
   const userId = useSelector((state) => state.user.userId)
   const [breakMinutes, setBreakMinutes] = useState(shortBreakMinutes)
@@ -22,12 +30,19 @@ const PomodoroTimer = () => {
   const [seconds, setSeconds] = useState(0)
   const [work, setWork] = useState(true)
   const totalSeconds = work ? workMinutes * 60 : breakMinutes * 60
-  const isRunning = useSelector((state) => state.timer.isRunning)
+  const [isRunning, setIsRunning] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds)
-  const description = useSelector((state) => state.timer.items.description)
+  const ReplayIcon = <FontAwesomeIcon icon={faRedo} />
+  const PlayIcon = <FontAwesomeIcon icon={faPlayCircle} />
+  const StopIcon = <FontAwesomeIcon icon={faTimes} />
+  const PauseIcon = <FontAwesomeIcon icon={faPauseCircle} />
+  const description = useSelector((store) => store.timer.items.description)
+
   const percentage = Math.round((secondsLeft / totalSeconds) * 100)
 
   const animationColor = work ? "var(--gradientRed)" : "var(--gradientBlue)"
+  const buttonBackgroundColor = work ? "var(--red)" : "var(--blue)"
+  const iconColor = work ? "var(--lightRed)" : "var(--lightBlue)"
 
   const dispatch = useDispatch()
 
@@ -107,14 +122,51 @@ const PomodoroTimer = () => {
           <p>{description}</p>
         </TimeAndTaskContainer>
       </TimerWrapper>
-      <PomodoroButtons 
-        setSeconds={setSeconds}
-        setMinutes={setMinutes}
-        setSecondsLeft={setSecondsLeft}
-        workMinutes={workMinutes}
-        totalSeconds={totalSeconds}
-        work={work}
-      />
+      <ButtonsContainer buttonBackgroundColor={buttonBackgroundColor}>
+        <InnerButtonContainer>
+          <TimerButton
+            disabled={!activatedButton}
+            onClick={() => {
+              setIsRunning(false)
+              setSeconds(0)
+              setMinutes(workMinutes)
+              setSecondsLeft(totalSeconds)
+            }}
+          >
+            <TimerIcon iconColor={iconColor} active>
+              {ReplayIcon}
+            </TimerIcon>
+          </TimerButton>
+          {isRunning ? (
+            <TimerButton
+              disabled={!activatedButton}
+              onClick={() => setIsRunning(false)}
+            >
+              <BigIcon iconColor={iconColor}>{PauseIcon}</BigIcon>
+            </TimerButton>
+          ) : (
+            <TimerButton
+              disabled={!activatedButton}
+              onClick={() => setIsRunning(true)}
+            >
+              <BigIcon iconColor={iconColor}>{PlayIcon}</BigIcon>
+            </TimerButton>
+          )}
+          <TimerButton
+            disabled={!activatedButton}
+            onClick={() => {
+              setIsRunning(false)
+              setSeconds(0)
+              setMinutes(workMinutes)
+              setSecondsLeft(workMinutes * 60)
+              dispatch(timer.actions.deleteItems())
+              dispatch(timer.actions.setDescription())
+            }}
+          >
+            <TimerIcon iconColor={iconColor}>{StopIcon}</TimerIcon>
+          </TimerButton>
+        </InnerButtonContainer>
+      </ButtonsContainer>
     </TimerContainer>
   )
 }

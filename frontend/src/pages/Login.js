@@ -41,6 +41,7 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          console.log(data.response)
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))
             dispatch(user.actions.setUsername(data.response.username))

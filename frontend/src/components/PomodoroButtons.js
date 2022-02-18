@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 const PomodoroButtons = ({ 
-  setSeconds,
   setMinutes,
   workMinutes,
   setSecondsLeft,
@@ -38,7 +37,7 @@ const PomodoroButtons = ({
             disabled={!activatedButton}
             onClick={() => {
               dispatch(timer.actions.setisRunning(false))
-              setSeconds(0)
+              dispatch(timer.actions.setSeconds(0))
               setMinutes(workMinutes)
               setSecondsLeft(totalSeconds)
             }}
@@ -66,7 +65,7 @@ const PomodoroButtons = ({
             disabled={!activatedButton}
             onClick={() => {
               dispatch(timer.actions.setisRunning(false))
-              setSeconds(0)
+              dispatch(timer.actions.setSeconds(0))
               setMinutes(workMinutes)
               setSecondsLeft(workMinutes * 60)
               dispatch(timer.actions.deleteItems())

@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../utils/constants";
 import { ui } from "./ui"
 
-export const settings = createSlice({
-  name: 'settings',
-  initialState: {
-    workMinutes : 25,
-    shortBreakMinutes: 5,
-    longBreakMinutes: 15
-  },
+const initialState = {
+  workMinutes : 25,
+  shortBreakMinutes: 5,
+  longBreakMinutes: 15
+}
+
+export const pomosettings = createSlice({
+  name: 'pomosettings',
+  initialState,
   reducers: {
     setWorkMinutes: (state, action) => {
       state.workMinutes = action.payload
@@ -18,7 +20,8 @@ export const settings = createSlice({
     },
     setLongBreakMinutes: (state, action) => {
       state.longBreakMinutes = action.payload
-    }
+    },
+    reset: () => initialState
   }
 })
 
@@ -35,7 +38,7 @@ export const deleteAccount = (accessToken, userId) => {
     dispatch(ui.actions.setLoading(true))
     fetch(API_URL(`users/${userId}`), options)
       .then((res) => res.json())
-      .then((data) => console.log(data.response))
+      .then(() => console.log('User deleted'))
       .finally(() => dispatch(ui.actions.setLoading(false)))
   }
 }

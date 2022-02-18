@@ -6,8 +6,7 @@ export const timer = createSlice({
   name: "timer",
   initialState: {
     items: {},
-    mode: "work",
-    isRunning: false
+    mode: "work"
   },
   reducers: {
     setItems: (store, action) => {
@@ -21,9 +20,6 @@ export const timer = createSlice({
     },
     setMode: (store, action) => {
       store.mode = action.payload
-    },
-    setisRunning: (store, action) => {
-      store.isRunning = action.payload
     }
   },
 })
@@ -44,7 +40,7 @@ export const addPomodoro = (accessToken, userId) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          console.log('Plus one pomodoro saved')
+          console.log(data.response)
         } else {
           console.log(data.response)
         }
