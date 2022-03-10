@@ -1,14 +1,10 @@
 import React from 'react'
-import { useSelector, useDispatch } from "react-redux"
-import { timer } from "../reducers/timer"
-import { ButtonsContainer, InnerButtonContainer, TimerButton, TimerIcon, BigIcon } from "styled-components/Styling"
+import { useSelector, useDispatch, batch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  faRedo,
-  faPlayCircle,
-  faTimes,
-  faPauseCircle,
-} from "@fortawesome/free-solid-svg-icons"
+import { faRedo, faPlayCircle, faTimes, faPauseCircle } from "@fortawesome/free-solid-svg-icons"
+
+import { timer } from "../reducers/timer"
+import { ButtonsContainer, InnerButtonContainer, TimerButton, TimerIcon, BigIcon } from "../styled-components/Styling"
 
 const PomodoroButtons = ({ 
   setSeconds,
@@ -29,6 +25,24 @@ const PomodoroButtons = ({
 
   const buttonBackgroundColor = work ? "var(--red)" : "var(--blue)"
   const iconColor = work ? "var(--lightRed)" : "var(--lightBlue)"
+  
+  const onClickReplay = () => {
+    dispatch(timer.actions.setisRunning(false))
+    setSeconds(0)
+    setMinutes(workMinutes)
+    setSecondsLeft(totalSeconds)
+  }
+
+  const onClickDelete = () => {
+    batch(() => {
+      dispatch(timer.actions.setisRunning(false))
+      dispatch(timer.actions.deleteItems())
+      dispatch(timer.actions.setDescription())
+    })
+    setSeconds(0)
+    setMinutes(workMinutes)
+    setSecondsLeft(workMinutes * 60)
+  }
 
   return (
     <>
@@ -36,12 +50,7 @@ const PomodoroButtons = ({
         <InnerButtonContainer>
           <TimerButton
             disabled={!activatedButton}
-            onClick={() => {
-              dispatch(timer.actions.setisRunning(false))
-              setSeconds(0)
-              setMinutes(workMinutes)
-              setSecondsLeft(totalSeconds)
-            }}
+            onClick={onClickReplay}
           >
             <TimerIcon iconColor={iconColor} active>
               {ReplayIcon}
@@ -64,14 +73,7 @@ const PomodoroButtons = ({
           )}
           <TimerButton
             disabled={!activatedButton}
-            onClick={() => {
-              dispatch(timer.actions.setisRunning(false))
-              setSeconds(0)
-              setMinutes(workMinutes)
-              setSecondsLeft(workMinutes * 60)
-              dispatch(timer.actions.deleteItems())
-              dispatch(timer.actions.setDescription())
-            }}
+            onClick={onClickDelete}
           >
             <TimerIcon iconColor={iconColor}>{StopIcon}</TimerIcon>
           </TimerButton>

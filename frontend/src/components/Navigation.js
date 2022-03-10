@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch, batch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBars, faTimes, faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
+
+import { NavBar, NavIcon, SideMenu, StyledUl, StyledLi, NavList, NavLink, LogOutButton } from "../styled-components/Styling"
 import { user } from "../reducers/user"
 import { timer } from "../reducers/timer"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  faBars,
-  faTimes,
-  faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons"
-import { NavBar, NavIcon, SideMenu, StyledUl, StyledLi, NavList, NavLink, LogOutButton } from "styled-components/Styling"
 
 const Navigation = () => {
   const dispatch = useDispatch()
@@ -71,17 +68,17 @@ const Navigation = () => {
                   </NavIcon>
                 </Link>
               </StyledLi>
-              {NavigationLinks.map((item, index) => {
+              {NavigationLinks.map((item) => {
                 return (
-                  <NavList key={index}>
-                    <NavLink to={item.path} onClick={() => onClickingLink()}>
+                  <NavList key={item.title}>
+                    <NavLink to={item.path} onClick={onClickingLink}>
                       {item.title}
                     </NavLink>
                   </NavList>
                 )
               })}
             </StyledUl>
-            <LogOutButton type="submit" onClick={() => onLogOut()}>
+            <LogOutButton type="submit" onClick={onLogOut}>
               <p>Log out</p>
               <p>{LogOutIcon}</p>
             </LogOutButton>

@@ -155,6 +155,19 @@ export const LinkText = styled.div`
   }
 `
 
+export const ErrorMessage = styled.p`
+  color: red;
+  text-align: center;
+  font-weight: bold;
+`
+
+export const SignMessage = styled.p`
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+`
+
+
 /*** Main.js ***/
 export const MainContainer = styled.div`
   width: 100%;

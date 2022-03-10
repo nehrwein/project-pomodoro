@@ -145,8 +145,7 @@ app.get('/endpoints', (req, res) => {
 })
 
 // endpoint for getting all the tasks and pomodoros of a user
-app.get('/tasks/:userId', authenticateUser)
-app.get('/tasks/:userId', async (req, res) => {
+app.get('/tasks/:userId', authenticateUser, async (req, res) => {
   const { userId } = req.params
 
   const tasks = await Task.find({ user: userId }).sort({ createdAt: 'desc' })
@@ -155,8 +154,7 @@ app.get('/tasks/:userId', async (req, res) => {
 })
 
 // endpoint for posting a new task
-app.post('/tasks', authenticateUser)
-app.post('/tasks', async (req, res) => {
+app.post('/tasks', authenticateUser, async (req, res) => {
   const { description, user } = req.body
 
   try {
@@ -179,8 +177,7 @@ app.post('/tasks', async (req, res) => {
 })
 
 // endpoint to complete existing tasks
-app.patch('/tasks/:taskId/complete', authenticateUser)
-app.patch('/tasks/:taskId/complete', async (req, res) => {
+app.patch('/tasks/:taskId/complete', authenticateUser, async (req, res) => {
   const { taskId } = req.params
   const { user, completed, completedAt } = req.body
 
@@ -204,8 +201,7 @@ app.patch('/tasks/:taskId/complete', async (req, res) => {
 
 // endpoint to update the description of an existing task. 
 // The setup of the endpoint prevents changing the description of already completed tasks
-app.patch('/tasks/:taskId/update', authenticateUser)
-app.patch('/tasks/:taskId/update', async (req, res) => {
+app.patch('/tasks/:taskId/update', authenticateUser, async (req, res) => {
   const { taskId } = req.params
   const { description, user } = req.body
 
@@ -245,8 +241,7 @@ app.patch('/tasks/:taskId/update', async (req, res) => {
 })
 
 // endpoint for increasing the no. of pomodoros
-app.post('/tasks/:userId/pomodoro', authenticateUser)
-app.post('/tasks/:userId/pomodoro', async (req, res) => {
+app.post('/tasks/:userId/pomodoro', authenticateUser, async (req, res) => {
   const { userId } = req.params
   const { completedAt } = req.body
 
@@ -261,8 +256,7 @@ app.post('/tasks/:userId/pomodoro', async (req, res) => {
 })
 
 // endpoint for deleting single tasks
-app.delete('/tasks/:taskId', authenticateUser)
-app.delete('/tasks/:taskId', async (req, res) => {
+app.delete('/tasks/:taskId', authenticateUser, async (req, res) => {
   const { taskId } = req.params
   const { user } = req.body
 
@@ -343,8 +337,7 @@ app.post('/signin', async (req, res) => {
 })
 
 // endpoint for updating the settings of the Pomodoro-timer
-app.patch('/users/:userId/settings', authenticateUser)
-app.patch('/users/:userId/settings', async (req, res) => {
+app.patch('/users/:userId/settings', authenticateUser, async (req, res) => {
   const { userId } = req.params
   const { workMinutes, shortBreakMinutes, longBreakMinutes } = req.body
 
@@ -367,8 +360,7 @@ app.patch('/users/:userId/settings', async (req, res) => {
 })
 
 // endpoint for deleting a user and all his tasks
-app.delete('/users/:userId', authenticateUser)
-app.delete('/users/:userId', async (req, res) => {
+app.delete('/users/:userId', authenticateUser, async (req, res) => {
   const { userId } = req.params
 
   try {

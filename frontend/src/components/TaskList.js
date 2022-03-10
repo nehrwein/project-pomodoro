@@ -16,7 +16,7 @@ import { Task, TaskIcon, TaskLabel, TaskSettings, TaskWrapper, EditInput, SaveBu
 const TaskList = () => {
   const allTasks = useSelector((store) => store.tasks.items.tasks)
   const allOpenTasks =
-    allTasks && allTasks.filter((item) => item.completed === false)
+    allTasks && allTasks.filter((item) => !item.completed)
   const accessToken = useSelector((store) => store.user.accessToken)
   const userId = useSelector((store) => store.user.userId)
   const loading = useSelector((store) => store.ui.loading)

@@ -1,13 +1,13 @@
 {
-  "name": "project-auth-backend",
+  "name": "project-pomodoro",
   "version": "1.0.0",
-  "description": "Starter project to get up and running with express quickly",
+  "description": "Final project for Technigo Bootcamp",
   "scripts": {
     "start": "babel-node server.js",
     "dev": "nodemon server.js --exec babel-node",
     "lint": "eslint ."
   },
-  "author": "",
+  "author": "Birgit Nehrwein, Darya Lapata, Rebecca Philipson",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.16.7",

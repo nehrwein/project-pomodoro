@@ -6,7 +6,7 @@ import { API_URL } from "../utils/constants"
 import { user } from "../reducers/user"
 import { settings } from "../reducers/settings"
 
-import { LoginContainer, FormWrapper, UserInfoWrapper, UserInput, LoginButton, LinkText } from "styled-components/Styling"
+import { LoginContainer, FormWrapper, UserInfoWrapper, UserInput, LoginButton, LinkText, ErrorMessage, SignMessage } from "styled-components/Styling"
 
 const Login = () => {
   const [username, setUsername] = useState("")
@@ -15,7 +15,6 @@ const Login = () => {
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const error = useSelector((store) => store.user.error)
-  console.log('Error: ', error)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -64,6 +63,13 @@ const Login = () => {
       })
   }
 
+  const onSignIn = () => {
+    setMode("signin")
+    dispatch(user.actions.setError(null))
+    setUsername("")
+    setPassword("")
+  }
+
   return (
     <>
       <LoginContainer>
@@ -92,15 +98,9 @@ const Login = () => {
             </UserInfoWrapper>
             {error && (
               <div>
-                <p
-                  style={{
-                    color: "red",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
+                <ErrorMessage>
                   {error}
-                </p>
+                </ErrorMessage>
               </div>
             )}
             <LoginButton type="submit">
@@ -110,35 +110,16 @@ const Login = () => {
               {mode === "signin" ? (
                 <LinkText>
                   <p>New to our app? </p>
-                  <p
-                    onClick={() => setMode("signup")}
-                    style={{
-                      fontWeight: "700",
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                    }}
-                  >
+                  <SignMessage onClick={() => setMode("signup")}>
                     Create an account
-                  </p>
+                  </SignMessage>
                 </LinkText>
               ) : (
                 <LinkText>
                   <p>Already have an account? </p>
-                  <p
-                    onClick={() => {
-                      setMode("signin")
-                      dispatch(user.actions.setError(null))
-                      setUsername("")
-                      setPassword("")
-                    }}
-                    style={{
-                      fontWeight: "700",
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                    }}
-                  >
+                  <SignMessage onClick={onSignIn}>
                     Log in
-                  </p>
+                  </SignMessage>
                 </LinkText>
               )}
             </div>

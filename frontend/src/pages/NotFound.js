@@ -1,8 +1,6 @@
 import React from 'react'
 import { NotFoundContainer, NotFoundChild } from "styled-components/Styling"
 
-
- 
 const NotFound = () => {
   return (
     <NotFoundContainer>

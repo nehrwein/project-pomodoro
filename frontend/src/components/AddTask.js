@@ -43,7 +43,7 @@ const AddTask = () => {
         value={task}
         placeholder="Add new task"
         onChange={(e) => setTask(e.target.value)}
-        onKeyPress={(e) => onPressEnter(e)}
+        onKeyPress={onPressEnter}
       />
     </AddTaskContainer>
   )

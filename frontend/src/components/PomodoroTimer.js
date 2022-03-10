@@ -99,7 +99,7 @@ const PomodoroTimer = () => {
         <SlidingAnimation
           percentage={percentage}
           animationColor={animationColor}
-        ></SlidingAnimation>
+        />
         <TimeAndTaskContainer>
           <h1>
             {timerMinutes}:{timerSeconds}
